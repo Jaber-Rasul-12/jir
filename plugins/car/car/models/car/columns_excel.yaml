@@ -2,11 +2,6 @@ columns:
     id:
         label: 'car.car::lang.model.car.id'
         type: number
-    print:
-        label: 'car.car::lang.plugin.print'
-        type: partial
-        path: button_print
-        clickable: false
     ownership:
         label: 'car.car::lang.model.car.ownership'
         type: text

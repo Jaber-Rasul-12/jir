@@ -9,4 +9,4 @@ export:
     fileName: cars_export.csv
     csvDelimiter: ','
     csvEnclosure: '"'
-    list: $/car/car/models/car/columns.yaml
+    list: $/car/car/models/car/columns_excel.yaml
