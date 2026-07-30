@@ -17,6 +17,10 @@ return [
         'select'=>'Select',
         'log_changes_cars'=>'Log Changes Cars',
         'create_and_new'=>'Create and New',
+        'save_and_print'=>'Save and Print',
+        'create_and_print'=>'Create and Print',
+
+
         'message_delete'=>'Deletion is not possible due to the presence of records associated with the section.',
     ],
     'model' => [

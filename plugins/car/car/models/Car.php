@@ -35,7 +35,7 @@ protected $nullable = ['type', 'license_plate_number' , 'country_id' , 'license_
      */
        public $rules = [
         'ownership' => 'required|string|max:255',
-        'type' => 'nullable|string|max:255|in:sedan,suv,hatchback,coupe,convertible,truck,van,other',
+        'type' => 'nullable|string|max:255',
         'model_id' => 'required|integer|exists:car_car_models,id',
         'chassis_number' => 'required|string|max:255|unique:car_car_cars,chassis_number',
         'brand_id' => 'required|integer|exists:car_car_brands,id',

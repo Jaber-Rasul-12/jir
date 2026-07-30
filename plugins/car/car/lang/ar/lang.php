@@ -17,6 +17,8 @@ return [
         'select' => 'اختر',
         'log_changes_cars' => 'سجل تغييرات السيارات',
         'create_and_new'=>'إنشاء و جديد',
+        'save_and_print'=>'حفظ و طباعة',
+        'create_and_print'=>'إنشاء و طباعة',
         'message_delete'=>'حذف غير ممكن بسبب وجود سجلات مرتبطة بالقسم.',
 
 

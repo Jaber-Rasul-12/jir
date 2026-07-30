@@ -44,6 +44,16 @@
                     data-stripe-load-indicator>
                     <?= e(trans('car.car::lang.plugin.create_and_new')) ?>
                 </button>
+                <button
+                    type="submit"
+                    data-request="onSave"
+                    data-hotkey="ctrl+s, cmd+s"
+                    data-request-data="url: 'preview'"
+                    data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
+                    class="btn btn-primary"
+                    data-stripe-load-indicator>
+                    <?= e(trans('car.car::lang.plugin.create_and_print')) ?>
+                </button>
                 <span class="btn-text">
                     <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('car/car/cars') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
                 </span>
