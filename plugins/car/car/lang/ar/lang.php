@@ -28,6 +28,8 @@ return [
         'name_conversion'=>'تحويل الاسم',
         'date'=>'التاريخ',
         'preview_car'=>'معاينة السيارة',
+        'export_excel'=>'تصدير إكسل',
+
 
 
 

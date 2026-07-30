@@ -5,10 +5,13 @@ use BackendMenu;
 
 class Cars extends Controller
 {
-    public $implement = [        'Backend\Behaviors\ListController',        'Backend\Behaviors\FormController'    ];
+    public $implement = [        'Backend\Behaviors\ListController',        'Backend\Behaviors\FormController' , \Backend\Behaviors\ImportExportController::class,
+  ];
     
     public $listConfig = 'config_list.yaml';
     public $formConfig = 'config_form.yaml';
+
+    public $importExportConfig = 'import_export_config.yaml';
 
     public $requiredPermissions = [
         'cars' 

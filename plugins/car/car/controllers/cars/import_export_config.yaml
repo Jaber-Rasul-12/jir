@@ -1,0 +1,12 @@
+# ===================================
+#  Import/Export Behavior Config
+# ===================================
+
+
+export:
+    title: car.car::lang.plugin.export_excel
+    modelClass: Car\Car\Models\ExportExcel
+    fileName: cars_export.csv
+    csvDelimiter: ','
+    csvEnclosure: '"'
+    list: $/car/car/models/car/columns.yaml
