@@ -27,38 +27,38 @@ navigation:
     cars_settings:
         label: 'car.car::lang.plugin.cars_settings'
         url: car/car/countries
-        icon: icon-life-ring
+        icon: icon-cogs
         permissions:
             - cars_menu
         sideMenu:
             country:
                 label: 'car.car::lang.plugin.country'
                 url: car/car/countries
-                icon: icon-sitemap
+                icon: icon-globe
                 permissions:
                     - country
             brand:
                 label: 'car.car::lang.plugin.brand'
                 url: car/car/brands
-                icon: icon-sitemap
+                icon: icon-trademark
                 permissions:
                     - brands
             model:
                 label: 'car.car::lang.plugin.model'
                 url: car/car/modelscontrollers
-                icon: icon-sitemap
+                icon: icon-cube
                 permissions:
                     - models
     cars:
         label: 'car.car::lang.plugin.cars'
         url: car/car/cars
-        icon: icon-life-ring
+        icon: icon-car
         permissions:
             - cars_menu
         sideMenu:
             cars:
                 label: 'car.car::lang.plugin.cars'
-                url: /
-                icon: icon-sitemap
+                url: car/car/cars
+                icon: icon-car
                 permissions:
                     - cars
