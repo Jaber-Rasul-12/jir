@@ -76,5 +76,8 @@ return [
         'cars' => [
             'cars' => 'Cars',
         ],
+        'countries' => [
+            'countries' => 'Countries',
+        ],
     ],
 ];

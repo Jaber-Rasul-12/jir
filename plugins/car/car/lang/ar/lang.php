@@ -78,5 +78,8 @@ return [
         'cars' => [
             'cars' => 'السيارات',
         ],
+        'countries' => [
+            'countries' => 'المدن',
+        ],
     ],
 ];
