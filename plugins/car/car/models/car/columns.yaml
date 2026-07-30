@@ -2,10 +2,11 @@ columns:
     id:
         label: 'car.car::lang.model.car.id'
         type: number
-    model:
-        label: 'car.car::lang.model.car.model'
-        relation: model
-        select: name
+    print:
+        label: 'car.car::lang.plugin.print'
+        type: partial
+        path: button_print
+        clickable: false
     brand:
         label: 'car.car::lang.model.car.brand'
         relation: brand

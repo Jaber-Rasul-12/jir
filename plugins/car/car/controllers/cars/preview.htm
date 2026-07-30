@@ -13,6 +13,7 @@
     .preview-card {
         position: relative;
         overflow: hidden;
+        background: white;
     }
     
     .watermark-bg {
@@ -20,22 +21,48 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        opacity: 0.06;
-        z-index: 0;
+        opacity: 0.12;
+        z-index: 1 !important; /* جعل الصورة فوق كل شيء */
         pointer-events: none;
         user-select: none;
         width: 70%;
         height: auto;
+        transition: opacity 0.3s ease;
     }
     
+    /* جعل المحتوى فوق الصورة */
     .preview-header,
     .preview-body {
         position: relative;
-        z-index: 1;
+        z-index: 2 !important; /* المحتوى فوق الصورة */
+    }
+    
+    /* جعل الخلفية العلوية أفتح مع شفافية */
+    .preview-header {
+        background: linear-gradient(135deg, rgba(45, 55, 72, 0.92) 0%, rgba(74, 85, 104, 0.92) 100%) !important;
+        position: relative;
+        z-index: 2 !important;
     }
     
     /* ===== PRINT STYLES ===== */
     @media print {
+        .preview-body, 
+        .status-bar,
+        .info-grid,
+        .section-divider,
+        .meta-row,
+        .preview-header {
+            z-index: 2 !important;
+        }
+        
+        .watermark-bg {
+            z-index: 1 !important;
+            opacity: 0.1 !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            color-adjust: exact !important;
+        }
+        
         /* إخفاء كل العناصر غير المطلوبة للطباعة */
         .no-print, 
         .breadcrumb,
@@ -69,14 +96,6 @@
             overflow: visible !important;
         }
         
-        /* إظهار الصورة في الطباعة */
-        .watermark-bg {
-            opacity: 0.08 !important;
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-            color-adjust: exact !important;
-        }
-        
         /* تحسين شكل البطاقة للطباعة */
         .preview-card {
             box-shadow: none !important;
@@ -88,7 +107,7 @@
         
         /* إجبار الألوان للطباعة */
         .preview-header {
-            background: #1a2332 !important;
+            background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%) !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
             color-adjust: exact !important;
@@ -332,11 +351,11 @@
     /* ===== WATERMARK BACKGROUND ===== */
     .watermark-bg {
         position: absolute;
-        top: 50%;
+        top: 60%;
         left: 50%;
         transform: translate(-50%, -50%);
-        opacity: 0.06;
-        z-index: 0;
+        opacity: 0.12;
+        z-index: 1 !important;
         pointer-events: none;
         user-select: none;
         width: 70%;
@@ -345,12 +364,12 @@
     }
     
     .preview-card:hover .watermark-bg {
-        opacity: 0.08;
+        opacity: 0.18;
     }
 
     /* ===== HEADER ===== */
     .preview-header {
-        background: linear-gradient(135deg, #1a2332 0%, #2d3748 100%);
+        background: linear-gradient(135deg, rgba(45, 55, 72, 0.92) 0%, rgba(74, 85, 104, 0.92) 100%) !important;
         padding: 30px 40px;
         display: flex;
         justify-content: space-between;
@@ -359,7 +378,7 @@
         gap: 20px;
         position: relative;
         overflow: hidden;
-        z-index: 1;
+        z-index: 2 !important;
     }
     
     .preview-header::after {
@@ -406,7 +425,7 @@
     }
     
     .header-title .sub-info {
-        color: rgba(255,255,255,0.6);
+        color: rgba(255,255,255,0.7);
         font-size: 13px;
         margin-top: 4px;
         display: flex;
@@ -454,7 +473,7 @@
     .preview-body {
         padding: 35px 40px;
         position: relative;
-        z-index: 1;
+        z-index: 2 !important;
         background: white;
     }
 
@@ -464,10 +483,12 @@
         gap: 20px;
         flex-wrap: wrap;
         padding: 15px 20px;
-        background: #f8fafd;
+        background: rgba(248, 250, 253, 0.95);
         border-radius: 10px;
         margin-bottom: 30px;
         border: 1px solid #edf2f7;
+        position: relative;
+        z-index: 3 !important;
     }
     
     .status-item {
@@ -534,6 +555,8 @@
         grid-template-columns: repeat(3, 1fr);
         gap: 25px 30px;
         margin-bottom: 30px;
+        position: relative;
+        z-index: 3 !important;
     }
     
     .info-grid.col-2 {
@@ -593,6 +616,8 @@
         align-items: center;
         gap: 15px;
         margin: 30px 0 25px 0;
+        position: relative;
+        z-index: 3 !important;
     }
     
     .section-divider .line {
@@ -622,6 +647,8 @@
         grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
         gap: 15px;
         margin-top: 5px;
+        position: relative;
+        z-index: 3 !important;
     }
     
     .image-item {
@@ -667,6 +694,8 @@
         padding: 15px 0;
         border-top: 2px solid #f7fafc;
         margin-top: 10px;
+        position: relative;
+        z-index: 3 !important;
     }
     
     .meta-row .meta-item {
@@ -692,6 +721,8 @@
         margin-top: 30px;
         padding-top: 25px;
         border-top: 2px solid #f7fafc;
+        position: relative;
+        z-index: 3 !important;
     }
 
     /* ===== PRINT LOGO ===== */
@@ -726,8 +757,7 @@
             grid-template-columns: repeat(2, 1fr);
         }
         .watermark-bg {
-                    width: 70%;
-
+            width: 80%;
         }
     }
     
@@ -799,8 +829,7 @@
         }
         
         .watermark-bg {
-                    width: 70%;
-
+            width: 90%;
         }
     }
 
@@ -821,8 +850,7 @@
         }
         
         .watermark-bg {
-                    width: 70%;
-
+            width: 100%;
         }
     }
 </style>
