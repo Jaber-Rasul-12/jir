@@ -10,8 +10,14 @@ columns:
     ownership:
         label: 'car.car::lang.model.car.ownership'
         type: text
-    brand[name]:
+    brand:
         label: 'car.car::lang.model.car.brand'
+        relation: brand
+        select: name
+    model:
+        label: 'car.car::lang.model.car.model'
+        relation: model
+        select: name
     type:
         label: 'car.car::lang.model.car.type'
         type: text
@@ -21,9 +27,10 @@ columns:
     year_of_manufacturing_date:
         label: 'car.car::lang.model.car.year_of_manufacturing_date'
         type: text
-    fuel_type:
+    fuel_lists:
         label: 'car.car::lang.model.car.fuel_type'
         type: text
+
     country:
         label: 'car.car::lang.model.car.country'
         relation: country

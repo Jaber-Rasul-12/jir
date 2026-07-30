@@ -69,6 +69,12 @@ protected $nullable = ['type', 'license_plate_number' , 'year_of_manufacturing_d
         'photos' => 'System\Models\File'
     ];
 
+ public function getFuelListsAttribute()
+  {
+    return trans('car.car::lang.model.car.' . $this->attributes['fuel_type']);
+  }
+
+
       public function filterFields($fields, $context = null)
   {         
       if (isset($fields->brand->value) && !empty($fields->brand->value)) {
