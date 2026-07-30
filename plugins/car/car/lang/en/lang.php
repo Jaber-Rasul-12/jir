@@ -19,6 +19,14 @@ return [
         'create_and_new'=>'Create and New',
         'save_and_print'=>'Save and Print',
         'create_and_print'=>'Create and Print',
+        'print'=>'Print',
+        'signature'=>'signature',
+        'sign_here'=>'sign_here',
+        'clear'=>'clear',
+        'your_name'=>'your_name',
+        'name_conversion'=>'name_conversion',
+        'date'=>'date',
+        'preview_car'=>'Preview Car',
 
 
         'message_delete'=>'Deletion is not possible due to the presence of records associated with the section.',

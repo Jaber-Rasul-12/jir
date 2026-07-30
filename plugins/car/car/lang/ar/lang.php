@@ -20,6 +20,15 @@ return [
         'save_and_print'=>'حفظ و طباعة',
         'create_and_print'=>'إنشاء و طباعة',
         'message_delete'=>'حذف غير ممكن بسبب وجود سجلات مرتبطة بالقسم.',
+        'print'=>'طباعة',
+        'signature'=>'التوقيع',
+        'sign_here'=>'وقع هنا',
+        'clear'=>'مسح',
+        'your_name'=>'اسمك',
+        'name_conversion'=>'تحويل الاسم',
+        'date'=>'التاريخ',
+        'preview_car'=>'معاينة السيارة',
+
 
 
     ],

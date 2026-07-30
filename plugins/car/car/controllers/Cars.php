@@ -27,12 +27,22 @@ class Cars extends Controller
 
         if (($url == 'create') && !empty($url)) {
             return "car/car/cars";
-        } else {
+        }else if (($url == 'preview') && !empty($url)) {
+            return "car/car/cars/$url/$model->id";
+        }else {
             if ((post("close") == 1) && !empty(post("close"))) {
                 return "car/car/cars";
             } else {
                 return "car/car/cars/update/$model->id";
             }
         }
+    }
+
+    public function preview($id, $context = null)
+    {
+        $this->addCss('/plugins/car/car/assets/filesignatore/jquery.signaturepad.css', 'car.car');
+        $this->addJs('/plugins/car/car/assets/filesignatore/jquery.signaturepad.js', 'car.car');
+        $this->addJs('/plugins/car/car/assets/filesignatore/json2.min.js', 'car.car');
+        return $this->asExtension('FormController')->preview($id, $context);
     }
 }
