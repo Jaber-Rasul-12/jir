@@ -1,0 +1,64 @@
+plugin:
+    name: 'car.car::lang.plugin.name'
+    description: 'car.car::lang.plugin.description'
+    author: car
+    icon: 'fas icon-car'
+    replaces: {  }
+permissions:
+    log_changes_cars:
+        tab: 'car.car::lang.plugin.cars'
+        label: 'car.car::lang.plugin.log_changes_cars'
+    cars_menu:
+        tab: 'car.car::lang.plugin.cars'
+        label: 'car.car::lang.plugin.cars_menu'
+    brands:
+        tab: 'car.car::lang.plugin.cars'
+        label: 'car.car::lang.plugin.brands'
+    models:
+        tab: 'car.car::lang.plugin.cars'
+        label: 'car.car::lang.plugin.models'
+    country:
+        tab: 'car.car::lang.plugin.cars'
+        label: 'car.car::lang.plugin.country'
+    cars:
+        tab: 'car.car::lang.plugin.cars'
+        label: 'car.car::lang.plugin.cars'
+navigation:
+    cars_settings:
+        label: 'car.car::lang.plugin.cars_settings'
+        url: car/car/countries
+        icon: icon-life-ring
+        permissions:
+            - cars_menu
+        sideMenu:
+            country:
+                label: 'car.car::lang.plugin.country'
+                url: car/car/countries
+                icon: icon-sitemap
+                permissions:
+                    - country
+            brand:
+                label: 'car.car::lang.plugin.brand'
+                url: car/car/brands
+                icon: icon-sitemap
+                permissions:
+                    - brands
+            model:
+                label: 'car.car::lang.plugin.model'
+                url: car/car/modelscontrollers
+                icon: icon-sitemap
+                permissions:
+                    - models
+    cars:
+        label: 'car.car::lang.plugin.cars'
+        url: car/car/cars
+        icon: icon-life-ring
+        permissions:
+            - cars_menu
+        sideMenu:
+            cars:
+                label: 'car.car::lang.plugin.cars'
+                url: /
+                icon: icon-sitemap
+                permissions:
+                    - cars

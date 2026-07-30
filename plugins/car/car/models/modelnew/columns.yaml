@@ -1,0 +1,17 @@
+columns:
+    id:
+        label: 'car.car::lang.model.model.id'
+        type: number
+    brand:
+        label: 'car.car::lang.model.model.brand'
+        relation: brand
+        select: name
+    name:
+        label: 'car.car::lang.model.model.name'
+        type: text
+    created_at:
+        label: 'car.car::lang.model.model.created_at'
+        type: datetime
+    updated_at:
+        label: 'car.car::lang.model.model.updated_at'
+        type: datetime

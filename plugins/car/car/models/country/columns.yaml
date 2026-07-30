@@ -1,0 +1,13 @@
+columns:
+    id:
+        label: 'car.car::lang.model.country.id'
+        type: number
+    name:
+        label: 'car.car::lang.model.country.name'
+        type: text
+    created_at:
+        label: 'car.car::lang.model.country.created_at'
+        type: datetime
+    updated_at:
+        label: 'car.car::lang.model.country.updated_at'
+        type: datetime

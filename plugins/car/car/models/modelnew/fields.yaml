@@ -1,0 +1,18 @@
+fields:
+    brand:
+        label: 'car.car::lang.model.model.brand'
+        span: auto
+        type: relation
+        select: name
+        placeholder: car.car::lang.plugin.select
+    name:
+        label: 'car.car::lang.model.model.name'
+        span: auto
+        type: text
+    _logbook@update:
+            type: jacob_logbook_log
+            limitPerPage: 10 
+            startPage: 1 
+            permissions: log_changes_cars
+            showUndoChangesButton: true 
+            refreshFormAfterUndo: true  

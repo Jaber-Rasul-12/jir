@@ -1,0 +1,14 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table car_car_brands'
+    - builder_table_create_car_car_brands.php
+1.0.3:
+    - 'Created table car_car_models'
+    - builder_table_create_car_car_models.php
+1.0.4:
+    - 'Created table car_car_countries'
+    - builder_table_create_car_car_countries.php
+1.0.5:
+    - 'Created table car_car_cars'
+    - builder_table_create_car_car_cars.php

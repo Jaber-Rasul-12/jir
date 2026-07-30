@@ -1,0 +1,10 @@
+name: Countries
+form: $/car/car/models/country/fields.yaml
+modelClass: Car\Car\Models\Country
+defaultRedirect: car/car/countries
+create:
+    redirect: 'car/car/countries/update/:id'
+    redirectClose: car/car/countries
+update:
+    redirect: car/car/countries
+    redirectClose: car/car/countries

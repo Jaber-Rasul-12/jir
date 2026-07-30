@@ -1,0 +1,12 @@
+list: $/car/car/models/car/columns.yaml
+modelClass: Car\Car\Models\Car
+title: 'car.car::lang.controller.cars.cars'
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'car/car/cars/update/:id'

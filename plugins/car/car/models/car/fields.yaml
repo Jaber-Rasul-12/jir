@@ -1,0 +1,87 @@
+fields:
+    ownership:
+        label: 'car.car::lang.model.car.ownership'
+        span: auto
+        type: text
+    type:
+        label: 'car.car::lang.model.car.type'
+        span: auto
+        type: text
+    brand:
+        label: 'car.car::lang.model.car.brand'
+        span: auto
+        type: relation
+        select: name
+        placeholder: car.car::lang.plugin.select
+    model_id:
+        label: 'car.car::lang.model.car.model'
+        span: auto
+        type: dropdown
+        dependsOn: brand
+    chassis_number:
+        label: 'car.car::lang.model.car.chassis_number'
+        span: auto
+        type: text
+    year_of_manufacturing_date:
+        label: 'car.car::lang.model.car.year_of_manufacturing_date'
+        span: auto
+        type: datepicker
+        mode: date
+    fuel_type:
+        label: 'car.car::lang.model.car.fuel_type'
+        span: auto
+        type: dropdown
+        placeholder: car.car::lang.plugin.select
+        options:
+                petrol: car.car::lang.model.car.petrol
+                diesel: car.car::lang.model.car.diesel
+                electric: car.car::lang.model.car.electric
+                hybrid: car.car::lang.model.car.hybrid
+                plug-in_hybrid: car.car::lang.model.car.plug_in_hybrid
+                hydrogen: car.car::lang.model.car.hydrogen
+                lpg: car.car::lang.model.car.lpg
+                cng: car.car::lang.model.car.cng
+    license_plate_number:
+        label: 'car.car::lang.model.car.license_plate_number'
+        span: auto
+        type: text
+    country:
+        label: 'car.car::lang.model.car.country'
+        span: auto
+        type: relation
+        select: name
+        placeholder: car.car::lang.plugin.select
+    license_plate_number_new:
+        label: 'car.car::lang.model.car.license_plate_number_new'
+        span: auto
+        type: text
+        
+    country_new:
+        label: 'car.car::lang.model.car.country_new'
+        span: auto
+        type: relation
+        select: name
+        placeholder: car.car::lang.plugin.select
+    photos:
+        label: car.car::lang.model.car.images
+        type: fileupload
+        span: auto
+        mode: image
+        imageHeight: 260
+        imageWidth: 260
+        thumbOptions:
+            mode: crop
+            offset:
+                - 0
+                - 0
+            quality: 90
+            sharpen: 0
+            interlace: false
+            extension: auto
+    _logbook@update:
+        type: jacob_logbook_log
+        limitPerPage: 10 
+        startPage: 1 
+        permissions: log_changes_cars
+        showUndoChangesButton: true 
+        refreshFormAfterUndo: true  

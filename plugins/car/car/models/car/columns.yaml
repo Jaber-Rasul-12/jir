@@ -1,0 +1,47 @@
+columns:
+    id:
+        label: 'car.car::lang.model.car.id'
+        type: number
+    model:
+        label: 'car.car::lang.model.car.model'
+        relation: model
+        select: name
+    brand:
+        label: 'car.car::lang.model.car.brand'
+        relation: brand
+        select: name
+    country:
+        label: 'car.car::lang.model.car.country'
+        relation: country
+        select: name
+    country_new:
+        label: 'car.car::lang.model.car.country_new'
+        relation: country_new
+        select: name
+    ownership:
+        label: 'car.car::lang.model.car.ownership'
+        type: text
+    type:
+        label: 'car.car::lang.model.car.type'
+        type: text
+    chassis_number:
+        label: 'car.car::lang.model.car.chassis_number'
+        type: text
+    year_of_manufacturing_date:
+        label: 'car.car::lang.model.car.year_of_manufacturing_date'
+        type: text
+    fuel_type:
+        label: 'car.car::lang.model.car.fuel_type'
+        type: text
+    license_plate_number:
+        label: 'car.car::lang.model.car.license_plate_number'
+        type: text
+    license_plate_number_new:
+        label: 'car.car::lang.model.car.license_plate_number_new'
+        type: text
+    created_at:
+        label: 'car.car::lang.model.car.created_at'
+        type: datetime
+    updated_at:
+        label: 'car.car::lang.model.car.updated_at'
+        type: datetime

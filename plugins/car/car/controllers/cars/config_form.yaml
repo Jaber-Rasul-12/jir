@@ -1,0 +1,10 @@
+name: 'car.car::lang.controller.cars.cars'
+form: $/car/car/models/car/fields.yaml
+modelClass: Car\Car\Models\Car
+defaultRedirect: car/car/cars
+create:
+    redirect: 'car/car/cars/update/:id'
+    redirectClose: car/car/cars
+update:
+    redirect: car/car/cars
+    redirectClose: car/car/cars
