@@ -1,0 +1,10 @@
+name: 'car.car::lang.controller.rents.rents'
+form: $/car/car/models/rent/fields.yaml
+modelClass: Car\Car\Models\Rent
+defaultRedirect: car/car/rents
+create:
+    redirect: 'car/car/rents/update/:id'
+    redirectClose: car/car/rents
+update:
+    redirect: car/car/rents
+    redirectClose: car/car/rents

@@ -1,0 +1,61 @@
+fields:
+    full_name:
+        label: 'car.car::lang.model.customer.full_name'
+        span: auto
+        type: text
+    id_number:
+        label: 'car.car::lang.model.customer.id_number'
+        span: auto
+        type: text
+    address:
+        label: 'car.car::lang.model.customer.address'
+        span: auto
+        type: text
+    phone:
+        label: 'car.car::lang.model.customer.phone'
+        span: auto
+        type: text
+    driving_license:
+        label: 'car.car::lang.model.customer.driving_license'
+        span: auto
+        type: text
+
+    type_of_drivers_license:
+        label: 'car.car::lang.model.customer.type_of_drivers_license'
+        span: auto
+        type: dropdown
+        placeholder: car.car::lang.plugin.select
+        options:
+                private: car.car::lang.model.customer.private
+                public: car.car::lang.model.customer.public
+    date_of_drivers_license:
+        label: 'car.car::lang.model.customer.date_of_drivers_license'
+        span: auto
+        type: datepicker
+    valid_for_the_end:
+        label: 'car.car::lang.model.customer.valid_for_the_end'
+        span: auto
+        type: datepicker
+    photos:
+        label: car.car::lang.model.customer.images
+        type: fileupload
+        span: auto
+        mode: image
+        imageHeight: 260
+        imageWidth: 260
+        thumbOptions:
+            mode: crop
+            offset:
+                - 0
+                - 0
+            quality: 90
+            sharpen: 0
+            interlace: false
+            extension: auto
+    _logbook@update:
+            type: jacob_logbook_log
+            limitPerPage: 10 
+            startPage: 1 
+            permissions: log_changes_cars
+            showUndoChangesButton: true 
+            refreshFormAfterUndo: true  

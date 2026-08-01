@@ -1,0 +1,122 @@
+tabs:
+    icons:
+        'car.car::lang.plugin.parties_to_the_contract': 'icon-address-book'
+        'car.car::lang.plugin.car': 'icon-file-text'
+        'car.car::lang.plugin.lease_term': 'icon-cubes'
+        'car.car::lang.plugin.rent_allowance': 'icon-star'
+        'car.car::lang.plugin.insurance': 'icon-toggle-on'
+        'car.car::lang.plugin.warranty': 'icon-money'
+        'car.car::lang.plugin.guarantee': 'icon-folder-open'
+        'car.car::lang.plugin.witnesses': 'icon-percent'
+        'car.car::lang.plugin.images': 'icon-file-image-o'
+    fields:
+        customer_owner:
+            label: 'car.car::lang.model.rent.customer_owner'
+            type: relationmanager
+            span: full
+            placeholder: car.car::lang.plugin.select
+            tab: 'car.car::lang.plugin.parties_to_the_contract'
+        customer_tenant:
+            label: 'car.car::lang.model.rent.customer_tenant'
+            span: full
+            type: relationmanager
+            select: full_name
+            placeholder: car.car::lang.plugin.select
+            tab: 'car.car::lang.plugin.parties_to_the_contract'
+
+
+        car:
+            label: 'car.car::lang.model.rent.car'
+            span: auto
+            type: relationmanager
+            select: chassis_number
+            placeholder: car.car::lang.plugin.select
+            tab: 'car.car::lang.plugin.car'
+
+
+        start_date:
+            label: 'car.car::lang.model.rent.start_date'
+            span: auto
+            type: datepicker
+            tab: 'car.car::lang.plugin.lease_term'
+
+        end_date:
+            label: 'car.car::lang.model.rent.end_date'
+            span: auto
+            type: datepicker
+            tab: 'car.car::lang.plugin.lease_term'
+        watch_price:
+            label: 'car.car::lang.model.rent.watch_price'
+            span: auto
+            type: number
+            tab: 'car.car::lang.plugin.lease_term'
+        
+        
+        rent_allowance:
+            label: 'car.car::lang.model.rent.rent_allowance'
+            span: auto
+            type: number
+            tab: 'car.car::lang.plugin.rent_allowance'
+        additional_rent_amount:
+            label: 'car.car::lang.model.rent.additional_rent_amount'
+            span: auto
+            type: number
+            tab: 'car.car::lang.plugin.rent_allowance'
+
+
+        insurance_number:
+            label: 'car.car::lang.model.rent.insurance_number'
+            span: auto
+            type: text
+            tab: 'car.car::lang.plugin.insurance'
+
+
+        the_second_team_paid_for_any_damage:
+            label: 'car.car::lang.model.rent.the_second_team_paid_for_any_damage'
+            span: auto
+            type: number
+            tab: 'car.car::lang.plugin.warranty'
+
+
+        customer_bail:
+            label: 'car.car::lang.model.rent.customer_bail'
+            span: auto
+            type: relationmanager
+            select: full_name
+            placeholder: car.car::lang.plugin.select
+            tab: 'car.car::lang.plugin.guarantee'
+
+        name_first_witness:
+            label: 'car.car::lang.model.rent.name_first_witness'
+            span: auto
+            type: text
+            tab: 'car.car::lang.plugin.witnesses'
+        name_second_witness:
+            label: 'car.car::lang.model.rent.name_second_witness'
+            span: auto
+            type: text
+            tab: 'car.car::lang.plugin.witnesses'
+        photos:
+            label: car.car::lang.model.rent.images
+            type: fileupload
+            span: auto
+            mode: image
+            imageHeight: 260
+            imageWidth: 260
+            tab: 'car.car::lang.plugin.images'
+            thumbOptions:
+                mode: crop
+                offset:
+                    - 0
+                    - 0
+                quality: 90
+                sharpen: 0
+                interlace: false
+                extension: auto
+        _logbook@update:
+                type: jacob_logbook_log
+                limitPerPage: 10 
+                startPage: 1 
+                permissions: log_changes_cars
+                showUndoChangesButton: true 
+                refreshFormAfterUndo: true  

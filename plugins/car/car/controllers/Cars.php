@@ -21,6 +21,7 @@ class Cars extends Controller
     {
         parent::__construct();
         BackendMenu::setContext('Car.Car', 'cars', 'cars');
+         $this->addCss('/plugins/car/car/assets/css/style_button.css', 'car.car');
     }
 
     public function formGetRedirectUrl($context = null, $model = null)

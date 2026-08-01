@@ -1,0 +1,10 @@
+name: 'car.car::lang.controller.customers.customers'
+form: $/car/car/models/customer/fields.yaml
+modelClass: Car\Car\Models\Customer
+defaultRedirect: car/car/customers
+create:
+    redirect: 'car/car/customers/update/:id'
+    redirectClose: car/car/customers
+update:
+    redirect: car/car/customers
+    redirectClose: car/car/customers

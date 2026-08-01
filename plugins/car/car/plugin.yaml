@@ -23,6 +23,12 @@ permissions:
     cars:
         tab: 'car.car::lang.plugin.cars'
         label: 'car.car::lang.plugin.cars'
+    customers:
+        tab: 'car.car::lang.plugin.cars'
+        label: 'car.car::lang.plugin.customers'
+    rents:
+        tab: 'car.car::lang.plugin.cars'
+        label: 'car.car::lang.plugin.rents'
 navigation:
     cars_settings:
         label: 'car.car::lang.plugin.cars_settings'
@@ -62,3 +68,15 @@ navigation:
                 icon: icon-car
                 permissions:
                     - cars
+            customers:
+                label: 'car.car::lang.plugin.customers'
+                url: car/car/customers
+                icon: icon-user
+                permissions:
+                    - customers
+            rents:
+                label: 'car.car::lang.plugin.rents'
+                url: car/car/rents
+                icon: icon-renren
+                permissions:
+                    - rents

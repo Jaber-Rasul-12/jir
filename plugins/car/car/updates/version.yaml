@@ -12,3 +12,9 @@
 1.0.5:
     - 'Created table car_car_cars'
     - builder_table_create_car_car_cars.php
+1.0.6:
+    - 'Created table car_car_customers'
+    - builder_table_create_car_car_customers.php
+1.0.7:
+    - 'Created table car_car_rents'
+    - builder_table_create_car_car_rents.php

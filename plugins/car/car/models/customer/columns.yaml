@@ -1,0 +1,34 @@
+columns:
+    id:
+        label: 'car.car::lang.model.customer.id'
+        type: number
+    full_name:
+        label: 'car.car::lang.model.customer.full_name'
+        type: text
+    id_number:
+        label: 'car.car::lang.model.customer.id_number'
+        type: text
+    address:
+        label: 'car.car::lang.model.customer.address'
+        type: text
+    phone:
+        label: 'car.car::lang.model.customer.phone'
+        type: text
+    driving_license:
+        label: 'car.car::lang.model.customer.driving_license'
+        type: text
+    type_of_drivers_license_lists:
+        label: 'car.car::lang.model.customer.type_of_drivers_license'
+        type: text
+    date_of_drivers_license:
+        label: 'car.car::lang.model.customer.date_of_drivers_license'
+        type: text
+    valid_for_the_end:
+        label: 'car.car::lang.model.customer.valid_for_the_end'
+        type: text
+    created_at:
+        label: 'car.car::lang.model.customer.created_at'
+        type: datetime
+    updated_at:
+        label: 'car.car::lang.model.customer.updated_at'
+        type: datetime

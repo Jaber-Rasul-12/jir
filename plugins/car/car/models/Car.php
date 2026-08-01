@@ -69,6 +69,11 @@ protected $nullable = ['type', 'license_plate_number' , 'year_of_manufacturing_d
         'photos' => 'System\Models\File'
     ];
 
+        public $hasMany = [
+        'rents' => ['Car\Car\Models\Rent', 'key' => 'car_id'],
+    ];
+
+
  public function getFuelListsAttribute()
   {
     return trans('car.car::lang.model.car.' . $this->attributes['fuel_type']);

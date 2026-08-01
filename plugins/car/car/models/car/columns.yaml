@@ -7,6 +7,8 @@ columns:
         type: partial
         path: button_print
         clickable: false
+        sortable: false
+        searchable: false
     ownership:
         label: 'car.car::lang.model.car.ownership'
         type: text

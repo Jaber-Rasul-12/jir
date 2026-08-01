@@ -1,0 +1,61 @@
+columns:
+    id:
+        label: 'car.car::lang.model.rent.id'
+        type: number
+    print:
+        label: 'car.car::lang.plugin.print'
+        type: partial
+        path: button_print
+        clickable: false
+        sortable: false
+        searchable: false
+    car:
+        label: 'car.car::lang.model.rent.car'
+        relation: car
+        select: chassis_number
+
+    customer_owner:
+        label: 'car.car::lang.model.rent.customer_owner'
+        relation: customer_owner
+        select: full_name
+    customer_tenant:
+        label: 'car.car::lang.model.rent.customer_tenant'
+        relation: customer_tenant
+        select: full_name
+    start_date:
+        label: 'car.car::lang.model.rent.start_date'
+        type: text
+    end_date:
+        label: 'car.car::lang.model.rent.end_date'
+        type: text
+    watch_price:
+        label: 'car.car::lang.model.rent.watch_price'
+        type: text
+    rent_allowance:
+        label: 'car.car::lang.model.rent.rent_allowance'
+        type: text
+    additional_rent_amount:
+        label: 'car.car::lang.model.rent.additional_rent_amount'
+        type: text
+    lnsurance_number:
+        label: 'car.car::lang.model.rent.lnsurance_number'
+        type: text
+    the_second_team_paid_for_any_damage:
+        label: 'car.car::lang.model.rent.the_second_team_paid_for_any_damage'
+        type: text
+    customer_bail:
+        label: 'car.car::lang.model.rent.customer_bail'
+        relation: customer_bail
+        select: full_name
+    name_first_witness:
+        label: 'car.car::lang.model.rent.name_first_witness'
+        type: text
+    name_second_witness:
+        label: 'car.car::lang.model.rent.name_second_witness'
+        type: text
+    created_at:
+        label: 'car.car::lang.model.rent.created_at'
+        type: datetime
+    updated_at:
+        label: 'car.car::lang.model.rent.updated_at'
+        type: datetime

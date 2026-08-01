@@ -1,0 +1,49 @@
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+customer_owner:
+    label: 'car.car::lang.model.rent.customer_owner'
+    view:
+        form: $/car/car/models/customer/fields.yaml
+        toolbarButtons: create|add|link|update|delete|refresh
+    manage:
+        form: $/car/car/models/customer/fields.yaml
+        list: $/car/car/models/customer/columns.yaml
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+customer_tenant:
+    label: 'car.car::lang.model.rent.customer_tenant'
+    view:
+        form: $/car/car/models/customer/fields.yaml
+        toolbarButtons: create|add|link|update|delete|refresh
+    manage:
+        form: $/car/car/models/customer/fields.yaml
+        list: $/car/car/models/customer/columns.yaml
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+customer_bail:
+    label: 'car.car::lang.model.rent.customer_bail'
+    view:
+        form: $/car/car/models/customer/fields.yaml
+        toolbarButtons: create|add|link|update|delete|refresh
+    manage:
+        form: $/car/car/models/customer/fields.yaml
+        list: $/car/car/models/customer/columns.yaml
+
+# ===================================
+#  Relation Behavior Config
+# ===================================
+
+car:
+    label: 'car.car::lang.model.rent.car'
+    view:
+        form: $/car/car/models/car/fields.yaml
+        toolbarButtons: create|add|link|update|delete|refresh
+    manage:
+        form: $/car/car/models/car/fields.yaml
+        list: $/car/car/models/car/columns.yaml

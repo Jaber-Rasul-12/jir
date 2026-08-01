@@ -1,0 +1,12 @@
+list: $/car/car/models/customer/columns.yaml
+modelClass: Car\Car\Models\Customer
+title: 'car.car::lang.controller.customers.customers'
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'car/car/customers/update/:id'
