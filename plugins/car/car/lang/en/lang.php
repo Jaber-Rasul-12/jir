@@ -39,6 +39,7 @@ return [
         'guarantee'=>'Guarantee',
         'witnesses'=>'witnesses',
         'images'=>'images',
+        'log_changes' => 'Log Changes',
     ],
     'model' => [
         'country' => [

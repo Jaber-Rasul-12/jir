@@ -30,6 +30,18 @@ return [
         'preview_car'=>'معاينة السيارة',
         'export_excel'=>'تصدير إكسل',
 
+        'customers' => 'العملاء',
+        'rents' => 'الإيجارات',
+        'parties_to_the_contract'=>'الأطراف في العقد',
+        'lease_term'=>'مدة الإيجار',
+        'rent_allowance'=>'بدل الإيجار',
+        'insurance'=>' التأمين',
+        'warranty'=>'الضمان',
+        'guarantee'=>'الكفالة',
+        'witnesses'=>'الشهود',
+        'images'=>'الصور',
+        'log_changes' => 'سجل التغييرات',
+
 
 
 
@@ -80,6 +92,42 @@ return [
             'created_at' => 'تاريخ الإنشاء',
             'updated_at' => 'تاريخ التحديث',
         ],
+        'customer' => [
+    'id' => 'المعرف',
+    'full_name' => 'الاسم الكامل',
+    'id_number' => 'رقم الهوية',
+    'address' => 'العنوان',
+    'phone' => 'الهاتف',
+    'driving_license' => 'رخصة القيادة',
+    'images' => 'الصور',
+    'private' => 'خاصة',
+    'public' => 'عامة',
+    'type_of_drivers_license' => 'نوع رخصة القيادة',
+    'date_of_drivers_license' => 'تاريخ رخصة القيادة',
+    'valid_for_the_end' => 'صالحة لغاية',
+    'created_at' => 'تاريخ الإنشاء',
+    'updated_at' => 'تاريخ التحديث',
+],
+'rent' => [
+    'id' => 'المعرف',
+    'car' => 'السيارة',
+    'customer_owner' => 'المؤجر',
+    'customer_tenant' => 'المستأجر',
+    'start_date' => 'تاريخ البداية',
+    'end_date' => 'تاريخ النهاية',
+    'watch_price' => 'سعر الإيجار',
+    'rent_allowance' => 'بدل الإيجار',
+    'additional_rent_amount' => 'مبلغ إضافي للتأخير',
+    'lnsurance_number' => 'رقم التأمين',  
+    'the_second_team_paid_for_any_damage' => 'المبلغ المدفوع كضمان للأضرار',
+    'customer_bail' => 'الكفيل',
+    'name_first_witness' => 'اسم الشاهد الأول',
+    'name_second_witness' => 'اسم الشاهد الثاني',
+    'insurance_number' => 'رقم وثيقة التأمين',
+    'images' => 'الصور',
+    'created_at' => 'تاريخ الإنشاء',
+    'updated_at' => 'تاريخ التحديث',
+],
     ],
     'controller' => [
         'brands' => [
@@ -93,6 +141,12 @@ return [
         ],
         'countries' => [
             'countries' => 'المدن',
+        ],
+          'customers' => [
+            'customers' => 'العملاء',
+        ],
+        'rents' => [
+            'rents' => 'الإيجارات',
         ],
     ],
 ];

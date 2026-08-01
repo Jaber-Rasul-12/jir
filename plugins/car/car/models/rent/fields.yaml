@@ -1,14 +1,16 @@
 tabs:
     icons:
-        'car.car::lang.plugin.parties_to_the_contract': 'icon-address-book'
-        'car.car::lang.plugin.car': 'icon-file-text'
-        'car.car::lang.plugin.lease_term': 'icon-cubes'
-        'car.car::lang.plugin.rent_allowance': 'icon-star'
-        'car.car::lang.plugin.insurance': 'icon-toggle-on'
-        'car.car::lang.plugin.warranty': 'icon-money'
-        'car.car::lang.plugin.guarantee': 'icon-folder-open'
-        'car.car::lang.plugin.witnesses': 'icon-percent'
-        'car.car::lang.plugin.images': 'icon-file-image-o'
+        'car.car::lang.plugin.parties_to_the_contract': 'icon-users'
+        'car.car::lang.plugin.car': 'icon-car'
+        'car.car::lang.plugin.lease_term': 'icon-calendar'
+        'car.car::lang.plugin.rent_allowance': 'icon-money'
+        'car.car::lang.plugin.insurance': 'icon-shield'
+        'car.car::lang.plugin.warranty': 'icon-handshake-o'
+        'car.car::lang.plugin.guarantee': 'icon-gavel'
+        'car.car::lang.plugin.witnesses': 'icon-pencil-square-o'
+        'car.car::lang.plugin.images': 'icon-image'
+        'car.car::lang.plugin.log_changes': 'icon-history'
+
     fields:
         customer_owner:
             label: 'car.car::lang.model.rent.customer_owner'
@@ -118,5 +120,6 @@ tabs:
                 limitPerPage: 10 
                 startPage: 1 
                 permissions: log_changes_cars
+                tab: 'car.car::lang.plugin.log_changes'
                 showUndoChangesButton: true 
                 refreshFormAfterUndo: true  
