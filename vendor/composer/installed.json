@@ -1502,7 +1502,7 @@
                 "source": "https://github.com/Flynsarmy/wn-sociallogin-plugin/tree/master",
                 "issues": "https://github.com/Flynsarmy/wn-sociallogin-plugin/issues"
             },
-            "install-path": "../../plugins/flynsarmy/sociallogin"
+            "install-path": "../flynsarmy/wn-sociallogin-plugin"
         },
         {
             "name": "fruitcake/php-cors",
@@ -2670,6 +2670,62 @@
                 }
             ],
             "install-path": "../league/mime-type-detection"
+        },
+        {
+            "name": "mexitek/phpcolors",
+            "version": "v1.0.4",
+            "version_normalized": "1.0.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mexitek/phpColors.git",
+                "reference": "4043974240ca7dc3c2bec3c158588148b605b206"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mexitek/phpColors/zipball/4043974240ca7dc3c2bec3c158588148b605b206",
+                "reference": "4043974240ca7dc3c2bec3c158588148b605b206",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2|^8.0"
+            },
+            "require-dev": {
+                "nette/tester": "^2.3",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "time": "2021-11-26T13:19:08+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "classmap": [
+                    "src"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Arlo Carreon",
+                    "homepage": "http://arlocarreon.com",
+                    "role": "creator"
+                }
+            ],
+            "description": "A series of methods that let you manipulate colors. Just incase you ever need different shades of one color on the fly.",
+            "homepage": "http://mexitek.github.com/phpColors/",
+            "keywords": [
+                "color",
+                "css",
+                "design",
+                "frontend",
+                "ui"
+            ],
+            "support": {
+                "issues": "https://github.com/mexitek/phpColors/issues",
+                "source": "https://github.com/mexitek/phpColors"
+            },
+            "install-path": "../mexitek/phpcolors"
         },
         {
             "name": "mockery/mockery",
@@ -9105,7 +9161,7 @@
                     "type": "open_collective"
                 }
             ],
-            "install-path": "../../modules/backend"
+            "install-path": "../winter/wn-backend-module"
         },
         {
             "name": "winter/wn-cms-module",
@@ -9179,7 +9235,7 @@
                     "type": "open_collective"
                 }
             ],
-            "install-path": "../../modules/cms"
+            "install-path": "../winter/wn-cms-module"
         },
         {
             "name": "winter/wn-notify-plugin",
@@ -9253,7 +9309,7 @@
                     "type": "open_collective"
                 }
             ],
-            "install-path": "../../plugins/winter/notify"
+            "install-path": "../winter/wn-notify-plugin"
         },
         {
             "name": "winter/wn-system-module",
@@ -9328,7 +9384,7 @@
                     "type": "open_collective"
                 }
             ],
-            "install-path": "../../modules/system"
+            "install-path": "../winter/wn-system-module"
         },
         {
             "name": "winter/wn-translate-plugin",
@@ -9402,7 +9458,7 @@
                     "type": "open_collective"
                 }
             ],
-            "install-path": "../../plugins/winter/translate"
+            "install-path": "../winter/wn-translate-plugin"
         }
     ],
     "dev": true,

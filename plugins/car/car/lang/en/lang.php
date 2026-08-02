@@ -28,6 +28,7 @@ return [
         'date' => 'date',
         'preview_car' => 'Preview Car',
         'export_excel' => 'Export Excel',
+        
         'message_delete' => 'Deletion is not possible due to the presence of records associated with the section.',
         'customers' => 'Customers',
         'rents' => 'Rents',

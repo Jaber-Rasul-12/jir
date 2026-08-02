@@ -121,6 +121,7 @@ return array(
     'JakubOnderka\\PhpParallelLint\\TextOutput' => $vendorDir . '/php-parallel-lint/php-parallel-lint/src/Output.php',
     'JakubOnderka\\PhpParallelLint\\TextOutputColored' => $vendorDir . '/php-parallel-lint/php-parallel-lint/src/Output.php',
     'JsonSerializable' => $vendorDir . '/php-parallel-lint/php-parallel-lint/src/polyfill.php',
+    'Mexitek\\PHPColors\\Color' => $vendorDir . '/mexitek/phpcolors/src/Mexitek/PHPColors/Color.php',
     'Net_URL2' => $vendorDir . '/pear/net_url2/Net/URL2.php',
     'Nette\\ArgumentOutOfRangeException' => $vendorDir . '/nette/utils/src/exceptions.php',
     'Nette\\DeprecatedException' => $vendorDir . '/nette/utils/src/exceptions.php',
