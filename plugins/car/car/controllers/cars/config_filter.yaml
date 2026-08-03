@@ -1,29 +1,32 @@
 scopes:
 
     model:
-        label: model
+        label: car.car::lang.model.car.model
         type: group
         conditions: model_id in (:filtered)
         modelClass: Car\Car\Models\Modelnew
     
     brand:
-        label: brand
+        label: car.car::lang.model.car.brand
         type: group
         conditions: brand_id in (:filtered)
         modelClass: Car\Car\Models\Brand
     country:
-        label: country
+        label: car.car::lang.model.car.country
         type: group
         conditions: country_id in (:filtered)
         modelClass: Car\Car\Models\Country
     country_new:
-        label: country_new
+        label: car.car::lang.model.car.country_new
         type: group
         conditions: country_new_id in (:filtered)
         modelClass: Car\Car\Models\Country
 
 
     
+
+
+
 
 
 
