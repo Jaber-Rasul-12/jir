@@ -1,0 +1,167 @@
+{# /plugins/car/car/controllers/reports/_report_scripts.htm #}
+<script>
+
+
+$(document).ready(function() {
+    // Fuel Distribution Chart
+    
+    // توزيع البلد الأصلي
+var countryData = <?php echo json_encode(array_column($countryStats, 'total', 'name')); ?>;
+if (Object.keys(countryData).length) {
+    new Chart(document.getElementById('countryChart'), {
+        type: 'pie',
+        data: {
+            labels: Object.keys(countryData),
+            datasets: [{ data: Object.values(countryData), backgroundColor: ['#3e95cd','#8e5ea2','#3cba9f','#e8c3b9','#c45850','#ff6384','#36a2eb'] }]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+    });
+}
+
+// توزيع البلد الجديد
+var newCountryData = <?php echo json_encode(array_column($newCountryStats, 'total', 'name')); ?>;
+if (Object.keys(newCountryData).length) {
+    new Chart(document.getElementById('newCountryChart'), {
+        type: 'pie',
+        data: {
+            labels: Object.keys(newCountryData),
+            datasets: [{ data: Object.values(newCountryData), backgroundColor: ['#ff6384','#36a2eb','#ffce56','#4bc0c0','#9966ff','#ff9f40'] }]
+        },
+        options: { responsive: true, plugins: { legend: { position: 'bottom' } } }
+    });
+}
+    
+    var fuelData = {{ fuelDistribution|json_encode|raw }};
+    if (Object.keys(fuelData).length > 0) {
+        var ctx1 = document.getElementById('fuelChart').getContext('2d');
+        new Chart(ctx1, {
+            type: 'doughnut',
+            data: {
+                labels: Object.keys(fuelData).map(function(key) {
+                    return key.charAt(0).toUpperCase() + key.slice(1);
+                }),
+                datasets: [{
+                    data: Object.values(fuelData),
+                    backgroundColor: [
+                        '#FF6384', '#36A2EB', '#FFCE56', 
+                        '#4BC0C0', '#9966FF', '#FF9F40',
+                        '#FF6384', '#C9CBCF'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    }
+
+    // Rent Status Distribution Chart
+    var statusData = {{ rentStatusDistribution|json_encode|raw }};
+    if (Object.keys(statusData).length > 0) {
+        var ctx2 = document.getElementById('statusChart').getContext('2d');
+        new Chart(ctx2, {
+            type: 'pie',
+            data: {
+                labels: [
+                    '{{ "car.car::lang.model.rent.active"|trans }}',
+                    '{{ "car.car::lang.model.rent.completed"|trans }}',
+                    '{{ "car.car::lang.model.rent.upcoming"|trans }}'
+                ],
+                datasets: [{
+                    data: [
+                        statusData.active || 0,
+                        statusData.completed || 0,
+                        statusData.upcoming || 0
+                    ],
+                    backgroundColor: [
+                        '#4CAF50',
+                        '#2196F3',
+                        '#FFC107'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    }
+                }
+            }
+        });
+    }
+
+    // Monthly Rents Chart
+    var monthlyData = {{ monthlyRents|json_encode|raw }};
+    if (monthlyData.length > 0) {
+        var ctx3 = document.getElementById('monthlyChart').getContext('2d');
+        new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: monthlyData.map(function(item) { return item.month; }),
+                datasets: [
+                    {
+                        label: '{{ "car.car::lang.plugin.rents"|trans }}',
+                        data: monthlyData.map(function(item) { return item.rents; }),
+                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1
+                    },
+                    {
+                        label: '{{ "car.car::lang.plugin.total_amount"|trans }}',
+                        data: monthlyData.map(function(item) { return item.total; }),
+                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    // Brand Statistics Chart
+    var brandData = {{ brandStats|json_encode|raw }};
+    if (brandData.length > 0) {
+        var ctx4 = document.getElementById('brandChart').getContext('2d');
+        new Chart(ctx4, {
+            type: 'horizontalBar',
+            data: {
+                labels: brandData.map(function(item) { return item.name; }),
+                datasets: [{
+                    label: '{{ "car.car::lang.plugin.cars_count"|trans }}',
+                    data: brandData.map(function(item) { return item.total; }),
+                    backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    x: {
+                        beginAtZero: true
+                    }
+                },
+                indexAxis: 'y'
+            }
+        });
+    }
+});
+</script>

@@ -1,0 +1,20 @@
+# /plugins/car/car/controllers/reports/config_list.yaml
+title: "car.car::lang.plugin.reports"
+list: ~/plugins/car/car/models/car/columns.yaml
+modelClass: Car\Car\Models\Car
+recordUrl: "car/car/reports/update/:id"
+noRecordsMessage: "backend::lang.list.no_records"
+recordsPerPage: 20
+showSetup: true
+showCheckboxes: true
+showSorting: 1
+defaultSort:
+    column: created_at
+    direction: desc
+
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: "backend::lang.list.search_prompt"
+
+filter: config_filter.yaml

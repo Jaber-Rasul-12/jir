@@ -80,3 +80,9 @@ navigation:
                 icon: icon-renren
                 permissions:
                     - rents
+            reports:
+                label: 'car.car::lang.plugin.reports'
+                url: car/car/statistics
+                icon: icon-bar-chart
+                permissions:
+                    - rents

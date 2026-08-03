@@ -1,0 +1,26 @@
+<?php 
+// /plugins/car/car/controllers/reports/_report_header.htm
+$reportType = $this->vars['reportType'] ?? 'summary';
+$baseUrl = url('backend/car/car/reports');
+?>
+
+<div class="report-header">
+    <h1 class="page-header">
+        <i class="icon-bar-chart"></i>
+        <?php echo e(trans('car.car::lang.plugin.reports')); ?>
+    </h1>
+    
+    <div class="report-actions">
+        <div class="btn-group">
+            <a href="<?php echo $baseUrl; ?>?report_type=summary" class="btn btn-default <?php echo ($reportType == 'summary') ? 'active' : ''; ?>">
+                <i class="icon-dashboard"></i> <?php echo e(trans('car.car::lang.plugin.summary')); ?>
+            </a>
+            <a href="<?php echo $baseUrl; ?>?report_type=detailed" class="btn btn-default <?php echo ($reportType == 'detailed') ? 'active' : ''; ?>">
+                <i class="icon-list"></i> <?php echo e(trans('car.car::lang.plugin.detailed')); ?>
+            </a>
+            <a href="<?php echo $baseUrl; ?>?report_type=statistics" class="btn btn-default <?php echo ($reportType == 'statistics') ? 'active' : ''; ?>">
+                <i class="icon-stats"></i> <?php echo e(trans('car.car::lang.plugin.statistics')); ?>
+            </a>
+        </div>
+    </div>
+</div>

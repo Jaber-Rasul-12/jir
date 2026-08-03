@@ -1,0 +1,37 @@
+# /plugins/car/car/controllers/reports/config_filter.yaml
+scopes:
+    date_range:
+        label: car.car::lang.model.rent.date_range
+        type: daterange
+        conditions: created_at >= ':after' AND created_at <= ':before'
+    
+    fuel_type:
+        label: car.car::lang.model.car.fuel_type
+        type: dropdown
+        conditions: fuel_type = :filtered
+        options:
+            petrol: car.car::lang.model.car.petrol
+            diesel: car.car::lang.model.car.diesel
+            electric: car.car::lang.model.car.electric
+            hybrid: car.car::lang.model.car.hybrid
+            plug-in_hybrid: car.car::lang.model.car.plug_in_hybrid
+            hydrogen: car.car::lang.model.car.hydrogen
+            lpg: car.car::lang.model.car.lpg
+            cng: car.car::lang.model.car.cng
+    
+    brand:
+        label: car.car::lang.model.car.brand
+        type: group
+        conditions: brand_id in (:filtered)
+        modelClass: Car\Car\Models\Brand
+        nameFrom: name
+    
+    status:
+        label: car.car::lang.model.rent.status
+        type: dropdown
+        conditions: status = :filtered
+        options:
+            pending: car.car::lang.model.rent.pending
+            active: car.car::lang.model.rent.active
+            completed: car.car::lang.model.rent.completed
+            cancelled: car.car::lang.model.rent.cancelled

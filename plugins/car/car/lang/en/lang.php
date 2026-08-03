@@ -41,6 +41,34 @@ return [
         'witnesses'=>'witnesses',
         'images'=>'images',
         'log_changes' => 'Log Changes',
+        'reports' => 'Reports',
+
+
+        ///
+
+     'reports' => 'التقارير',
+        'filters' => 'فلاتر البحث',
+        'apply_filters' => 'تطبيق',
+        'reset' => 'إعادة ضبط',
+        'export_csv' => 'تصدير CSV',
+        'total_cars' => 'إجمالي السيارات',
+        'total_customers' => 'إجمالي العملاء',
+        'total_rents' => 'إجمالي الإيجارات',
+        'active_rents' => 'إيجارات نشطة',
+        'completed_rents' => 'إيجارات منتهية',
+        'total_financial' => 'إجمالي المبالغ',
+        'total_watch_price' => 'سعر المراقبة الكلي',
+        'total_damage_paid' => 'تعويض الأضرار الكلي',
+        'fuel_distribution' => 'توزيع الوقود',
+        'type_distribution' => 'توزيع الأنواع',
+        'top_brands' => 'العلامات التجارية الأكثر',
+        'monthly_rents' => 'الإيجارات الشهرية',
+        'rent_status' => 'حالة الإيجارات',
+        'top_cars' => 'السيارات الأكثر إيجاراً',
+        'top_customers' => 'العملاء الأكثر إيجاراً',
+        'recent_rents' => 'أحدث الإيجارات',
+        'report_data' => 'بيانات التقرير',
+        ///
     ],
     'model' => [
         'country' => [

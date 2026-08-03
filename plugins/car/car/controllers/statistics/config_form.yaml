@@ -1,0 +1,13 @@
+# /plugins/car/car/controllers/reports/config_form.yaml
+name: "car.car::lang.plugin.reports"
+form: ~/plugins/car/car/models/car/fields.yaml
+modelClass: Car\Car\Models\Car
+defaultRedirect: car/car/reports
+create:
+    title: "car.car::lang.plugin.create_report"
+    redirect: "car/car/reports/update/:id"
+    redirectClose: "car/car/reports"
+update:
+    title: "car.car::lang.plugin.edit_report"
+    redirect: "car/car/reports"
+    redirectClose: "car/car/reports"
