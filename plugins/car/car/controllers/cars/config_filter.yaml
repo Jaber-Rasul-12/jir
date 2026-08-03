@@ -1,0 +1,31 @@
+scopes:
+
+    model:
+        label: model
+        type: group
+        conditions: model_id in (:filtered)
+        modelClass: Car\Car\Models\Modelnew
+    
+    brand:
+        label: brand
+        type: group
+        conditions: brand_id in (:filtered)
+        modelClass: Car\Car\Models\Brand
+    country:
+        label: country
+        type: group
+        conditions: country_id in (:filtered)
+        modelClass: Car\Car\Models\Country
+    country_new:
+        label: country_new
+        type: group
+        conditions: country_new_id in (:filtered)
+        modelClass: Car\Car\Models\Country
+
+
+    
+
+
+
+
+
