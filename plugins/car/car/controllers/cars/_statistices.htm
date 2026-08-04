@@ -1,9 +1,13 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<div id="print-area">
 
 <img src="<?= e(Backend\Models\BrandSetting::getFavicon()) ?>" id="img-image-background" width="100" height="100" alt="">
 
 <div class="text-center">
     
-    <button onclick="window.print()" id="button_print" style="margin-top: 10px;" class="btn-primary btn btn-default">
+    <button onclick="downloadPDF()"  id="button_print" style="margin-top: 10px;" class="btn-primary btn btn-default">
         <i class="icon-print"></i> <?= e(trans('car.car::lang.plugin.print')) ?>
     </button>
 
@@ -99,8 +103,51 @@
 <?php endif; ?>
 
 
+</div>
+
+
+
 
 <style>
+
+@media print {
+
+    body * {
+        visibility: hidden !important;
+    }
+
+    #print-area,
+    #print-area * {
+        visibility: visible !important;
+    }
+
+    #print-area {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+
+    #button_print {
+        display: none !important;
+    }
+}
+
+@media print {
+
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+
+    .control-chart,
+    .control-chart *,
+    .chart-legend,
+    .chart-legend * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+}
 
     /* أضف هذا الكود في نهاية الـ CSS الخاص بك */
 
@@ -279,3 +326,32 @@
          }
 
 </style>
+
+<script>
+async function downloadPDF() {
+
+    const { jsPDF } = window.jspdf;
+
+    const element = document.getElementById("print-area");
+
+    const canvas = await html2canvas(element,{
+        scale:3,
+        useCORS:true,
+        allowTaint:true,
+        backgroundColor:"#ffffff"
+    });
+
+    const imgData = canvas.toDataURL("image/png");
+
+    const pdf = new jsPDF("p","mm","a4");
+
+    const pageWidth = pdf.internal.pageSize.getWidth();
+
+    const pageHeight = (canvas.height * pageWidth) / canvas.width;
+
+    pdf.addImage(imgData,"PNG",0,0,pageWidth,pageHeight);
+
+    pdf.save("statistics.pdf");
+
+}
+</script>
