@@ -16,6 +16,13 @@ return [
         'print' => 'طباعة',
         'message_delete' => 'لا يمكن الحذف بسبب وجود سجلات مرتبطة بهذا القسم.',
         'published_at' => 'تاريخ النشر',
+        'daily_fund_movement' => 'حركة الصندوق اليومية',
+         'total_amount'=>'المبلغ الكلي',
+         'all_transactions'=>'جميع المعاملات',
+         'total_payments'=>'مجموع سندات الصرف',
+         'total_receipts'=>'مجموع سندات القبض',
+         'transactions'=>'المعاملات',
+         'todays_date'=>'تاريخ اليوم',
     ],
     'model' => [
         'invoice' => [

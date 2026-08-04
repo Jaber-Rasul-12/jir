@@ -16,6 +16,13 @@ return [
         'print' => 'Print',
          'message_delete' => 'Deletion is not possible due to the presence of records associated with the section.',
          'published_at' => 'Published At',
+         'daily_fund_movement' => 'Daily Fund Movement',
+         'total_amount'=>'Total amount',
+         'all_transactions'=>'All transactions',
+         'total_payments'=>'Total payments',
+         'total_receipts'=>'Total receipts',
+         'transactions'=>'Transactions',
+         'todays_date'=>'Today S date',
     ],
     'model' => [
         'invoice' => [

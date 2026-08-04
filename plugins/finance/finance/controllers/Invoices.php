@@ -40,4 +40,16 @@ class Invoices extends Controller
             }
         }
     }
+
+public function onDailyFundMovement()
+{
+    $invoices = \Finance\Finance\Models\Invoice::all();
+    
+    return [
+        '#Lists' => $this->makePartial('daily_fund_movement', [
+            'invoices' => $invoices
+        ]),
+        '#Filter-listFilter' => ' ',
+    ];
+}
 }

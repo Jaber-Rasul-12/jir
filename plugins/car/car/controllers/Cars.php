@@ -56,8 +56,6 @@ class Cars extends Controller
 
 
     public function onGeneralStatistics(){
-        Flash::success('asdf');
-
             return [
         '#Lists' => $this->makePartial('statistices' , [ 'models' => Modelnew::withCount('cars')->get() ,'brands' => Brand::withCount('cars')->get() ,  'countries_old' => Country::withCount('cars')->get() , 'countries_new' => Country::withCount('cars_new')->get() ,]),
         '#Filter-listFilter'=>' ',
