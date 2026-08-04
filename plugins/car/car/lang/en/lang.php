@@ -45,6 +45,9 @@ return [
         'published_at' => 'Published at',
 
 
+
+
+        'statistics_general' => 'General Statistics',
         ///
 
      'reports' => 'التقارير',

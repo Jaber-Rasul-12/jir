@@ -48,8 +48,8 @@ class Country extends Model
      * @var array
      */
     public $hasMany = [
-        'cars' => [\Car\Car\Models\Car::class, 'key' => 'country_id'],
-        'cars_new' => [\Car\Car\Models\Car::class, 'key' => 'country_new_id'],
+        'cars' => [\Car\Car\Models\Car::class, 'key' => 'country_id' , 'count'=>true],
+        'cars_new' => [\Car\Car\Models\Car::class, 'key' => 'country_new_id', 'count'=>true],
 
     ];
 

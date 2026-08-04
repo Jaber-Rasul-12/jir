@@ -51,7 +51,7 @@ class Modelnew extends Model
     ];
 
     public $hasMany = [
-        'cars' => [\Car\Car\Models\Car::class, 'key' => 'model_id'],
+        'cars' => [\Car\Car\Models\Car::class, 'key' => 'model_id' , 'count'=>true],
     ];
 
 

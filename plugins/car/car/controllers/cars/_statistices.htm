@@ -1,0 +1,13 @@
+<?php use Car\Car\Models\Car; ?>
+<div
+    class="control-chart wrap-legend"
+    data-control="chart-bar"
+    data-height="100"
+    data-full-width="1">
+    <ul>
+        <?php foreach ($brands as $brand): ?>
+            <li><?= e($brand->name) ?> <span><?= e($brand->cars_count) ?></span></li>
+        <?php endforeach ?>
+
+    </ul>
+</div>

@@ -42,9 +42,9 @@ class Customer extends Model
 
 
     public $hasMany = [
-        'owner_rents' => ['Car\Car\Models\Rent', 'key' => 'customer_owner_id'],
-        'tenant_rents' => ['Car\Car\Models\Rent', 'key' => 'customer_tenant_id'],
-        'bail_rents' => ['Car\Car\Models\Rent', 'key' => 'customer_bail_id'],
+        'owner_rents' => ['Car\Car\Models\Rent', 'key' => 'customer_owner_id' , 'count'=>true],
+        'tenant_rents' => ['Car\Car\Models\Rent', 'key' => 'customer_tenant_id', 'count'=>true],
+        'bail_rents' => ['Car\Car\Models\Rent', 'key' => 'customer_bail_id', 'count'=>true],
     ];
 
     public $attachMany = [

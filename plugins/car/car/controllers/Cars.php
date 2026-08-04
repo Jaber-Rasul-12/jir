@@ -2,6 +2,8 @@
 
 use Backend\Classes\Controller;
 use BackendMenu;
+use Car\Car\Models\Brand;
+use Flash;
 
 class Cars extends Controller
 {
@@ -48,5 +50,14 @@ class Cars extends Controller
         $this->addJs('/plugins/car/car/assets/filesignatore/jquery.signaturepad.js', 'car.car');
         $this->addJs('/plugins/car/car/assets/filesignatore/json2.min.js', 'car.car');
         return $this->asExtension('FormController')->preview($id, $context);
+    }
+
+
+    public function onGeneralStatistics(){
+        Flash::success('asdf');
+
+            return [
+        '#Lists' => $this->makePartial('statistices' , ['brands' => Brand::withCount('cars')->get() , 'countries' => \Car\Car\Models\Country::all() , 'models' => \Car\Car\Models\Modelnew::all()]),
+    ];
     }
 }

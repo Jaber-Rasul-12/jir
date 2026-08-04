@@ -47,8 +47,8 @@ class Brand extends Model
      * @var array
      */
     public $hasMany = [
-        'models' => [\Car\Car\Models\Modelnew::class, 'key' => 'brand_id'],
-        'cars' => [\Car\Car\Models\Car::class, 'key' => 'brand_id'],
+        'models' => [\Car\Car\Models\Modelnew::class, 'key' => 'brand_id' , 'count'=>true],
+        'cars' => [\Car\Car\Models\Car::class, 'key' => 'brand_id' , 'count'=>true],
     ];
 
     
