@@ -52,4 +52,29 @@ class Invoice extends Model
     }
   }
 
+
+  public function getTypeOptions()
+  {
+
+  return ['payment'=>trans('finance.finance::lang.model.invoice.payment') , 'receipt' => trans('finance.finance::lang.model.invoice.receipt')];
+    
+  }
+  public function getCurrencyOptions()
+  {
+      return ['dollar'=>trans('finance.finance::lang.model.invoice.dollar') , 'syrian' => trans('finance.finance::lang.model.invoice.syrian')];
+    
+  }
+
+   public function getTypeListsAttribute()
+  {
+    return trans('finance.finance::lang.model.invoice.' . $this->attributes['type']);
+  }
+
+   public function getCurrencyListsAttribute()
+  {
+    return trans('finance.finance::lang.model.invoice.' . $this->attributes['currency']);
+  }
+  
+
+
 }

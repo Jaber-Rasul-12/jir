@@ -5,6 +5,7 @@ columns:
     name:
         label: 'finance.finance::lang.model.center.name'
         type: text
+        searchable: true
     created_at:
         label: 'finance.finance::lang.model.center.created_at'
         type: datetime

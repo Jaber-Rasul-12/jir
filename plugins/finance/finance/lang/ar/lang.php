@@ -15,6 +15,7 @@ return [
         'create_and_print' => 'إنشاء و طباعة',
         'print' => 'طباعة',
         'message_delete' => 'لا يمكن الحذف بسبب وجود سجلات مرتبطة بهذا القسم.',
+        'published_at' => 'تاريخ النشر',
     ],
     'model' => [
         'invoice' => [

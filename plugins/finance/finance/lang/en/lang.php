@@ -15,6 +15,7 @@ return [
         'create_and_print' => 'Create and Print',
         'print' => 'Print',
          'message_delete' => 'Deletion is not possible due to the presence of records associated with the section.',
+         'published_at' => 'Published At',
     ],
     'model' => [
         'invoice' => [

@@ -20,6 +20,7 @@ class Invoices extends Controller
     {
         parent::__construct();
         BackendMenu::setContext('Finance.Finance', 'finance_menu', 'invoices');
+        $this->addCss('/plugins/finance/finance/assets/css/style_button.css', 'finance.finance');
     }
 
            public function formGetRedirectUrl($context = null, $model = null)

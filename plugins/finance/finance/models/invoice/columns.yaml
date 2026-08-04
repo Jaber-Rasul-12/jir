@@ -2,6 +2,13 @@ columns:
     id:
         label: 'finance.finance::lang.model.invoice.id'
         type: number
+    print:
+        label: 'finance.finance::lang.plugin.print'
+        type: partial
+        path: button_print
+        clickable: false
+        sortable: false
+        searchable: false
     model_type:
         label: 'finance.finance::lang.model.invoice.model_type'
         relation: model_type
@@ -10,27 +17,30 @@ columns:
         label: 'finance.finance::lang.model.invoice.center'
         relation: center
         select: name
-    type:
+    type_lists:
         label: 'finance.finance::lang.model.invoice.type'
         type: text
+    
     payment_from:
         label: 'finance.finance::lang.model.invoice.payment_from'
         type: text
     payment_to:
         label: 'finance.finance::lang.model.invoice.payment_to'
         type: text
-    currency:
+    currency_lists:
         label: 'finance.finance::lang.model.invoice.currency'
         type: text
     amount:
         label: 'finance.finance::lang.model.invoice.amount'
         type: text
+        searchable: true
     disbursement_statement:
         label: 'finance.finance::lang.model.invoice.disbursement_statement'
         type: text
     uuid:
         label: 'finance.finance::lang.model.invoice.uuid'
         type: text
+        searchable: true
     created_at:
         label: 'finance.finance::lang.model.invoice.created_at'
         type: datetime
