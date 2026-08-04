@@ -40,6 +40,8 @@ return [
         'witnesses' => 'الشهود',
         'images' => 'الصور',
         'log_changes' => 'سجل التغييرات',
+        'published_at' => 'نطاق الانشاء',
+
     ],
     'model' => [
         'country' => [

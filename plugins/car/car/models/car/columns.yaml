@@ -12,20 +12,25 @@ columns:
     ownership:
         label: 'car.car::lang.model.car.ownership'
         type: text
+        searchable: true
     brand:
         label: 'car.car::lang.model.car.brand'
         relation: brand
         select: name
+        searchable: true
     model:
         label: 'car.car::lang.model.car.model'
         relation: model
         select: name
+        searchable: true
     type:
         label: 'car.car::lang.model.car.type'
         type: text
+
     chassis_number:
         label: 'car.car::lang.model.car.chassis_number'
         type: text
+        searchable: true
     year_of_manufacturing_date:
         label: 'car.car::lang.model.car.year_of_manufacturing_date'
         type: text

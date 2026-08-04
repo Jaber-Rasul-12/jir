@@ -1,0 +1,23 @@
+scopes:
+
+    created_at:
+        label: car.car::lang.model.rent.created_at
+        type: date
+        conditions: created_at >= ':filtered'
+    published_at:
+        label: car.car::lang.plugin.published_at
+        type: daterange
+        conditions: created_at >= ':after' AND created_at <= ':before'
+    brand:
+        label: car.car::lang.model.car.brand
+        type: group
+        conditions: brand_id in (:filtered)
+        modelClass: Car\Car\Models\Brand
+
+
+
+
+
+
+
+

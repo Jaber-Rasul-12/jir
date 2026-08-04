@@ -42,6 +42,7 @@ return [
         'images'=>'images',
         'log_changes' => 'Log Changes',
         'reports' => 'Reports',
+        'published_at' => 'Published at',
 
 
         ///

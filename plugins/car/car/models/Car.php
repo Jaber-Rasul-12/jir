@@ -74,6 +74,21 @@ protected $nullable = ['type', 'license_plate_number' , 'year_of_manufacturing_d
     ];
 
 
+    public function getBrandOptions()
+{
+    return Brand::lists('name', 'id');
+}
+
+public function getModelOptions($scopes = null)
+{
+    if (!empty($scopes['brand']->value)) {
+        return Modelnew::whereIn('brand_id', array_keys($scopes['brand']->value))->lists('name', 'id');
+    } else {
+        return Modelnew::lists('name', 'id');
+    }
+}
+
+
  public function getFuelListsAttribute()
   {
     return trans('car.car::lang.model.car.' . $this->attributes['fuel_type']);

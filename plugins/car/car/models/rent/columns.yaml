@@ -13,15 +13,18 @@ columns:
         label: 'car.car::lang.model.rent.car'
         relation: car
         select: chassis_number
+        searchable: true
 
     customer_owner:
         label: 'car.car::lang.model.rent.customer_owner'
         relation: customer_owner
         select: full_name
+        searchable: true
     customer_tenant:
         label: 'car.car::lang.model.rent.customer_tenant'
         relation: customer_tenant
         select: full_name
+        searchable: true
     start_date:
         label: 'car.car::lang.model.rent.start_date'
         type: text
@@ -50,9 +53,11 @@ columns:
     name_first_witness:
         label: 'car.car::lang.model.rent.name_first_witness'
         type: text
+        searchable: true
     name_second_witness:
         label: 'car.car::lang.model.rent.name_second_witness'
         type: text
+        searchable: true
     created_at:
         label: 'car.car::lang.model.rent.created_at'
         type: datetime

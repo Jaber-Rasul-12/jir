@@ -5,18 +5,22 @@ columns:
     full_name:
         label: 'car.car::lang.model.customer.full_name'
         type: text
+        searchable: true
     id_number:
         label: 'car.car::lang.model.customer.id_number'
         type: text
+        searchable: true
     address:
         label: 'car.car::lang.model.customer.address'
         type: text
     phone:
         label: 'car.car::lang.model.customer.phone'
         type: text
+        searchable: true
     driving_license:
         label: 'car.car::lang.model.customer.driving_license'
         type: text
+        searchable: true
     type_of_drivers_license_lists:
         label: 'car.car::lang.model.customer.type_of_drivers_license'
         type: text

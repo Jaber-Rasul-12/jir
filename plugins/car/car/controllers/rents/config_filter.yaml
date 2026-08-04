@@ -1,0 +1,42 @@
+scopes:
+
+    created_at:
+        label: car.car::lang.model.rent.created_at
+        type: date
+        conditions: created_at >= ':filtered'
+    published_at:
+        label: car.car::lang.plugin.published_at
+        type: daterange
+        conditions: created_at >= ':after' AND created_at <= ':before'
+    car:
+        label: car.car::lang.model.rent.car
+        type: group
+        conditions: car_id in (:filtered)
+        modelClass: Car\Car\Models\Car
+        nameFrom: chassis_number
+    
+    customer_owner:
+        label: car.car::lang.model.rent.customer_owner
+        type: group
+        conditions: customer_owner_id in (:filtered)
+        modelClass: Car\Car\Models\Customer
+        nameFrom: full_name
+    customer_tenant:
+        label: car.car::lang.model.rent.customer_tenant
+        type: group
+        conditions: customer_tenant_id in (:filtered)
+        modelClass: Car\Car\Models\Customer
+        nameFrom: full_name
+    customer_bail:
+        label: car.car::lang.model.rent.customer_bail
+        type: group
+        conditions: customer_bail_id in (:filtered)
+        modelClass: Car\Car\Models\Customer
+        nameFrom: full_name
+
+
+
+
+
+
+

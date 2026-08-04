@@ -18,7 +18,7 @@ class Statistics extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Car.Car', 'main-menu-item', 'side-menu-statistics');
+        BackendMenu::setContext('Car.Car', 'cars', 'reports');
     }
 
 

@@ -5,6 +5,7 @@ columns:
     name:
         label: 'car.car::lang.model.brand.name'
         type: text
+        searchable: true
     created_at:
         label: 'car.car::lang.model.brand.created_at'
         type: datetime

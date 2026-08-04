@@ -6,9 +6,11 @@ columns:
         label: 'car.car::lang.model.model.brand'
         relation: brand
         select: name
+        searchable: true
     name:
         label: 'car.car::lang.model.model.name'
         type: text
+        searchable: true
     created_at:
         label: 'car.car::lang.model.model.created_at'
         type: datetime
