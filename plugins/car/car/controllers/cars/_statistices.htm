@@ -97,7 +97,61 @@
     </div>
 </div>
 <?php endif; ?>
+
+
+
 <style>
+
+    /* أضف هذا الكود في نهاية الـ CSS الخاص بك */
+
+/* للعرض العادي */
+.chart-legend .indicator i {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+/* إجبار المتصفح على طباعة الألوان */
+@media print {
+    /* إظهار جميع الألوان والخلفيات */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+    }
+    
+    /* إظهار المؤشرات في الطباعة */
+    .chart-legend .indicator i,
+    .indicator i,
+    .chart-legend i,
+    .indicator i[style*="background-color"],
+    i[style*="background-color"] {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+        display: inline-block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        background-color: rgb(149, 183, 83) !important;
+        width: 12px !important;
+        height: 12px !important;
+        border-radius: 3px !important;
+        margin-right: 5px !important;
+        vertical-align: middle !important;
+    }
+    
+    /* إظهار جميع عناصر الجدول */
+    .chart-legend table td,
+    .chart-legend table tr,
+    .chart-legend table {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+    }
+}
 .chart-container {
     margin: 20px 0;
     padding: 15px;
@@ -121,7 +175,11 @@
         
     }
 
+    
+
     @media print {
+
+    
         .page-break-before {
             page-break-before: always;
             break-before: page;
@@ -147,6 +205,8 @@
             display: none;
             visibility: hidden;
         }
+
+        
 
         html,
         body {
