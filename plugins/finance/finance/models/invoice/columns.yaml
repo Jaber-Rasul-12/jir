@@ -20,6 +20,7 @@ columns:
     type_lists:
         label: 'finance.finance::lang.model.invoice.type'
         type: text
+        sortable: false
     
     payment_from:
         label: 'finance.finance::lang.model.invoice.payment_from'
@@ -30,6 +31,7 @@ columns:
     currency_lists:
         label: 'finance.finance::lang.model.invoice.currency'
         type: text
+        sortable: false
     amount:
         label: 'finance.finance::lang.model.invoice.amount'
         type: text
