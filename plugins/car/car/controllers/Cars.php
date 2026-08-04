@@ -3,6 +3,8 @@
 use Backend\Classes\Controller;
 use BackendMenu;
 use Car\Car\Models\Brand;
+use Car\Car\Models\Country;
+use Car\Car\Models\Modelnew;
 use Flash;
 
 class Cars extends Controller
@@ -57,7 +59,8 @@ class Cars extends Controller
         Flash::success('asdf');
 
             return [
-        '#Lists' => $this->makePartial('statistices' , ['brands' => Brand::withCount('cars')->get() , 'countries' => \Car\Car\Models\Country::all() , 'models' => \Car\Car\Models\Modelnew::all()]),
-    ];
+        '#Lists' => $this->makePartial('statistices' , [ 'models' => Modelnew::withCount('cars')->get() ,'brands' => Brand::withCount('cars')->get() ,  'countries_old' => Country::withCount('cars')->get() , 'countries_new' => Country::withCount('cars_new')->get() ,]),
+        '#Filter-listFilter'=>' ',
+        ];
     }
 }
