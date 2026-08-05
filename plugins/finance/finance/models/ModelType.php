@@ -35,6 +35,7 @@ class ModelType extends Model
      */
     public $rules = [
         'name' => 'required|string|max:255|unique:finance_finance_types,name',
+        'type'                  => 'required|string|max:255',
     ];
 
       /**
@@ -49,6 +50,11 @@ class ModelType extends Model
     public $hasMany = [
         'invoice' => [Invoice::class, 'key' => 'type_id'],
     ];
+
+       public function getTypeListsAttribute()
+  {
+    return trans('finance.finance::lang.model.invoice.' . $this->attributes['type']);
+  }
 
 
                  /**

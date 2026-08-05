@@ -1,8 +1,4 @@
 fields:
-    model_type:
-        label: 'finance.finance::lang.model.invoice.model_type'
-        span: auto
-        type: relationmanager
     center:
         label: 'finance.finance::lang.model.invoice.center'
         span: auto
@@ -15,7 +11,11 @@ fields:
         options:
             payment: 'finance.finance::lang.model.invoice.payment'
             receipt: 'finance.finance::lang.model.invoice.receipt'
-
+    type_id:
+        label: 'finance.finance::lang.model.invoice.model_type'
+        span: auto
+        type: dropdown
+        dependsOn: type
     payment_from:
         label: 'finance.finance::lang.model.invoice.payment_from'
         span: auto

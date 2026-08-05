@@ -65,6 +65,16 @@ class Invoice extends Model
     
   }
 
+
+    public function getTypeIdOptions()
+  {
+    if (!empty($this->type) && isset($this->type)) {
+      return ModelType::where('type', $this->type)->get()->lists('name', 'id');
+    } else {
+      return [];
+    }
+  }
+
    public function getTypeListsAttribute()
   {
     return trans('finance.finance::lang.model.invoice.' . $this->attributes['type']);

@@ -12,6 +12,7 @@ class BuilderTableCreateFinanceFinanceTypes extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id')->unsigned();
             $table->string('name');
+            $table->string('type');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
         });
