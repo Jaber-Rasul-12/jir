@@ -3,6 +3,7 @@
 use Backend\Classes\Controller;
 use BackendMenu;
 use Car\Car\Models\Brand;
+use Car\Car\Models\Car;
 use Car\Car\Models\Country;
 use Car\Car\Models\Modelnew;
 use Flash;
@@ -61,4 +62,73 @@ class Cars extends Controller
         '#Filter-listFilter'=>' ',
         ];
     }
+
+public function reports(){
+    $this->pageTitle = trans('car.car::lang.plugin.print_tables');
+    $this->vars['brandOptions'] = Brand::get();
+    $this->vars['modelOptions'] = Modelnew::get();
+    $this->vars['countryOptions'] = Country::get();
+    $this->vars['cars'] = Car::with(['brand', 'model', 'country', 'country_new'])->get();
+}
+
+public function onFilterReports()
+{
+    $brandOptions = post('brandOptions');
+    $modelOptions = post('modelOptions');
+    $countryOptions = post('countryOptions');
+    
+    $query = Car::with(['brand', 'model', 'country', 'country_new']);
+    
+    
+    // Apply filters only if not 'all'
+    if ($brandOptions !== 'all' && !empty($brandOptions)) {
+        $query->where('brand_id', $brandOptions);
+    }
+    if ($modelOptions !== 'all' && !empty($modelOptions)) {
+        $query->where('model_id', $modelOptions);
+    }
+    
+    if ($countryOptions !== 'all' && !empty($countryOptions)) {
+        $query->where('country_id', $countryOptions);
+    }
+    
+    $cars = $query->get();
+
+
+    $this->vars['cars'] = $cars;
+ 
+
+
+        return [
+        '#body_table' => $this->makePartial('table', ['cars' => $cars])
+    ];
+ 
+}
+
+public function onPrintReports()
+{
+    $brandOptions = post('brandOptions');
+    $modelOptions = post('modelOptions');
+    $countryOptions = post('countryOptions');
+    
+    $query = Car::with(['brand', 'model', 'country', 'country_new']);
+    
+    if ($brandOptions !== 'all' && !empty($brandOptions)) {
+        $query->where('brand_id', $brandOptions);
+    }
+    
+    if ($modelOptions !== 'all' && !empty($modelOptions)) {
+        $query->where('model_id', $modelOptions);
+    }
+    
+    if ($countryOptions !== 'all' && !empty($countryOptions)) {
+        $query->where('country_id', $countryOptions);
+    }
+    
+    $cars = $query->get();
+    
+    return $this->makePartial('print-reports', ['cars' => $cars]);
+}
+
+
 }

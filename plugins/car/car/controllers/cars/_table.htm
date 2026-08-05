@@ -1,0 +1,176 @@
+<table class="table table-bordered table-hover table-striped" style="width: 100%; border-collapse: collapse;">
+    <thead style="background: #2c3e50; color: white;">
+        <tr>
+            <th style="padding: 12px; text-align: center;">#</th>
+            <th style="padding: 12px; text-align: center;">الماركة</th>
+            <th style="padding: 12px; text-align: center;">الموديل</th>
+            <th style="padding: 12px; text-align: center;">النوع</th>
+            <th style="padding: 12px; text-align: center;">رقم الشاصي</th>
+            <th style="padding: 12px; text-align: center;">سنة الصنع</th>
+            <th style="padding: 12px; text-align: center;">نوع الوقود</th>
+            <th style="padding: 12px; text-align: center;">البلد</th>
+            <th style="padding: 12px; text-align: center;">رقم اللوحة</th>
+            <th style="padding: 12px; text-align: center;">الملكية</th>
+            <th style="padding: 12px; text-align: center;">تاريخ الإضافة</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php if(count($cars) > 0): ?>
+            <?php foreach($cars as $index => $car): ?>
+            <tr style="<?= ($index % 2 == 0) ? 'background: #f9f9f9;' : 'background: white;' ?>">
+                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= $index + 1 ?></td>
+                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">
+                    <span class="badge badge-info"><?= $car->brand->name ?? '-' ?></span>
+                </td>
+                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">
+                    <span class="badge badge-primary"><?= $car->model->name ?? '-' ?></span>
+                </td>
+                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= $car->type ?? '-' ?></td>
+                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd; direction: ltr;">
+                    <code><?= $car->chassis_number ?? '-' ?></code>
+                </td>
+                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;"><?= $car->year_of_manufacturing_date ?? '-' ?></td>
+                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">
+                    <span class="badge badge-warning"><?= $car->fuel_lists ?? '-' ?></span>
+                </td>
+                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">
+                    <span class="badge badge-success"><?= $car->country->name ?? '-' ?></span>
+                </td>
+                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">
+                    <strong><?= $car->license_plate_number ?? '-' ?></strong>
+                </td>
+                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd;">
+                    <span class="badge <?= ($car->ownership == 'owned') ? 'badge-success' : 'badge-secondary' ?>">
+                        <?= $car->ownership ?? '-' ?>
+                    </span>
+                </td>
+                <td style="padding: 10px; text-align: center; border-bottom: 1px solid #ddd; font-size: 12px;">
+                    <?= $car->created_at ? $car->created_at->format('Y-m-d') : '-' ?>
+                </td>
+              
+            </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="12" style="padding: 40px; text-align: center; color: #999;">
+                    <i class="fa fa-car" style="font-size: 48px; display: block; margin-bottom: 10px;"></i>
+                    لا توجد سيارات مطابقة للفلترة
+                </td>
+            </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
+
+<?php if(count($cars) > 0): ?>
+<div style="padding: 15px; background: #f8f9fa; border-radius: 4px; margin-top: 10px; text-align: left;">
+    <strong>إجمالي السيارات: </strong> 
+    <span class="badge badge-primary" style="font-size: 16px; padding: 8px 15px;"><?= count($cars) ?></span>
+</div>
+<?php endif; ?>
+
+<style>
+
+
+    .control-toolbar .toolbar-item .btn,
+    .control-toolbar .toolbar-item .btn-group,
+    .control-toolbar .toolbar-item .dropdown {
+        display: none !important;
+        
+    }
+
+    @media print {
+        .page-break-before {
+            page-break-before: always;
+            break-before: page;
+            float: none !important;
+            margin-top: 40px;
+        }
+
+        #layout-mainmenu,
+        #layout-sidenav,
+        #broadcamp,
+        #reutrnpreview,
+        .sigNav,
+        #name_signature,
+        #layout-sidenav-2,
+        .sidemenu,
+        .control-breadcrumb,
+        #print_button,
+        .wn-icon-chevron-left,
+        a.btn,
+        .layout-topmenu,
+        footer,
+        .hint-field {
+            display: none;
+            visibility: hidden;
+        }
+
+        html,
+        body {
+            border: 1px solid white;
+            height: 99%;
+            page-break-after: avoid;
+            page-break-before: avoid;
+        }
+
+        #img-image-background {
+            display: inline !important;
+            position: absolute;
+            /* transform: translate(-50%, -50%); */
+            top: 50%;
+            left: 50%;
+            width: 70%;
+            opacity: 1;
+        }
+
+        @page {
+            margin: none !important;
+        }
+
+        body {
+            margin: 0px !important;
+            padding: 0px !important;
+            border: none;
+            zoom: 75%;
+        }
+
+        .switch-field:has(input[readonly]) {
+            opacity: 1 !important;
+        }
+
+        .form-group {
+
+            margin-right: 0px !important;
+            page-break-inside: avoid !important;
+            padding: 0 !important;
+        }
+
+        .form-group,
+        .form-group.layout-item {
+            padding-bottom: 0 !important;
+        }
+        #Filter-listFilter{
+            display: none!important;
+        }
+
+        .section-field .field-section {
+            border-bottom: 2px solid #000;
+            font-weight: bold;
+            font-size: 1.2em !important;
+        }
+            }
+
+    #img-image-background {
+        display: none;
+
+           }
+
+              #print,
+    #reutrnpreview {
+        z-index: 0;
+        position: relative;
+
+         }
+
+             
+</style>

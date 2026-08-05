@@ -73,6 +73,18 @@ protected $nullable = ['type', 'license_plate_number' , 'year_of_manufacturing_d
         'rents' => ['Car\Car\Models\Rent', 'key' => 'car_id'],
     ];
 
+    // In your Car model
+public function getYearOptions()
+{
+    // PostgreSQL compatible
+    return self::selectRaw('EXTRACT(YEAR FROM year_of_manufacturing_date) as year')
+        ->distinct()
+        ->whereNotNull('year_of_manufacturing_date')
+        ->orderBy('year', 'desc')
+        ->pluck('year', 'year')
+        ->toArray();
+}
+
 
     public function getBrandOptions()
 {

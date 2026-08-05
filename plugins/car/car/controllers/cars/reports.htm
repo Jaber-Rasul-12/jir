@@ -1,0 +1,83 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('car/car/cars') ?>"><?= e(trans('car.car::lang.controller.cars.cars')) ?></a></li>
+        <li><?= e($this->pageTitle) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+<form id="layout">
+    <div style="display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap; padding: 20px; background: #f8f9fa; border-radius: 8px; margin-bottom: 20px;">
+        
+        <div style="min-width: 200px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 5px; color: #495057;">المدينة</label>
+            <select name="countryOptions" class="form-control custom-select" style="width: 100%;">
+                <option value="all">كل المدن</option>
+                <?php foreach($countryOptions as $country){ ?>
+                <option value="<?= $country->id ?>"><?= $country->name ?></option>
+                <?php } ?>
+            </select>
+        </div>
+
+        <div style="min-width: 200px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 5px; color: #495057;">الماركة</label>
+            <select name="brandOptions" class="form-control custom-select" style="width: 100%;">
+                <option value="all">كل الماركات</option>
+                <?php foreach($brandOptions as $brand){ ?>
+                <option value="<?= $brand->id ?>"><?= $brand->name ?></option>
+                <?php } ?>
+            </select>
+        </div>
+
+        <div style="min-width: 200px;">
+            <label style="display: block; font-weight: 600; margin-bottom: 5px; color: #495057;">الموديل</label>
+            <select name="modelOptions" class="form-control custom-select" style="width: 100%;">
+                <option value="all">كل الموديلات</option>
+                <?php foreach($modelOptions as $model){ ?>
+                <option value="<?= $model->id ?>"><?= $model->name ?></option>
+                <?php } ?>
+            </select>
+        </div>
+
+        <div style="min-width: 150px; display: flex; gap: 10px; align-items: flex-end; margin-top: 20px;">
+            <button type="submit" data-request="onFilterReports" data-stripe-load-indicator class="btn btn-primary" style="padding: 8px 30px;">
+                <i class="fa fa-filter"></i> فلترة
+            </button>
+            <button type="button" 
+onclick='window.print()' data-hotkey='ctrl+p'
+                    class="btn btn-success" 
+                    style="padding: 8px 30px;">
+                <i class="fa fa-print"></i> طباعة
+            </button>
+        </div>
+    </div>
+</form>
+
+
+<div class="table-responsive" id="body_table">
+  
+</div>
+
+<style>
+    @media print {
+        #layout, .btn, .form-control, select, label {
+            display: none !important;
+        }
+        #body_table {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        .table {
+            font-size: 12px !important;
+        }
+        .table th, .table td {
+            padding: 5px !important;
+        }
+    }
+    
+
+    
+    .badge-status {
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 12px;
+    }
+</style>

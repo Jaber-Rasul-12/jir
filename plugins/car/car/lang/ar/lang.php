@@ -42,6 +42,8 @@ return [
         'log_changes' => 'سجل التغييرات',
         'published_at' => 'نطاق الانشاء',
         'statistics_general' => ' إحصائيات عامة',
+        'print_tables' => 'طباعة الجداول',
+
 
 
     ],

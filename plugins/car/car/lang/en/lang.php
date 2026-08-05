@@ -43,6 +43,7 @@ return [
         'log_changes' => 'Log Changes',
         'reports' => 'Reports',
         'published_at' => 'Published at',
+        'print_tables' => 'Print Tables',
 
 
 
