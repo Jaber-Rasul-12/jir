@@ -90,60 +90,71 @@ class Year extends Model
         }
     }
 
-    public function afterCreate()
-    {
-       
-            $this->months()->createMany([
-                'name'=>'1',
-                'status'=> true , 
-                'user_id'=>isset(BackendAuth::getUser()->id) ? BackendAuth::getUser()->id : null ,
-                ],[
-                'name'=>'2',
-                'status'=> false , 
-                'user_id'=>isset(BackendAuth::getUser()->id) ? BackendAuth::getUser()->id : null ,
-                ],[
-                'name'=>'3',
-                'status'=> false , 
-                'user_id'=>isset(BackendAuth::getUser()->id) ? BackendAuth::getUser()->id : null ,
-                ],[
-                'name'=>'4',
-                'status'=> false , 
-                'user_id'=>isset(BackendAuth::getUser()->id) ? BackendAuth::getUser()->id : null ,
-                ],[
-                'name'=>'5',
-                'status'=> false , 
-                'user_id'=>isset(BackendAuth::getUser()->id) ? BackendAuth::getUser()->id : null ,
-                ],[
-                'name'=>'6',
-                'status'=> false , 
-                'user_id'=>isset(BackendAuth::getUser()->id) ? BackendAuth::getUser()->id : null ,
-                ],[
-                'name'=>'7',
-                'status'=> false , 
-                'user_id'=>isset(BackendAuth::getUser()->id) ? BackendAuth::getUser()->id : null ,
-                ],[
-                'name'=>'8',
-                'status'=> false , 
-                'user_id'=>isset(BackendAuth::getUser()->id) ? BackendAuth::getUser()->id : null ,
-                ],[
-                'name'=>'9',
-                'status'=> false , 
-                'user_id'=>isset(BackendAuth::getUser()->id) ? BackendAuth::getUser()->id : null ,
-                ],[
-                'name'=>'10',
-                'status'=> false , 
-                'user_id'=>isset(BackendAuth::getUser()->id) ? BackendAuth::getUser()->id : null ,
-                ],[
-                'name'=>'11',
-                'status'=> false , 
-                'user_id'=>isset(BackendAuth::getUser()->id) ? BackendAuth::getUser()->id : null ,
-                ],[
-                'name'=>'12',
-                'status'=> false , 
-                'user_id'=>isset(BackendAuth::getUser()->id) ? BackendAuth::getUser()->id : null ,
-                ],);
-        
-    }
+public function afterCreate()
+{
+    $this->months()->createMany([
+        [
+            'name' => '1',
+            'status' => true,
+            'user_id' => BackendAuth::getUser()->id ?? null,
+        ],
+        [
+            'name' => '2',
+            'status' => false,
+            'user_id' => BackendAuth::getUser()->id ?? null,
+        ],
+        [
+            'name' => '3',
+            'status' => false,
+            'user_id' => BackendAuth::getUser()->id ?? null,
+        ],
+        [
+            'name' => '4',
+            'status' => false,
+            'user_id' => BackendAuth::getUser()->id ?? null,
+        ],
+        [
+            'name' => '5',
+            'status' => false,
+            'user_id' => BackendAuth::getUser()->id ?? null,
+        ],
+        [
+            'name' => '6',
+            'status' => false,
+            'user_id' => BackendAuth::getUser()->id ?? null,
+        ],
+        [
+            'name' => '7',
+            'status' => false,
+            'user_id' => BackendAuth::getUser()->id ?? null,
+        ],
+        [
+            'name' => '8',
+            'status' => false,
+            'user_id' => BackendAuth::getUser()->id ?? null,
+        ],
+        [
+            'name' => '9',
+            'status' => false,
+            'user_id' => BackendAuth::getUser()->id ?? null,
+        ],
+        [
+            'name' => '10',
+            'status' => false,
+            'user_id' => BackendAuth::getUser()->id ?? null,
+        ],
+        [
+            'name' => '11',
+            'status' => false,
+            'user_id' => BackendAuth::getUser()->id ?? null,
+        ],
+        [
+            'name' => '12',
+            'status' => false,
+            'user_id' => BackendAuth::getUser()->id ?? null,
+        ],
+    ]);
+}
 
     protected function statusYear()
     {
