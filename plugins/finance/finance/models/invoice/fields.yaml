@@ -49,10 +49,32 @@ fields:
         label: 'finance.finance::lang.model.invoice.amount'
         span: auto
         type: number
+    amount_name:
+        label: 'finance.finance::lang.model.invoice.amount_name'
+        span: auto
+        type: text
+
+        
     disbursement_statement:
         label: 'finance.finance::lang.model.invoice.disbursement_statement'
         span: auto
         type: text
+    photos:
+        label: finance.finance::lang.model.invoice.images
+        type: fileupload
+        span: auto
+        mode: file
+        imageHeight: 260
+        imageWidth: 260
+        thumbOptions:
+            mode: crop
+            offset:
+                - 0
+                - 0
+            quality: 90
+            sharpen: 0
+            interlace: false
+            extension: auto
     uuid:
         label: 'finance.finance::lang.model.invoice.uuid'
         span: auto

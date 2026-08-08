@@ -27,6 +27,7 @@ class Invoice extends Model
       public $rules = [
         'center_id'         => 'required|exists:finance_finance_centers,id',
         'type'                  => 'required|string|max:255',
+        'amount_name'                  => 'required|string|max:255',
         'payment_from'          => 'required|string|max:255',
         'payment_to'            => 'required|string|max:255',
         'currency'              => 'required|string|max:255',
@@ -43,6 +44,11 @@ class Invoice extends Model
         'center' => ['Finance\Finance\Models\Center', 'key' => 'center_id'],    
         'month'        => ['Finance\Finance\Models\Month', 'key' => 'month_id'],
         'year'        => ['Finance\Finance\Models\Year', 'key' => 'year_id'],
+    ];
+
+
+        public $attachMany = [
+        'photos' => 'System\Models\File'
     ];
 
 

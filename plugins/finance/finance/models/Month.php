@@ -21,6 +21,8 @@ class Month extends Model
   /**
    * @var string The database table used by the model.
    */
+
+  public  $fillable = ['name', 'year_id', 'status', 'user_id'];
   public $table = 'finance_finance_months';
 
   public $rules = [
@@ -78,7 +80,7 @@ public function afterCreate()
 
   public function beforeUpdate()
   {
-    if (($this->original['year_id'] != $this->year_id) || ($this->original['name'] != $this->name)) {
+    if (($this->original['year_id'] != $this->year_id) || ($this->original['name'] != $this->name) || ($this->original['type'] != $this->type)) {
       $this->checkUniqueNameYear();
     }
     if (($this->original['status'] == false) && ($this->status == true)) {
@@ -90,7 +92,7 @@ public function afterCreate()
   protected function checkUniqueNameYear()
   {
     $exists = self::where('year_id', $this->year_id)
-      ->where('name', $this->name)
+      ->where('name', $this->name)->where('type' , $this->type)
       ->exists();
 
     if ($exists) {

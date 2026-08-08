@@ -746,12 +746,19 @@
             <div class="field-group">
                 <span class="field-label"><i class="icon-calculator"></i> <?= e(trans('finance.finance::lang.model.invoice.amount')) ?>:</span>
                 <span class="field-value amount">
-                    <?= number_format($formModel->amount, 2) ?>
+                    <?= $formModel->amount ?>
                     <?php if ($formModel->currency == 'dollar'): ?>
                         $
                     <?php else: ?>
                         ل.س
                     <?php endif; ?>
+                </span>
+            </div>
+                        <!-- Field 6: Amount -->
+            <div class="field-group">
+                <span class="field-label"><i class="icon-calculator"></i> <?= e(trans('finance.finance::lang.model.invoice.amount')) ?>:</span>
+                <span class="field-value amount">
+                    <?= $formModel->amount_name ?>
                 </span>
             </div>
             <!-- Field 8 -->
