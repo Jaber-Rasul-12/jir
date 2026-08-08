@@ -52,6 +52,10 @@ fields:
         label: 'finance.finance::lang.model.invoice.amount_name'
         span: auto
         type: text
+        dependsOn: 
+            - amount
+            - currency
+
 
         
     disbursement_statement:

@@ -1,5 +1,6 @@
 <?php namespace Finance\Finance\Models;
 
+use Finance\Finance\Classes\NumberToWords;
 use Model;
 // use Winter\Storm\Database\Builder;
 // use BackendAuth;
@@ -62,6 +63,21 @@ class Invoice extends Model
       $this->uuid = Guid::uuid4()->toString();
     }
   }
+
+        public function filterFields($fields, $context = null)
+  {         
+      if (isset($fields->amount->value) && !empty($fields->amount->value) && isset($fields->currency->value) && !empty($fields->currency->value)) {
+                $fields->amount_name->value =  NumberToWords::convert($fields->amount->value);   
+                $fields->amount_name->value = $fields->amount_name->value . ' ' .  ($fields->currency->value == 'dollar' ? 'دولار فقط لا غير' : 'ليرة سورية فقط لا غير ');     
+
+      }else{
+            $fields->amount_name->value = '';
+
+          }
+
+
+  }
+
 
 
   public function getTypeOptions()
