@@ -29,7 +29,7 @@ class Invoices extends Controller
 
            public function formGetRedirectUrl($context = null, $model = null)
     {
-                $url = post('url');
+               $url = post('url');
         if (($url == 'create') && !empty($url)) {
             return "finance/finance/invoices/create";
         }else if (($url == 'preview') && !empty($url)) {
@@ -149,8 +149,8 @@ public function onFilterReports()
     // ====== نهاية حساب الإحصائيات ======
 
     return [
-        '#body_table' => $this->makePartial('table', ['invoices' => $invoices]),
-        '#statistics-container' => $this->makePartial('statistics', ['statistics' => $statistics])
+        '#body_table' => $this->makePartial('table', ['invoices' => $invoices , 'currency' => $currency == 'dollar' ? '$' : 'ل.س']),
+        '#statistics-container' => $this->makePartial('statistics', ['statistics' => $statistics , 'currency' => $currency == 'dollar' ? '$' : 'ل.س']),
     ];
 }
 
