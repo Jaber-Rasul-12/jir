@@ -93,7 +93,7 @@ class Year extends Model
     public function afterCreate()
     {
        
-            $this->months()->addMany([
+            $this->months()->createMany([
                 'name'=>'1',
                 'status'=> true , 
                 'user_id'=>isset(BackendAuth::getUser()->id) ? BackendAuth::getUser()->id : null ,
