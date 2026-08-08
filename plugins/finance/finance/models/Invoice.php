@@ -109,11 +109,7 @@ class Invoice extends Model
 
          public function getYearIdOptions()
   {
-    if (isset($this->year_id) && !empty($this->year_id->value)) {
-      return Month::where('year_id', $this->year_id->value)->where('status' , true)->get()->lists('name', 'id');
-    } else {
-      return [];
-    }
+      return Year::where('status' , true)->get()->lists('name', 'id');
   }
 
        public function getMonthIdOptions()
