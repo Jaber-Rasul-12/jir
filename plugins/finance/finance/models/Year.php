@@ -95,7 +95,7 @@ class Year extends Model
        
             $this->months()->addMany([
                 'name'=>'1',
-                'status'=> false , 
+                'status'=> true , 
                 'user_id'=>isset(BackendAuth::getUser()->id) ? BackendAuth::getUser()->id : null ,
                 ],[
                 'name'=>'2',
