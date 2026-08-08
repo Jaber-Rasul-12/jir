@@ -92,7 +92,7 @@ class Year extends Model
 
     public function afterCreate()
     {
-        if ($this->status) {
+       
             $this->months()->create([
                 'name'=>'1',
                 'year_id'=>$this->id , 
@@ -154,7 +154,7 @@ class Year extends Model
                 'status'=> false , 
                 'user_id'=>isset(BackendAuth::getUser()->id) ? BackendAuth::getUser()->id : null ,
                 ],);
-        }
+        
     }
 
     protected function statusYear()
