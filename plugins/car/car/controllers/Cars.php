@@ -65,7 +65,7 @@ class Cars extends Controller
 
         public function onGetModels()
     {
-        $brandId = post('brand_id');
+        $brandId = post('brandOptions');
         $modelOptions = Modelnew::where('brand_id', $brandId)->get();
 
         return [
