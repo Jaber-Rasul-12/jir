@@ -93,7 +93,7 @@ class Year extends Model
     public function afterCreate()
     {
        
-            $this->months()->create([
+            $this->months()->createMany([
                 'name'=>'1',
                 'year_id'=>$this->id , 
                 'status'=> false , 
