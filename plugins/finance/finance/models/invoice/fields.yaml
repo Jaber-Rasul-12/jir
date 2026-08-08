@@ -4,18 +4,17 @@ fields:
         span: auto
         type: relation
         select: name
-    year:
+    year_id:
         label: 'finance.finance::lang.plugin.years'
         span: auto
-        type: relation 
-        select: name
+        type: dropdown 
         placeholder: finance.finance::lang.plugin.select
     month_id:
         label: 'finance.finance::lang.plugin.months'
         span: auto
         type: dropdown
         placeholder: finance.finance::lang.plugin.select
-        dependsOn: year
+        dependsOn: year_id
     type:
         label: 'finance.finance::lang.model.invoice.type'
         span: auto

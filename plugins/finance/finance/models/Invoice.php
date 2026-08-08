@@ -96,10 +96,21 @@ class Invoice extends Model
     return trans('finance.finance::lang.model.invoice.' . $this->attributes['currency']);
   }
 
+  
+
     public function getMonthOptions($scopes = null)
   {
     if (!empty($scopes['year']->value)) {
       return Month::whereIn('year_id', array_keys($scopes['year']->value))->get()->lists('name', 'id');
+    } else {
+      return [];
+    }
+  }
+
+         public function getYearIdOptions()
+  {
+    if (isset($this->year_id) && !empty($this->year_id->value)) {
+      return Month::where('year_id', $this->year_id->value)->where('status' , true)->get()->lists('name', 'id');
     } else {
       return [];
     }
