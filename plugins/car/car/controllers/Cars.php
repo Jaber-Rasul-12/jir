@@ -76,7 +76,6 @@ class Cars extends Controller
 public function reports(){
     $this->pageTitle = trans('car.car::lang.plugin.print_tables');
     $this->vars['brandOptions'] = Brand::get();
-    $this->vars['modelOptions'] = Modelnew::get();
     $this->vars['countryOptions'] = Country::get();
     $this->vars['cars'] = Car::with(['brand', 'model', 'country', 'country_new'])->get();
 }
