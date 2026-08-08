@@ -19,21 +19,16 @@
 
         <div style="min-width: 200px;">
             <label style="display: block; font-weight: 600; margin-bottom: 5px; color: #495057;">الماركة</label>
-            <select name="brandOptions" class="form-control custom-select" style="width: 100%;">
-                <option value="all">كل الماركات</option>
-                <?php foreach($brandOptions as $brand){ ?>
-                <option value="<?= $brand->id ?>"><?= $brand->name ?></option>
-                <?php } ?>
+            <select name="brandOptions" data-request="onGetModels"
+                    data-ajax-delay="300" class="form-control custom-select" style="width: 100%;">
+
             </select>
         </div>
 
         <div style="min-width: 200px;">
             <label style="display: block; font-weight: 600; margin-bottom: 5px; color: #495057;">الموديل</label>
-            <select name="modelOptions" class="form-control custom-select" style="width: 100%;">
-                <option value="all">كل الموديلات</option>
-                <?php foreach($modelOptions as $model){ ?>
-                <option value="<?= $model->id ?>"><?= $model->name ?></option>
-                <?php } ?>
+            <select name="modelOptions" id="modelOptions" class="form-control custom-select" style="width: 100%;">
+
             </select>
         </div>
 

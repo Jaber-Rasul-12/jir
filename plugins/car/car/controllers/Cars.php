@@ -63,6 +63,16 @@ class Cars extends Controller
         ];
     }
 
+        public function onGetMonths()
+    {
+        $brandId = post('brand_id');
+        $modelOptions = Modelnew::where('brand_id', $brandId)->get();
+
+        return [
+            '#modelOptions' => $this->makePartial('modeloptions', ['modelOptions' => $modelOptions]),
+        ];
+    }
+
 public function reports(){
     $this->pageTitle = trans('car.car::lang.plugin.print_tables');
     $this->vars['brandOptions'] = Brand::get();
