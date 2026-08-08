@@ -21,16 +21,21 @@
             <label style="display: block; font-weight: 600; margin-bottom: 5px; color: #495057;">الماركة</label>
             <select name="brandOptions" data-request="onGetModels"
                     data-ajax-delay="300" class="form-control custom-select" style="width: 100%;">
-
+                <option value="all">كل الماركات</option>
+                <?php foreach($brandOptions as $brand){ ?>
+                <option value="<?= $brand->id ?>"><?= $brand->name ?></option>
+                <?php } ?>
             </select>
         </div>
 
         <div style="min-width: 200px;">
             <label style="display: block; font-weight: 600; margin-bottom: 5px; color: #495057;">الموديل</label>
             <select name="modelOptions" id="modelOptions" class="form-control custom-select" style="width: 100%;">
-
+ 
             </select>
         </div>
+
+      
 
         <div style="min-width: 150px; display: flex; gap: 10px; align-items: flex-end; margin-top: 20px;">
             <button type="submit" data-request="onFilterReports" data-stripe-load-indicator class="btn btn-primary" style="padding: 8px 30px;">
