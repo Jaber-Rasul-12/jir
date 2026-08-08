@@ -63,7 +63,7 @@ class Cars extends Controller
         ];
     }
 
-        public function onGetMonths()
+        public function onGetModels()
     {
         $brandId = post('brand_id');
         $modelOptions = Modelnew::where('brand_id', $brandId)->get();
