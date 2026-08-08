@@ -72,15 +72,12 @@ class Month extends Model
     }
   }
 
-public function afterCreate()
-{
-   
-}
+
 
 
   public function beforeUpdate()
   {
-    if (($this->original['year_id'] != $this->year_id) || ($this->original['name'] != $this->name) || ($this->original['type'] != $this->type)) {
+    if (($this->original['year_id'] != $this->year_id) || ($this->original['name'] != $this->name)) {
       $this->checkUniqueNameYear();
     }
     if (($this->original['status'] == false) && ($this->status == true)) {
@@ -92,7 +89,7 @@ public function afterCreate()
   protected function checkUniqueNameYear()
   {
     $exists = self::where('year_id', $this->year_id)
-      ->where('name', $this->name)->where('type' , $this->type)
+      ->where('name', $this->name)
       ->exists();
 
     if ($exists) {
