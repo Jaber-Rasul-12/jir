@@ -50,7 +50,7 @@ class ModelType extends Model
 
        public function getTypeListsAttribute()
   {
-    return trans('finance.finance::lang.model.type.' . $this->attributes['type']);
+    return trans('finance.finance::lang.model.invoice.' . $this->attributes['type']);
   }
 
 
