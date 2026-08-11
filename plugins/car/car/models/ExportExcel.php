@@ -7,22 +7,21 @@ class ExportExcel extends \Backend\Models\ExportModel
     public function exportData($columns, $sessionKey = null)
     {
         // جلب البيانات مع العلاقات
-        $cars = Car::with(['country', 'brand', 'model'])->get();
+        $cars = Car::with(['country', 'brand', 'model'])->cursor();
         
         foreach ($cars as $record) {
             $exportData = $record->toArray();
             
-            // إضافة العلاقات مع التحقق من القيم
-            $exportData['country_name'] = $this->getSafeValue($record->country, 'name');
-            $exportData['brand'] = $this->getSafeValue($record->brand, 'name');
-            $exportData['model'] = $this->getSafeValue($record->model, 'name');
-            $exportData['country_new'] = $this->getSafeString($record->country_new ?? '');
+            // إضافة العلاقات مع تحويل آمن
+            $exportData['country'] = $this->convertToUtf8($record->country ? $record->country->name : '');
+            $exportData['brand'] = $this->convertToUtf8($record->brand ? $record->brand->name : '');
+            $exportData['model'] = $this->convertToUtf8($record->model ? $record->model->name : '');
+            $exportData['country_new'] = $this->convertToUtf8($record->country_new ?? '');
             
-            // تصفية الأعمدة مع تحويل آمن
+            // تصفية الأعمدة
             $finalData = [];
             foreach ($columns as $column) {
-                $value = isset($exportData[$column]) ? $exportData[$column] : '';
-                $finalData[$column] = $this->convertToString($value);
+                $finalData[$column] = isset($exportData[$column]) ? $this->convertToUtf8($exportData[$column]) : '';
             }
             
             yield $finalData;
@@ -30,86 +29,30 @@ class ExportExcel extends \Backend\Models\ExportModel
     }
     
     /**
-     * الحصول على قيمة آمنة من العلاقة
+     * تحويل آمن إلى UTF-8
      */
-    private function getSafeValue($object, $field)
+    private function convertToUtf8($text)
     {
-        if (is_object($object) && method_exists($object, $field)) {
-            return $object->$field() ?? '';
-        } elseif (is_object($object) && property_exists($object, $field)) {
-            return $object->$field ?? '';
-        } elseif (is_array($object) && isset($object[$field])) {
-            return $object[$field];
-        }
-        return '';
-    }
-    
-    /**
-     * الحصول على نص آمن
-     */
-    private function getSafeString($value)
-    {
-        if (is_null($value)) {
+        if (is_null($text)) {
             return '';
         }
         
-        if (is_array($value)) {
-            return implode(', ', $value);
+        $text = (string) $text;
+        
+        // استخدام iconv أولاً
+        $text = @iconv('UTF-8', 'UTF-8//IGNORE', $text);
+        
+        // إذا كان النص لا يزال مشوهاً، حاول التحويل القسري
+        if (mb_check_encoding($text, 'UTF-8') === false) {
+            $text = mb_convert_encoding($text, 'UTF-8', 'auto');
         }
         
-        if (is_object($value)) {
-            return method_exists($value, '__toString') ? $value->__toString() : '';
-        }
+        // تنظيف
+        $text = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $text);
+        $text = htmlspecialchars_decode($text, ENT_QUOTES | ENT_SUBSTITUTE);
+        $text = strip_tags($text);
+        $text = trim($text);
         
-        return (string) $value;
-    }
-    
-    /**
-     * تحويل أي قيمة إلى نص بشكل آمن
-     */
-    private function convertToString($value)
-    {
-        // التعامل مع القيم الفارغة
-        if (is_null($value)) {
-            return '';
-        }
-        
-        // التعامل مع المصفوفات
-        if (is_array($value)) {
-            return implode(', ', array_map([$this, 'convertToString'], $value));
-        }
-        
-        // التعامل مع الكائنات
-        if (is_object($value)) {
-            if (method_exists($value, '__toString')) {
-                return $value->__toString();
-            }
-            
-            // محاولة الحصول على الاسم إذا كان Eloquent model
-            if (method_exists($value, 'getNameAttribute')) {
-                return $value->getNameAttribute() ?? '';
-            }
-            
-            // محاولة الحصول على name
-            if (isset($value->name)) {
-                return (string) $value->name;
-            }
-            
-            // محاولة الحصول على title
-            if (isset($value->title)) {
-                return (string) $value->title;
-            }
-            
-            // إذا كان كائن stdClass
-            if ($value instanceof \stdClass) {
-                $array = (array) $value;
-                return implode(', ', $array);
-            }
-            
-            return '';
-        }
-        
-        // تحويل إلى نص
-        return (string) $value;
+        return $text;
     }
 }
