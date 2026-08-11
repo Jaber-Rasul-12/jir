@@ -1,7 +1,22 @@
+# # ===================================
+# #  Import/Export Behavior Config
+# # ===================================
+
+
+# export:
+#     title: car.car::lang.plugin.export_excel
+#     modelClass: Car\Car\Models\ExportExcel
+#     fileName: cars_export.csv
+#     defaultFormatOptions:
+#         delimiter: ';'
+#         enclosure: '"'
+#         escape: '\'
+#         encoding: 'utf-8'
+#     list: $/car/car/models/car/columns_excel.yaml
+
 # ===================================
 #  Import/Export Behavior Config
 # ===================================
-
 
 export:
     title: car.car::lang.plugin.export_excel
@@ -10,7 +25,7 @@ export:
     defaultFormatOptions:
       delimiter: ';'
       enclosure: '"'
-      escape: '\'
-      encoding: 'utf-8'
+      escape: '"'
+      encoding: 'UTF-8'
+      bom: true
     list: $/car/car/models/car/columns_excel.yaml
-
