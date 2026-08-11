@@ -312,4 +312,86 @@ td strong {
         display: inline !important;
     }
 }
+
+    @media print {
+        .page-break-before {
+            page-break-before: always;
+            break-before: page;
+            float: none !important;
+            margin-top: 40px;
+        }
+
+        #layout-mainmenu,
+        #layout-sidenav,
+        #broadcamp,
+        #reutrnpreview,
+        .sigNav,
+        #name_signature,
+        #layout-sidenav-2,
+        .sidemenu,
+        .control-breadcrumb,
+        #print_button,
+        .wn-icon-chevron-left,
+        a.btn,
+        .layout-topmenu,
+        footer,
+        .hint-field {
+            display: none;
+            visibility: hidden;
+        }
+
+        html,
+        body {
+            border: 1px solid white;
+            height: 99%;
+            page-break-after: avoid;
+            page-break-before: avoid;
+        }
+
+        #img-image-background {
+            display: inline !important;
+            position: absolute;
+            /* transform: translate(-50%, -50%); */
+            top: 50%;
+            left: 50%;
+            width: 70%;
+            opacity: 1;
+        }
+
+        @page {
+            margin: none !important;
+        }
+
+        body {
+            margin: 0px !important;
+            padding: 0px !important;
+            border: none;
+            zoom: 75%;
+        }
+
+        .switch-field:has(input[readonly]) {
+            opacity: 1 !important;
+        }
+
+        .form-group {
+
+            margin-right: 0px !important;
+            page-break-inside: avoid !important;
+            padding: 0 !important;
+        }
+
+        .form-group,
+        .form-group.layout-item {
+            padding-bottom: 0 !important;
+        }
+        #Filter-listFilter{
+            display: none!important;
+        }
+
+        .section-field .field-section {
+            border-bottom: 2px solid #000;
+            font-weight: bold;
+            font-size: 1.2em !important;
+        }
+            }
 </style>
