@@ -21,20 +21,16 @@ columns:
     fuel_type:
         label: 'car.car::lang.model.car.fuel_type'
         type: text
-    country:
+    country[name]:
         label: 'car.car::lang.model.car.country'
-        relation: country
-        select: name
     license_plate_number:
         label: 'car.car::lang.model.car.license_plate_number'
         type: text
     license_plate_number_new:
         label: 'car.car::lang.model.car.license_plate_number_new'
         type: text
-    country_new:
+    country_new[name]:
         label: 'car.car::lang.model.car.country_new'
-        relation: country_new
-        select: name
     created_at:
         label: 'car.car::lang.model.car.created_at'
         type: datetime
