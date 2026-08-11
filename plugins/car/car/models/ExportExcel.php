@@ -4,9 +4,52 @@ class ExportExcel extends \Backend\Models\ExportModel
 {
     public function exportData($columns, $sessionKey = null)
     {
-        foreach (Car::cursor() as $record) {
+        // جلب جميع البيانات مع العلاقات
+        $cars = Car::with('country')->get();
+        
+        foreach ($cars as $record) {
+            // إضافة اسم المدينة إلى البيانات
+            $exportData = $record->toArray();
+            
+            // إضافة اسم المدينة إذا كانت العلاقة موجودة
+            if ($record->country) {
+                $exportData['country_name'] = $record->country->name;
+            } else {
+                $exportData['country_name'] = '';
+            }
+
+            if ($record->brand) {
+                $exportData['brand'] = $record->brand->name;
+            } else {
+                $exportData['brand'] = '';
+            }
+
+            if ($record->model) {
+                $exportData['model'] = $record->model->name;
+            } else {
+                $exportData['model'] = '';
+            }
+            
+            // إضافة الحقول الإضافية للتصدير
+            $exportData['city_name'] = $record->country ? $record->country->name : '';
+            $exportData['brand'] = $record->brand ? $record->brand->name : '';
+            $exportData['model'] = $record->model ? $record->model->name : '';
+
+            
+            // جعل الأعمدة المحددة مرئية
             $record->addVisible($columns);
-            yield $record->toArray();
+            
+            // دمج البيانات مع الأعمدة المرئية
+            $finalData = [];
+            foreach ($columns as $column) {
+                if ($column == 'country_name' || $column == 'city_name') {
+                    $finalData[$column] = $exportData[$column] ?? '';
+                } elseif (isset($exportData[$column])) {
+                    $finalData[$column] = $exportData[$column];
+                }
+            }
+            
+            yield $finalData;
         }
     }
-} 
+}
