@@ -119,6 +119,11 @@ public function getModelOptions($scopes = null)
 
   }
 
+  public function getCountryNameAttribute(){
+
+    return $this->attributes['country_new_id'] ? Country::find($this->attributes['country_new_id'])->name : Country::find($this->attributes['country_id'])->name;
+  }
+
 
 
     
