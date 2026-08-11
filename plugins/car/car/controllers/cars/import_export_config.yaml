@@ -7,6 +7,10 @@ export:
     title: car.car::lang.plugin.export_excel
     modelClass: Car\Car\Models\ExportExcel
     fileName: cars_export.csv
-    csvDelimiter: ','
-    csvEnclosure: '"'
+    defaultFormatOptions:
+      delimiter: ';'
+      enclosure: '"'
+      escape: '\'
+      encoding: 'utf-8'
     list: $/car/car/models/car/columns_excel.yaml
+
