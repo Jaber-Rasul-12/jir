@@ -12,6 +12,8 @@ columns:
         label: 'car.car::lang.model.car.brand'
     model[name]:
         label: 'car.car::lang.model.car.model'
+    country[name]:
+        label: 'car.car::lang.model.car.country'
     chassis_number:
         label: 'car.car::lang.model.car.chassis_number'
         type: text
@@ -21,8 +23,6 @@ columns:
     fuel_type:
         label: 'car.car::lang.model.car.fuel_type'
         type: text
-    country[name]:
-        label: 'car.car::lang.model.car.country'
     license_plate_number:
         label: 'car.car::lang.model.car.license_plate_number'
         type: text
