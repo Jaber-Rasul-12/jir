@@ -5,51 +5,52 @@ class ExportExcel extends \Backend\Models\ExportModel
     public function exportData($columns, $sessionKey = null)
     {
         // جلب جميع البيانات مع العلاقات
-        $cars = Car::with('country')->get();
+        $cars = Car::with(['country', 'brand', 'model'])->get();
         
         foreach ($cars as $record) {
             // إضافة اسم المدينة إلى البيانات
             $exportData = $record->toArray();
             
-            // إضافة اسم المدينة إذا كانت العلاقة موجودة
-            if ($record->country) {
-                $exportData['country_name'] = $record->country->name;
-            } else {
-                $exportData['country_name'] = '';
-            }
-
-            if ($record->brand) {
-                $exportData['brand'] = $record->brand->name;
-            } else {
-                $exportData['brand'] = '';
-            }
-
-            if ($record->model) {
-                $exportData['model'] = $record->model->name;
-            } else {
-                $exportData['model'] = '';
-            }
-
-            if ($record->country_new) {
-                $exportData['country_new'] = $record->model->name;
-            } else {
-                $exportData['country_new'] = '';
-            }
+            // إضافة العلاقات مع تحسين الترميز
+            $exportData['country_name'] = $record->country ? $this->cleanText($record->country->name) : '';
+            $exportData['brand'] = $record->brand ? $this->cleanText($record->brand->name) : '';
+            $exportData['model'] = $record->model ? $this->cleanText($record->model->name) : '';
+            $exportData['country_new'] = $record->country_new ? $this->cleanText($record->country_new) : '';
             
-
-            
-
             // جعل الأعمدة المحددة مرئية
             $record->addVisible($columns);
             
             // دمج البيانات مع الأعمدة المرئية
             $finalData = [];
             foreach ($columns as $column) {
-
-                    $finalData[$column] = $exportData[$column];
+                if (isset($exportData[$column])) {
+                    $finalData[$column] = $this->cleanText($exportData[$column]);
+                } else {
+                    $finalData[$column] = '';
+                }
             }
             
             yield $finalData;
         }
+    }
+    
+    /**
+     * تنظيف النص وتحسين الترميز
+     */
+    private function cleanText($text)
+    {
+        if (is_null($text)) {
+            return '';
+        }
+        
+        // تحويل إلى UTF-8 إذا لم يكن
+        if (!mb_detect_encoding($text, 'UTF-8', true)) {
+            $text = mb_convert_encoding($text, 'UTF-8', 'auto');
+        }
+        
+        // إزالة الأحرف غير المرغوب فيها
+        $text = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $text);
+        
+        return $text;
     }
 }
