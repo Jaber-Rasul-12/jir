@@ -29,6 +29,14 @@ class ExportExcel extends \Backend\Models\ExportModel
             } else {
                 $exportData['model'] = '';
             }
+
+            if ($record->country_new) {
+                $exportData['country_new'] = $record->model->name;
+            } else {
+                $exportData['country_new'] = '';
+            }
+            
+
             
 
             // جعل الأعمدة المحددة مرئية
