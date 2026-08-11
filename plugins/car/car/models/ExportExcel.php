@@ -12,17 +12,17 @@ class ExportExcel extends \Backend\Models\ExportModel
         foreach ($cars as $record) {
             $exportData = $record->toArray();
             
-            // إضافة العلاقات
-            $exportData['country_name'] = $record->country ? $record->country->name : '';
-            $exportData['brand'] = $record->brand ? $record->brand->name : '';
-            $exportData['model'] = $record->model ? $record->model->name : '';
-            $exportData['country_new'] = $record->country_new ?? '';
+            // إضافة العلاقات مع التحقق من القيم
+            $exportData['country_name'] = $this->getSafeValue($record->country, 'name');
+            $exportData['brand'] = $this->getSafeValue($record->brand, 'name');
+            $exportData['model'] = $this->getSafeValue($record->model, 'name');
+            $exportData['country_new'] = $this->getSafeString($record->country_new ?? '');
             
-            // تصفية الأعمدة مع تنظيف النصوص
+            // تصفية الأعمدة مع تحويل آمن
             $finalData = [];
             foreach ($columns as $column) {
                 $value = isset($exportData[$column]) ? $exportData[$column] : '';
-                $finalData[$column] = $this->fixExcelText($value);
+                $finalData[$column] = $this->convertToString($value);
             }
             
             yield $finalData;
@@ -30,49 +30,86 @@ class ExportExcel extends \Backend\Models\ExportModel
     }
     
     /**
-     * معالجة النصوص لـ Excel 2019 العربي
+     * الحصول على قيمة آمنة من العلاقة
      */
-    private function fixExcelText($text)
+    private function getSafeValue($object, $field)
     {
-        if (is_null($text)) {
-            return '';
+        if (is_object($object) && method_exists($object, $field)) {
+            return $object->$field() ?? '';
+        } elseif (is_object($object) && property_exists($object, $field)) {
+            return $object->$field ?? '';
+        } elseif (is_array($object) && isset($object[$field])) {
+            return $object[$field];
         }
-        
-        $text = (string) $text;
-        
-        // 1. تحويل إلى UTF-8 مع BOM
-        $text = mb_convert_encoding($text, 'UTF-8', 'auto');
-        
-        // 2. تنظيف HTML
-        $text = strip_tags($text);
-        $text = html_entity_decode($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-        
-        // 3. إزالة الأحرف غير المرغوب فيها
-        $text = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $text);
-        
-        // 4. معالجة خاصة للعربية
-        $text = $this->arabicFix($text);
-        
-        return trim($text);
+        return '';
     }
     
     /**
-     * معالجة خاصة للنصوص العربية
+     * الحصول على نص آمن
      */
-    private function arabicFix($text)
+    private function getSafeString($value)
     {
-        // إصلاح تشكيل الحروف العربية
-        $arabicChars = [
-            'á' => 'ا', 'í' => 'ي', 'ó' => 'و',
-            'ä' => 'ة', 'ï' => 'ي', 'ö' => 'و',
-            'â' => 'ا', 'î' => 'ي', 'ô' => 'و',
-            'Á' => 'ا', 'Í' => 'ي', 'Ó' => 'و',
-            'Ä' => 'ة', 'Ï' => 'ي', 'Ö' => 'و',
-            'Â' => 'ا', 'Î' => 'ي', 'Ô' => 'و'
-        ];
+        if (is_null($value)) {
+            return '';
+        }
         
-        $text = str_replace(array_keys($arabicChars), array_values($arabicChars), $text);
+        if (is_array($value)) {
+            return implode(', ', $value);
+        }
         
-        return $text;
+        if (is_object($value)) {
+            return method_exists($value, '__toString') ? $value->__toString() : '';
+        }
+        
+        return (string) $value;
+    }
+    
+    /**
+     * تحويل أي قيمة إلى نص بشكل آمن
+     */
+    private function convertToString($value)
+    {
+        // التعامل مع القيم الفارغة
+        if (is_null($value)) {
+            return '';
+        }
+        
+        // التعامل مع المصفوفات
+        if (is_array($value)) {
+            return implode(', ', array_map([$this, 'convertToString'], $value));
+        }
+        
+        // التعامل مع الكائنات
+        if (is_object($value)) {
+            if (method_exists($value, '__toString')) {
+                return $value->__toString();
+            }
+            
+            // محاولة الحصول على الاسم إذا كان Eloquent model
+            if (method_exists($value, 'getNameAttribute')) {
+                return $value->getNameAttribute() ?? '';
+            }
+            
+            // محاولة الحصول على name
+            if (isset($value->name)) {
+                return (string) $value->name;
+            }
+            
+            // محاولة الحصول على title
+            if (isset($value->title)) {
+                return (string) $value->title;
+            }
+            
+            // إذا كان كائن stdClass
+            if ($value instanceof \stdClass) {
+                $array = (array) $value;
+                return implode(', ', $array);
+            }
+            
+            return '';
+        }
+        
+        // تحويل إلى نص
+        return (string) $value;
     }
 }
