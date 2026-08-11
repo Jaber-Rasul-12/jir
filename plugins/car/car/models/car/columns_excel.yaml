@@ -8,10 +8,10 @@ columns:
     type:
         label: 'car.car::lang.model.car.type'
         type: text
-    brand_name:
+    brand:
         label: 'car.car::lang.model.car.brand'
         type: text
-    model_name:
+    model:
         label: 'car.car::lang.model.car.model'
         type: text
     chassis_number:
@@ -23,13 +23,13 @@ columns:
     fuel_type:
         label: 'car.car::lang.model.car.fuel_type'
         type: text
-    country_name:
+    country:
         label: 'car.car::lang.model.car.country'
         type: text
     license_plate_number:
         label: 'car.car::lang.model.car.license_plate_number'
         type: text
-    country_new_name:
+    country_new:
         label: 'car.car::lang.model.car.country_new'
         type: text
     license_plate_number_new:
