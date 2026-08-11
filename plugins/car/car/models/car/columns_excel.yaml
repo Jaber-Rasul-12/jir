@@ -8,12 +8,11 @@ columns:
     type:
         label: 'car.car::lang.model.car.type'
         type: text
-    brand[name]:
+    brand_name:
         label: 'car.car::lang.model.car.brand'
-    model[name]:
+        type: text
+    model_name:
         label: 'car.car::lang.model.car.model'
-    country_name:
-        label: 'car.car::lang.model.car.country'
         type: text
     chassis_number:
         label: 'car.car::lang.model.car.chassis_number'
@@ -24,14 +23,18 @@ columns:
     fuel_type:
         label: 'car.car::lang.model.car.fuel_type'
         type: text
+    country_name:
+        label: 'car.car::lang.model.car.country'
+        type: text
     license_plate_number:
         label: 'car.car::lang.model.car.license_plate_number'
+        type: text
+    country_new_name:
+        label: 'car.car::lang.model.car.country_new'
         type: text
     license_plate_number_new:
         label: 'car.car::lang.model.car.license_plate_number_new'
         type: text
-    country_new[name]:
-        label: 'car.car::lang.model.car.country_new'
     created_at:
         label: 'car.car::lang.model.car.created_at'
         type: datetime

@@ -121,8 +121,29 @@ public function getModelOptions($scopes = null)
 
   public function getCountryNameAttribute(){
 
+    return $this->attributes['country_id'] ? Country::find($this->attributes['country_id'])->name : Country::find($this->attributes['country_id'])->name;
+  }
+
+  public function getCountryNewNameAttribute(){
+
     return $this->attributes['country_new_id'] ? Country::find($this->attributes['country_new_id'])->name : Country::find($this->attributes['country_id'])->name;
   }
+
+
+   public function getBrandNameAttribute(){
+
+    return $this->attributes['brand_id'] ? Brand::find($this->attributes['brand_id'])->name : Brand::find($this->attributes['brand_id'])->name;
+  }
+
+   public function getModelNameAttribute(){
+
+    return $this->attributes['model_id'] ? Modelnew::find($this->attributes['model_id'])->name : Modelnew::find($this->attributes['model_id'])->name;
+  }
+
+
+  
+
+  
 
 
 
