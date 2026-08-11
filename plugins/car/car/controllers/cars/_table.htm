@@ -1,20 +1,16 @@
-<!-- ====== زر الطباعة ====== -->
-<div class="no-print" style="text-align: left; margin-bottom: 20px;">
-    <button onclick="window.print()" style="
-        background: linear-gradient(135deg, #4f6ef7 0%, #6c5ce7 100%);
-        color: white;
-        border: none;
-        padding: 12px 30px;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        box-shadow: 0 4px 15px rgba(79, 110, 247, 0.4);
-        transition: all 0.3s ease;
-    ">
-        🖨️ طباعة التقرير
-    </button>
-</div>
+
+
+ <div style="min-width: 150px; display: flex; gap: 10px; align-items: flex-end; margin-top: 20px;">
+            <button type="submit" data-request="onFilterReports" data-stripe-load-indicator class="btn btn-primary" style="padding: 8px 30px;">
+                <i class="fa fa-filter"></i> فلترة
+            </button>
+            <button type="button" 
+onclick='window.print()' data-hotkey='ctrl+p'
+                    class="btn btn-success" 
+                    style="padding: 8px 30px;">
+                <i class="fa fa-print"></i> 🖨️ طباعة التقرير
+            </button>
+        </div>
 
 <!-- ====== صفحة طباعة قوائم السيارات ====== -->
 <div id="print-area" style="padding: 20px; background: white; position: relative;">
