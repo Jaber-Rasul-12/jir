@@ -7,21 +7,22 @@ class ExportExcel extends \Backend\Models\ExportModel
     public function exportData($columns, $sessionKey = null)
     {
         // جلب البيانات مع العلاقات
-        $cars = Car::with(['country', 'brand', 'model'])->cursor();
+        $cars = Car::with(['country', 'brand', 'model'])->get();
         
         foreach ($cars as $record) {
             $exportData = $record->toArray();
             
-            // إضافة العلاقات مع تحويل آمن
-            $exportData['country'] = $this->convertToUtf8($record->country ? $record->country->name : '');
-            $exportData['brand'] = $this->convertToUtf8($record->brand ? $record->brand->name : '');
-            $exportData['model'] = $this->convertToUtf8($record->model ? $record->model->name : '');
-            $exportData['country_new'] = $this->convertToUtf8($record->country_new ?? '');
+            // إضافة العلاقات
+            $exportData['country_name'] = $record->country ? $record->country->name : '';
+            $exportData['brand'] = $record->brand ? $record->brand->name : '';
+            $exportData['model'] = $record->model ? $record->model->name : '';
+            $exportData['country_new'] = $record->country_new ?? '';
             
-            // تصفية الأعمدة
+            // تصفية الأعمدة مع تنظيف النصوص
             $finalData = [];
             foreach ($columns as $column) {
-                $finalData[$column] = isset($exportData[$column]) ? $this->convertToUtf8($exportData[$column]) : '';
+                $value = isset($exportData[$column]) ? $exportData[$column] : '';
+                $finalData[$column] = $this->fixExcelText($value);
             }
             
             yield $finalData;
@@ -29,9 +30,9 @@ class ExportExcel extends \Backend\Models\ExportModel
     }
     
     /**
-     * تحويل آمن إلى UTF-8
+     * معالجة النصوص لـ Excel 2019 العربي
      */
-    private function convertToUtf8($text)
+    private function fixExcelText($text)
     {
         if (is_null($text)) {
             return '';
@@ -39,19 +40,38 @@ class ExportExcel extends \Backend\Models\ExportModel
         
         $text = (string) $text;
         
-        // استخدام iconv أولاً
-        $text = @iconv('UTF-8', 'UTF-8//IGNORE', $text);
+        // 1. تحويل إلى UTF-8 مع BOM
+        $text = mb_convert_encoding($text, 'UTF-8', 'auto');
         
-        // إذا كان النص لا يزال مشوهاً، حاول التحويل القسري
-        if (mb_check_encoding($text, 'UTF-8') === false) {
-            $text = mb_convert_encoding($text, 'UTF-8', 'auto');
-        }
-        
-        // تنظيف
-        $text = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $text);
-        $text = htmlspecialchars_decode($text, ENT_QUOTES | ENT_SUBSTITUTE);
+        // 2. تنظيف HTML
         $text = strip_tags($text);
-        $text = trim($text);
+        $text = html_entity_decode($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        
+        // 3. إزالة الأحرف غير المرغوب فيها
+        $text = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $text);
+        
+        // 4. معالجة خاصة للعربية
+        $text = $this->arabicFix($text);
+        
+        return trim($text);
+    }
+    
+    /**
+     * معالجة خاصة للنصوص العربية
+     */
+    private function arabicFix($text)
+    {
+        // إصلاح تشكيل الحروف العربية
+        $arabicChars = [
+            'á' => 'ا', 'í' => 'ي', 'ó' => 'و',
+            'ä' => 'ة', 'ï' => 'ي', 'ö' => 'و',
+            'â' => 'ا', 'î' => 'ي', 'ô' => 'و',
+            'Á' => 'ا', 'Í' => 'ي', 'Ó' => 'و',
+            'Ä' => 'ة', 'Ï' => 'ي', 'Ö' => 'و',
+            'Â' => 'ا', 'Î' => 'ي', 'Ô' => 'و'
+        ];
+        
+        $text = str_replace(array_keys($arabicChars), array_values($arabicChars), $text);
         
         return $text;
     }
