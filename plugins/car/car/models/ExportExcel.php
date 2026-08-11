@@ -30,23 +30,15 @@ class ExportExcel extends \Backend\Models\ExportModel
                 $exportData['model'] = '';
             }
             
-            // إضافة الحقول الإضافية للتصدير
-            $exportData['city_name'] = $record->country ? $record->country->name : '';
-            $exportData['brand'] = $record->brand ? $record->brand->name : '';
-            $exportData['model'] = $record->model ? $record->model->name : '';
 
-            
             // جعل الأعمدة المحددة مرئية
             $record->addVisible($columns);
             
             // دمج البيانات مع الأعمدة المرئية
             $finalData = [];
             foreach ($columns as $column) {
-                if ($column == 'country_name' || $column == 'city_name') {
-                    $finalData[$column] = $exportData[$column] ?? '';
-                } elseif (isset($exportData[$column])) {
+
                     $finalData[$column] = $exportData[$column];
-                }
             }
             
             yield $finalData;
