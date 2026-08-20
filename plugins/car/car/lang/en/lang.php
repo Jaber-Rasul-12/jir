@@ -94,6 +94,7 @@ return [
             'brand' => 'Brand',
             'country' => 'Country',
             'country_new' => 'Country new',
+            'country_location' => 'Country location',
             'ownership' => 'Ownership',
             'type' => 'Type',
             'chassis_number' => 'Chassis number',

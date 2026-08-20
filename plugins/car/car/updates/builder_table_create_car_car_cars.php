@@ -22,6 +22,8 @@ class BuilderTableCreateCarCarCars extends Migration
             $table->integer('country_id')->unsigned()->nullable();
             $table->text('license_plate_number_new')->nullable();
             $table->integer('country_new_id')->unsigned()->nullable();
+            $table->integer('country_location_id')->unsigned()->nullable();
+
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->foreign('brand_id')

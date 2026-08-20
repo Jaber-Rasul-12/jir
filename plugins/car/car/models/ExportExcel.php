@@ -14,9 +14,12 @@ class ExportExcel extends \Backend\Models\ExportModel
             
             // إضافة العلاقات مع تحويل آمن
             $exportData['country'] = $this->convertToUtf8($record->country ? $record->country->name : '');
+
+            
             $exportData['brand'] = $this->convertToUtf8($record->brand ? $record->brand->name : '');
             $exportData['model'] = $this->convertToUtf8($record->model ? $record->model->name : '');
             $exportData['country_new'] = $this->convertToUtf8($record->country_new ?? '');
+            $exportData['country_location'] = $this->convertToUtf8($record->country_location ?? '');
             
             // تصفية الأعمدة
             $finalData = [];

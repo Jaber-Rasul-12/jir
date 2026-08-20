@@ -68,6 +68,8 @@ return [
             'country_new' => 'المدينة الجديدة',
             'ownership' => 'الملكية',
             'type' => 'النوع',
+            'country_location' => 'مكان عمل السيارة ',
+
             'chassis_number' => 'رقم الهيكل',
             'year_of_manufacturing_date' => 'سنة التصنيع',
             'fuel_type' => 'نوع الوقود',

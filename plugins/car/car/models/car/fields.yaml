@@ -62,6 +62,15 @@ fields:
         type: relation
         select: name
         placeholder: car.car::lang.plugin.select
+    country_location:
+        label: 'car.car::lang.model.car.country_location'
+        span: auto
+        type: relation
+        select: name
+        placeholder: car.car::lang.plugin.select
+
+
+        
     photos:
         label: car.car::lang.model.car.images
         type: fileupload

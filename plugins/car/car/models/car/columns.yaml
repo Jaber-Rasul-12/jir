@@ -52,6 +52,11 @@ columns:
         label: 'car.car::lang.model.car.country_new'
         relation: country_new
         select: name
+    country_location:
+        label: 'car.car::lang.model.car.country_location'
+        relation: country_location
+        select: name
+        
     created_at:
         label: 'car.car::lang.model.car.created_at'
         type: datetime

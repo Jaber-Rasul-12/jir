@@ -14,7 +14,7 @@ class Car extends Model
     use LogChanges;
 
     use \Winter\Storm\Database\Traits\Nullable;
-protected $nullable = ['type', 'license_plate_number' , 'year_of_manufacturing_date' , 'country_id' , 'license_plate_number_new' , 'country_new_id'];
+protected $nullable = ['type', 'license_plate_number' , 'year_of_manufacturing_date' , 'country_id' , 'license_plate_number_new' , 'country_new_id' , 'country_location_id'];
 
   public $logBookModelName = 'car.car::lang.plugin.cars';
   public static function changeLogBookDisplayColumn($column)
@@ -45,6 +45,7 @@ protected $nullable = ['type', 'license_plate_number' , 'year_of_manufacturing_d
         'country_id' => 'nullable|integer|exists:car_car_countries,id',
         'license_plate_number_new' => 'nullable|string|max:255',
         'country_new_id' => 'nullable|integer|exists:car_car_countries,id',
+        'country_location_id' => 'nullable|integer|exists:car_car_countries,id',
     ];
 
     /**
@@ -61,6 +62,9 @@ protected $nullable = ['type', 'license_plate_number' , 'year_of_manufacturing_d
         'brand' => [\Car\Car\Models\Brand::class, 'key' => 'brand_id'],
         'country' => [\Car\Car\Models\Country::class, 'key' => 'country_id'],
         'country_new' => [\Car\Car\Models\Country::class, 'key' => 'country_new_id'],
+        'country_location' => [\Car\Car\Models\Country::class, 'key' => 'country_location_id'],
+
+        
 
     ];
 

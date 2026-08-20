@@ -80,6 +80,7 @@ class Invoice extends Model
 
 
 
+
   public function getTypeOptions()
   {
 
