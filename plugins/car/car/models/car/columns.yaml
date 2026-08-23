@@ -45,6 +45,7 @@ columns:
     license_plate_number:
         label: 'car.car::lang.model.car.license_plate_number'
         type: text
+        searchable: true
     license_plate_number_new:
         label: 'car.car::lang.model.car.license_plate_number_new'
         type: text
