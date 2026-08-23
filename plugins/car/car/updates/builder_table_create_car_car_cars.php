@@ -18,6 +18,9 @@ class BuilderTableCreateCarCarCars extends Migration
             $table->integer('brand_id')->unsigned();
             $table->date('year_of_manufacturing_date')->nullable();
             $table->string('fuel_type');
+            $table->string('color')->nullable();
+
+            
             $table->text('license_plate_number')->nullable();
             $table->integer('country_id')->unsigned()->nullable();
             $table->text('license_plate_number_new')->nullable();

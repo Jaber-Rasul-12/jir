@@ -8,6 +8,10 @@ fields:
         label: 'car.car::lang.model.car.type'
         span: auto
         type: text
+    color:
+        label: 'car.car::lang.model.car.color'
+        type: text
+        span: auto
     brand:
         label: 'car.car::lang.model.car.brand'
         span: auto

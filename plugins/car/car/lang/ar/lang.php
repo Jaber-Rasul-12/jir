@@ -43,6 +43,8 @@ return [
         'published_at' => 'نطاق الانشاء',
         'statistics_general' => ' إحصائيات عامة',
         'print_tables' => 'طباعة الجداول',
+        'import_excel' => 'استيراد إكسل',
+
 
 
 
@@ -69,6 +71,8 @@ return [
             'ownership' => 'الملكية',
             'type' => 'النوع',
             'country_location' => 'مكان عمل السيارة ',
+            'color'=>'اللون',
+
 
             'chassis_number' => 'رقم الهيكل',
             'year_of_manufacturing_date' => 'سنة التصنيع',

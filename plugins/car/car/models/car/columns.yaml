@@ -12,6 +12,9 @@ columns:
     ownership:
         label: 'car.car::lang.model.car.ownership'
         type: text
+    color:
+        label: 'car.car::lang.model.car.color'
+        type: text
         
     brand:
         label: 'car.car::lang.model.car.brand'

@@ -14,7 +14,8 @@ class Car extends Model
     use LogChanges;
 
     use \Winter\Storm\Database\Traits\Nullable;
-protected $nullable = ['type', 'license_plate_number' , 'year_of_manufacturing_date' , 'country_id' , 'license_plate_number_new' , 'country_new_id' , 'country_location_id'];
+protected $nullable = ['type', 'license_plate_number' , 'year_of_manufacturing_date' , 'country_id' , 'license_plate_number_new' , 'country_new_id' , 'country_location_id' , 'color'];
+public $fillable = ['ownership', 'brand_id' , 'model_id' , 'type' , 'chassis_number' , 'year_of_manufacturing_date' , 'fuel_lists','license_plate_number' , 'country_location' , 'color'];
 
   public $logBookModelName = 'car.car::lang.plugin.cars';
   public static function changeLogBookDisplayColumn($column)
@@ -40,10 +41,13 @@ protected $nullable = ['type', 'license_plate_number' , 'year_of_manufacturing_d
         'chassis_number' => 'required|string|max:255|unique:car_car_cars,chassis_number',
         'brand_id' => 'required|integer|exists:car_car_brands,id',
         'year_of_manufacturing_date' => 'nullable|date',
+        'color' => 'nullable|string|max:255',
+
+        
         'fuel_type' => 'required|string|max:255|in:petrol,diesel,electric,hybrid,plug-in_hybrid,hydrogen,lpg,cng',
-        'license_plate_number' => 'nullable|string|max:255',
+        'license_plate_number' => 'nullable|string|max:255|unique:car_car_cars,license_plate_number',
         'country_id' => 'nullable|integer|exists:car_car_countries,id',
-        'license_plate_number_new' => 'nullable|string|max:255',
+        'license_plate_number_new' => 'nullable|string|max:255|unique:car_car_cars,license_plate_number_new',
         'country_new_id' => 'nullable|integer|exists:car_car_countries,id',
         'country_location_id' => 'nullable|integer|exists:car_car_countries,id',
     ];
@@ -172,6 +176,33 @@ public function getModelOptions($scopes = null)
             }
         }
     }
+
+
+    public function beforeValidate()
+{
+
+if (empty($this->fuel_type)) {
+        // استخدم 1 يناير من العام الحالي
+        $this->fuel_type = 'diesel';
+    }
+    // إذا كان year_of_manufacturing_date فارغاً أو يحتوي على سنة فقط
+    if (empty($this->year_of_manufacturing_date)) {
+        // استخدم 1 يناير من العام الحالي
+        $this->year_of_manufacturing_date = '';
+    } elseif (preg_match('/^\d{4}$/', $this->year_of_manufacturing_date)) {
+        // إذا كانت القيمة سنة فقط (مثلاً 2020)، حولها إلى تاريخ
+        $this->year_of_manufacturing_date = $this->year_of_manufacturing_date . '-01-01';
+    } else {
+        // حاول تحويل أي تاريخ غير صحيح
+        try {
+            $date = \Carbon\Carbon::parse($this->year_of_manufacturing_date);
+            $this->year_of_manufacturing_date = $date->format('Y-m-d');
+        } catch (\Exception $e) {
+            // إذا فشل التحويل، استخدم التاريخ الافتراضي
+            $this->year_of_manufacturing_date = date('Y') . '-01-01';
+        }
+    }
+}
 
 
 

@@ -1,0 +1,26 @@
+columns:
+    ownership:
+        label: 'المالكية'
+    brand_id:
+        label: 'رقم السيارة'
+    model_id:
+        label: 'رقم الموديل'
+    type:
+        label: 'نوع المركبة'
+        type: text
+    color:
+        label: 'لون المركبة '
+        type: text
+    chassis_number:
+        label: 'رقم الهيكل '
+        type: text
+    year_of_manufacturing_date:
+        label: 'مديل الصنع'
+        type: text
+    fuel_type:
+        label: 'نوع الوقود'
+    license_plate_number:
+        label: 'رقم اللوحة '
+    country_location:
+        label: 'موقع السيارة'
+

@@ -14,3 +14,7 @@ export:
     #     encoding: 'utf-8'
     list: $/car/car/models/car/columns_excel.yaml
 
+import:
+    title: car.car::lang.plugin.import_excel
+    modelClass: Car\Car\Models\ImportExcel
+    list: $/car/car/models/car/columns_import.yaml
