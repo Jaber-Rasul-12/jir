@@ -35,7 +35,7 @@ class Cars extends Controller
 
 
         if (($url == 'create') && !empty($url)) {
-            return "car/car/cars";
+            return "car/car/cars/create";
         }else if (($url == 'preview') && !empty($url)) {
             return "car/car/cars/$url/$model->id";
         }else {
