@@ -3,6 +3,7 @@ fields:
         label: 'car.car::lang.model.car.ownership'
         span: auto
         type: text
+        default: 'jir'
     type:
         label: 'car.car::lang.model.car.type'
         span: auto
