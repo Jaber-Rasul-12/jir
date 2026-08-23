@@ -46,6 +46,7 @@ fields:
         label: 'car.car::lang.model.car.license_plate_number'
         span: auto
         type: text
+        searchable: true
     country:
         label: 'car.car::lang.model.car.country'
         span: auto
