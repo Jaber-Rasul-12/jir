@@ -32,10 +32,10 @@ fields:
         label: 'car.car::lang.model.car.fuel_type'
         span: auto
         type: dropdown
-        placeholder: car.car::lang.plugin.select
+        # placeholder: car.car::lang.plugin.select
         options:
-                petrol: car.car::lang.model.car.petrol
                 diesel: car.car::lang.model.car.diesel
+                petrol: car.car::lang.model.car.petrol
                 electric: car.car::lang.model.car.electric
                 hybrid: car.car::lang.model.car.hybrid
                 plug-in_hybrid: car.car::lang.model.car.plug_in_hybrid
