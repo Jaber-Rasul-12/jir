@@ -178,31 +178,31 @@ public function getModelOptions($scopes = null)
     }
 
 
-//     public function beforeValidate()
-// {
+    public function beforeValidate()
+{
 
-// if (empty($this->fuel_type)) {
-//         // استخدم 1 يناير من العام الحالي
-//         $this->fuel_type = 'diesel';
-//     }
-//     // إذا كان year_of_manufacturing_date فارغاً أو يحتوي على سنة فقط
-//     if (empty($this->year_of_manufacturing_date)) {
-//         // استخدم 1 يناير من العام الحالي
-//         $this->year_of_manufacturing_date = '';
-//     } elseif (preg_match('/^\d{4}$/', $this->year_of_manufacturing_date)) {
-//         // إذا كانت القيمة سنة فقط (مثلاً 2020)، حولها إلى تاريخ
-//         $this->year_of_manufacturing_date = $this->year_of_manufacturing_date . '-01-01';
-//     } else {
-//         // حاول تحويل أي تاريخ غير صحيح
-//         try {
-//             $date = \Carbon\Carbon::parse($this->year_of_manufacturing_date);
-//             $this->year_of_manufacturing_date = $date->format('Y-m-d');
-//         } catch (\Exception $e) {
-//             // إذا فشل التحويل، استخدم التاريخ الافتراضي
-//             $this->year_of_manufacturing_date = date('Y') . '-01-01';
-//         }
-//     }
-// }
+if (empty($this->fuel_type)) {
+        // استخدم 1 يناير من العام الحالي
+        $this->fuel_type = 'diesel';
+    }
+    // إذا كان year_of_manufacturing_date فارغاً أو يحتوي على سنة فقط
+    if (empty($this->year_of_manufacturing_date)) {
+        // استخدم 1 يناير من العام الحالي
+        $this->year_of_manufacturing_date = '';
+    } elseif (preg_match('/^\d{4}$/', $this->year_of_manufacturing_date)) {
+        // إذا كانت القيمة سنة فقط (مثلاً 2020)، حولها إلى تاريخ
+        $this->year_of_manufacturing_date = $this->year_of_manufacturing_date . '-01-01';
+    } else {
+        // حاول تحويل أي تاريخ غير صحيح
+        try {
+            $date = \Carbon\Carbon::parse($this->year_of_manufacturing_date);
+            $this->year_of_manufacturing_date = $date->format('Y-m-d');
+        } catch (\Exception $e) {
+            // إذا فشل التحويل، استخدم التاريخ الافتراضي
+            $this->year_of_manufacturing_date = date('Y') . '-01-01';
+        }
+    }
+}
 
 
 

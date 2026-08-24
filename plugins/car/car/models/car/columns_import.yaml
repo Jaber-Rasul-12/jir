@@ -9,10 +9,10 @@ columns:
         label: 'نوع المركبة'
         type: text
     color:
-        label: 'لون المركبة '
+        label: 'لون المركبة'
         type: text
     chassis_number:
-        label: 'رقم الهيكل '
+        label: 'رقم الهيكل'
         type: text
     year_of_manufacturing_date:
         label: 'مديل الصنع'
@@ -20,7 +20,7 @@ columns:
     fuel_type:
         label: 'نوع الوقود'
     license_plate_number:
-        label: 'رقم اللوحة '
+        label: 'رقم اللوحة'
     country_location:
         label: 'موقع السيارة'
 
