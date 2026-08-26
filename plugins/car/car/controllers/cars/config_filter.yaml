@@ -43,6 +43,14 @@ scopes:
         type: group
         conditions: country_new_id in (:filtered)
         modelClass: Car\Car\Models\Country
+    status:
+        label: 'car.car::lang.model.car.status'
+        type: group
+        conditions: status in (:filtered)
+        options:
+                good: car.car::lang.model.car.good
+                expired: car.car::lang.model.car.expired
+                not_status: car.car::lang.model.car.not_status
 
 
     
