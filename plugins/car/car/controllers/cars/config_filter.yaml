@@ -51,6 +51,11 @@ scopes:
                 good: car.car::lang.model.car.good
                 expired: car.car::lang.model.car.expired
                 not_status: car.car::lang.model.car.not_status
+    lisense_plate_number:
+        label: car.car::lang.plugin.license_plate_number
+        type: switch
+        default: 0
+        scope: isLisense
 
 
     

@@ -77,6 +77,15 @@ public $fillable = ['ownership', 'brand_id' , 'model_id' , 'type' , 'chassis_num
 
     ];
 
+        public function scopeIsLisense($query, $state)
+    {
+        return match ($state) {
+            '0' => $query,
+            '1' => $query->whereNull('license_plate_number_new'),
+            '2' => $query->whereNotNull('license_plate_number_new'),
+        };
+    }
+
 
     public $attachMany = [
         'photos' => 'System\Models\File'

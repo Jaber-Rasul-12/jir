@@ -44,6 +44,8 @@ return [
         'statistics_general' => ' إحصائيات عامة',
         'print_tables' => 'طباعة الجداول',
         'import_excel' => 'استيراد إكسل',
+        'license_plate_number' => 'سيارات مؤرشفة',
+
 
 
 

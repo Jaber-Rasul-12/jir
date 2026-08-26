@@ -29,6 +29,7 @@ return [
         'date' => 'date',
         'preview_car' => 'Preview Car',
         'export_excel' => 'Export Excel',
+        'license_plate_number' => 'License Plate Number',
         
         'message_delete' => 'Deletion is not possible due to the presence of records associated with the section.',
         'customers' => 'Customers',
