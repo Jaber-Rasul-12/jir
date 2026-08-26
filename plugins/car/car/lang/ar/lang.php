@@ -72,6 +72,11 @@ return [
             'type' => 'النوع',
             'country_location' => 'مكان عمل السيارة ',
             'color'=>'اللون',
+            'notes'=>'الملاحظات',
+            'status'    => 'الحالة',
+            'good'=>'جيد',
+            'expired'=>'منسق',
+            'not_status'=>'لم يتم التقييم',
 
 
             'chassis_number' => 'رقم الهيكل',

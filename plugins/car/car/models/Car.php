@@ -14,7 +14,7 @@ class Car extends Model
     use LogChanges;
 
     use \Winter\Storm\Database\Traits\Nullable;
-protected $nullable = ['type', 'license_plate_number' , 'year_of_manufacturing_date' , 'country_id' , 'license_plate_number_new' , 'country_new_id' , 'country_location_id' , 'color'];
+protected $nullable = ['type', 'license_plate_number' , 'year_of_manufacturing_date' , 'country_id' , 'license_plate_number_new' , 'country_new_id' , 'country_location_id' , 'color' , 'status' , 'notes'];
 public $fillable = ['ownership', 'brand_id' , 'model_id' , 'type' , 'chassis_number' , 'year_of_manufacturing_date' , 'fuel_lists','license_plate_number' , 'country_location' , 'color'];
 
   public $logBookModelName = 'car.car::lang.plugin.cars';
@@ -42,6 +42,11 @@ public $fillable = ['ownership', 'brand_id' , 'model_id' , 'type' , 'chassis_num
         'brand_id' => 'required|integer|exists:car_car_brands,id',
         'year_of_manufacturing_date' => 'nullable|date',
         'color' => 'nullable|string|max:255',
+        'status' => 'nullable|in:good,expired,not_status',
+        'notes' => 'nullable',
+
+        
+
 
         
         'fuel_type' => 'required|string|max:255|in:petrol,diesel,electric,hybrid,plug-in_hybrid,hydrogen,lpg,cng',
@@ -112,6 +117,11 @@ public function getModelOptions($scopes = null)
  public function getFuelListsAttribute()
   {
     return trans('car.car::lang.model.car.' . $this->attributes['fuel_type']);
+  }
+
+  public function getStatusListsAttribute()
+  {
+    return trans('car.car::lang.model.car.' . $this->attributes['status']);
   }
 
 

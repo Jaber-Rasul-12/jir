@@ -40,6 +40,9 @@ columns:
     fuel_lists:
         label: 'car.car::lang.model.car.fuel_type'
         type: text
+    status_lists:
+        label: 'car.car::lang.model.car.status'
+        type: text
 
     country:
         label: 'car.car::lang.model.car.country'
@@ -60,6 +63,12 @@ columns:
         label: 'car.car::lang.model.car.country_location'
         relation: country_location
         select: name
+    notes:
+        label: 'car.car::lang.model.car.notes'
+        type: jaber-list-truncate
+        truncate: true 
+        truncate_limit: 12
+        show_more: true 
         
     created_at:
         label: 'car.car::lang.model.car.created_at'

@@ -73,7 +73,19 @@ fields:
         type: relation
         select: name
         placeholder: car.car::lang.plugin.select
-
+    status:
+        label: 'car.car::lang.model.car.status'
+        span: auto
+        type: dropdown
+        placeholder: car.car::lang.plugin.select
+        options:
+                good: car.car::lang.model.car.good
+                expired: car.car::lang.model.car.expired
+                not_status: car.car::lang.model.car.not_status
+    notes:
+        label: 'car.car::lang.model.car.notes'
+        span: auto
+        type: textarea
 
         
     photos:

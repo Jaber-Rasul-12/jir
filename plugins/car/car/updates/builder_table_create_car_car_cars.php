@@ -19,6 +19,8 @@ class BuilderTableCreateCarCarCars extends Migration
             $table->date('year_of_manufacturing_date')->nullable();
             $table->string('fuel_type');
             $table->string('color')->nullable();
+            $table->string('status');
+            $table->text('notes');
 
             
             $table->text('license_plate_number')->nullable();
