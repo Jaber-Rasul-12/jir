@@ -153,51 +153,50 @@ $modelTypeStats = Db::table('finance_finance_types')
         $join->on('finance_finance_invoices.type_id', '=', 'finance_finance_types.id');
     })
     ->selectRaw("
-        finance_finance_types.id,
+        MIN(finance_finance_types.id) as id,
         finance_finance_types.name,
-        finance_finance_types.type,
         finance_finance_invoices.currency,
         COUNT(finance_finance_invoices.id) as total_count,
         COALESCE(SUM(CASE WHEN finance_finance_invoices.type = 'payment' THEN finance_finance_invoices.amount ELSE 0 END), 0) as total_payment,
         COALESCE(SUM(CASE WHEN finance_finance_invoices.type = 'receipt' THEN finance_finance_invoices.amount ELSE 0 END), 0) as total_receipt
     ")
     ->groupBy(
-        'finance_finance_types.id',
-        'finance_finance_types.name',
-        'finance_finance_types.type',
-        'finance_finance_invoices.currency'
+        'finance_finance_types.name',       // ← التجميع حسب الاسم
+        'finance_finance_invoices.currency' // ← وحسب العملة
     )
-    ->orderBy('finance_finance_types.id')
+    ->orderBy('finance_finance_types.name')
     ->get();
 
-        // تجميع حسب model_type مع فصل العملات
-        $modelTypeGrouped = [];
-        foreach ($modelTypeStats as $stat) {
-            $id = $stat->id;
-            if (!isset($modelTypeGrouped[$id])) {
-                $modelTypeGrouped[$id] = [
-                    'id'             => $stat->id,
-                    'name'           => $stat->name,
-                    'type'           => $stat->type,
-                    'dollar_payment' => 0,
-                    'dollar_receipt' => 0,
-                    'syrian_payment' => 0,
-                    'syrian_receipt' => 0,
-                    'dollar_count'   => 0,
-                    'syrian_count'   => 0,
-                ];
-            }
-            if ($stat->currency === 'dollar') {
-                $modelTypeGrouped[$id]['dollar_payment'] = $stat->total_payment;
-                $modelTypeGrouped[$id]['dollar_receipt'] = $stat->total_receipt;
-                $modelTypeGrouped[$id]['dollar_count']   = $stat->total_count;
-            } elseif ($stat->currency === 'syrian') {
-                $modelTypeGrouped[$id]['syrian_payment'] = $stat->total_payment;
-                $modelTypeGrouped[$id]['syrian_receipt'] = $stat->total_receipt;
-                $modelTypeGrouped[$id]['syrian_count']   = $stat->total_count;
-            }
-        }
-        $modelTypeGrouped = array_values($modelTypeGrouped);
+       $modelTypeGrouped = [];
+
+foreach ($modelTypeStats as $stat) {
+    $key = $stat->name; // ← المفتاح هو الاسم
+
+    if (!isset($modelTypeGrouped[$key])) {
+        $modelTypeGrouped[$key] = [
+            'id'             => $stat->id,
+            'name'           => $stat->name,
+            'dollar_payment' => 0,
+            'dollar_receipt' => 0,
+            'syrian_payment' => 0,
+            'syrian_receipt' => 0,
+            'dollar_count'   => 0,
+            'syrian_count'   => 0,
+        ];
+    }
+
+    if ($stat->currency === 'dollar') {
+        $modelTypeGrouped[$key]['dollar_payment'] = (float) $stat->total_payment;
+        $modelTypeGrouped[$key]['dollar_receipt'] = (float) $stat->total_receipt;
+        $modelTypeGrouped[$key]['dollar_count']   = (int) $stat->total_count;
+    } elseif ($stat->currency === 'syrian') {
+        $modelTypeGrouped[$key]['syrian_payment'] = (float) $stat->total_payment;
+        $modelTypeGrouped[$key]['syrian_receipt'] = (float) $stat->total_receipt;
+        $modelTypeGrouped[$key]['syrian_count']   = (int) $stat->total_count;
+    }
+}
+
+$modelTypeGrouped = array_values($modelTypeGrouped);
 
         // ============ 5. التوزيع الشهري (لكل عملة) ============
         $monthlyStats = Db::table('finance_finance_invoices')

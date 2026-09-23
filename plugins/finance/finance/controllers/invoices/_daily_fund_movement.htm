@@ -5,6 +5,92 @@
         <p class="text-muted"><?= date('l, d F Y') ?></p>
     </div>
 
+
+
+     <!-- ========== Chart: ليرة ========== -->
+    <div class="finance-card currency-syrian">
+        <div class="card-header">
+            <h4><i class="wn-icon-chart-bar"></i> التوزيع الشهري - الليرة السورية</h4>
+        </div>
+        <div class="card-body">
+            <canvas id="chartSyrian" height="80"></canvas>
+        </div>
+    </div>
+
+    <!-- ========== Model Type Stats ========== -->
+    <div class="section-title">
+        <i class="wn-icon-list"></i> تقرير حسابات عام
+    </div>
+
+    <div class="finance-card">
+        <div class="card-body p-0">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th rowspan="2" class="align-middle">#</th>
+                        <th rowspan="2" class="align-middle">اسم الحساب</th>
+                        
+                        <th colspan="3" class="text-center bg-dollar">💵 الدولار ($)</th>
+                        <th colspan="3" class="text-center bg-syrian">💷 الليرة السورية (ل.س)</th>
+                    </tr>
+                    <tr>
+                       
+                        <th class="text-right bg-dollar">صرف</th>
+                        <th class="text-right bg-dollar">قبض</th>
+                        <th class="text-right bg-dollar">الرصيد</th>
+                      
+                        <th class="text-right bg-syrian">صرف</th>
+                        <th class="text-right bg-syrian">قبض</th>
+                        <th class="text-right bg-syrian">الرصيد</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($modelTypeStats as $i => $stat): ?>
+                        <tr>
+                            <td><?= $i + 1 ?></td>
+                            <td><strong><?= e($stat['name']) ?></strong></td>
+                            
+
+                            <!-- دولار -->
+                           
+                            <td class="text-right text-danger"><?= number_format($stat['dollar_payment'], 2) ?> $</td>
+                            <td class="text-right text-success"><?= number_format($stat['dollar_receipt'], 2) ?> $</td>
+                            <td class="text-right">
+                                <strong class="<?= ($stat['dollar_receipt'] - $stat['dollar_payment']) >= 0 ? 'text-success' : 'text-danger' ?>">
+                                    <?= number_format($stat['dollar_receipt'] - $stat['dollar_payment'], 2) ?> $
+                                </strong>
+                            </td>
+
+                            <!-- ليرة -->
+                          
+                            <td class="text-right text-danger"><?= number_format($stat['syrian_payment'], 2) ?> ل.س</td>
+                            <td class="text-right text-success"><?= number_format($stat['syrian_receipt'], 2) ?> ل.س</td>
+                            <td class="text-right">
+                                <strong class="<?= ($stat['syrian_receipt'] - $stat['syrian_payment']) >= 0 ? 'text-success' : 'text-danger' ?>">
+                                    <?= number_format($stat['syrian_receipt'] - $stat['syrian_payment'], 2) ?> ل.س
+                                </strong>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+                <tfoot>
+                    <tr class="font-weight-bold">
+                        <td colspan="2" class="text-right">الإجمالي العام</td>
+                        <td class="text-right text-danger"><?= number_format($dollar->total_payment, 2) ?> $</td>
+                        <td class="text-right text-success"><?= number_format($dollar->total_receipt, 2) ?> $</td>
+                        <td class="text-right">
+                            <?= number_format($dollar->total_receipt - $dollar->total_payment, 2) ?> $
+                        </td>
+                        <td class="text-right text-danger"><?= number_format($syrian->total_payment, 2) ?> ل.س</td>
+                        <td class="text-right text-success"><?= number_format($syrian->total_receipt, 2) ?> ل.س</td>
+                        <td class="text-right">
+                            <?= number_format($syrian->total_receipt - $syrian->total_payment, 2) ?> ل.س
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
     <!-- ========== KPI عام ========== -->
     <div class="section-title">
         <i class="wn-icon-globe"></i> الإجمالي العام (جميع العملات)
@@ -275,92 +361,7 @@
         </div>
     </div>
 
-    <!-- ========== Chart: ليرة ========== -->
-    <div class="finance-card currency-syrian">
-        <div class="card-header">
-            <h4><i class="wn-icon-chart-bar"></i> التوزيع الشهري - الليرة السورية</h4>
-        </div>
-        <div class="card-body">
-            <canvas id="chartSyrian" height="80"></canvas>
-        </div>
-    </div>
-
-    <!-- ========== Model Type Stats ========== -->
-    <div class="section-title">
-        <i class="wn-icon-list"></i> تقرير حسابات عام
-    </div>
-
-    <div class="finance-card">
-        <div class="card-body p-0">
-            <table class="table table-hover mb-0">
-                <thead>
-                    <tr>
-                        <th rowspan="2" class="align-middle">#</th>
-                        <th rowspan="2" class="align-middle">اسم الحساب</th>
-                        
-                        <th colspan="4" class="text-center bg-dollar">💵 الدولار ($)</th>
-                        <th colspan="4" class="text-center bg-syrian">💷 الليرة السورية (ل.س)</th>
-                    </tr>
-                    <tr>
-                       
-                        <th class="text-right bg-dollar">صرف</th>
-                        <th class="text-right bg-dollar">قبض</th>
-                        <th class="text-right bg-dollar">الرصيد</th>
-                      
-                        <th class="text-right bg-syrian">صرف</th>
-                        <th class="text-right bg-syrian">قبض</th>
-                        <th class="text-right bg-syrian">الرصيد</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($modelTypeStats as $i => $stat): ?>
-                        <tr>
-                            <td><?= $i + 1 ?></td>
-                            <td><strong><?= e($stat['name']) ?></strong></td>
-                            
-
-                            <!-- دولار -->
-                           
-                            <td class="text-right text-danger"><?= number_format($stat['dollar_payment'], 2) ?> $</td>
-                            <td class="text-right text-success"><?= number_format($stat['dollar_receipt'], 2) ?> $</td>
-                            <td class="text-right">
-                                <strong class="<?= ($stat['dollar_receipt'] - $stat['dollar_payment']) >= 0 ? 'text-success' : 'text-danger' ?>">
-                                    <?= number_format($stat['dollar_receipt'] - $stat['dollar_payment'], 2) ?> $
-                                </strong>
-                            </td>
-
-                            <!-- ليرة -->
-                          
-                            <td class="text-right text-danger"><?= number_format($stat['syrian_payment'], 2) ?> ل.س</td>
-                            <td class="text-right text-success"><?= number_format($stat['syrian_receipt'], 2) ?> ل.س</td>
-                            <td class="text-right">
-                                <strong class="<?= ($stat['syrian_receipt'] - $stat['syrian_payment']) >= 0 ? 'text-success' : 'text-danger' ?>">
-                                    <?= number_format($stat['syrian_receipt'] - $stat['syrian_payment'], 2) ?> ل.س
-                                </strong>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-                <tfoot>
-                    <tr class="font-weight-bold">
-                        <td colspan="3" class="text-right">الإجمالي العام</td>
-                        <td class="text-right"><?= $dollar->total_count ?></td>
-                        <td class="text-right text-danger"><?= number_format($dollar->total_payment, 2) ?></td>
-                        <td class="text-right text-success"><?= number_format($dollar->total_receipt, 2) ?></td>
-                        <td class="text-right">
-                            <?= number_format($dollar->total_receipt - $dollar->total_payment, 2) ?>
-                        </td>
-                        <td class="text-right"><?= $syrian->total_count ?></td>
-                        <td class="text-right text-danger"><?= number_format($syrian->total_payment, 2) ?></td>
-                        <td class="text-right text-success"><?= number_format($syrian->total_receipt, 2) ?></td>
-                        <td class="text-right">
-                            <?= number_format($syrian->total_receipt - $syrian->total_payment, 2) ?>
-                        </td>
-                    </tr>
-                </tfoot>
-            </table>
-        </div>
-    </div>
+   
 
     <!-- ========== Top Invoices ========== -->
     <div class="row">
