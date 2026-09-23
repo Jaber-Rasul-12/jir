@@ -148,24 +148,27 @@ class Invoices extends Controller
         $yearSyrian = $yearly->get('syrian', (object) ['total_payment' => 0, 'total_receipt' => 0]);
 
         // ============ 4. إحصائيات حسب model_type + العملة ============
-        $modelTypeStats = Db::table('finance_finance_invoices')
-            ->join('finance_finance_types', 'finance_finance_invoices.type_id', '=', 'finance_finance_types.id')
-            ->selectRaw("
-                finance_finance_types.id,
-                finance_finance_types.name,
-                finance_finance_types.type,
-                finance_finance_invoices.currency,
-                COUNT(*) as total_count,
-                SUM(CASE WHEN finance_finance_invoices.type = 'payment' THEN finance_finance_invoices.amount ELSE 0 END) as total_payment,
-                SUM(CASE WHEN finance_finance_invoices.type = 'receipt' THEN finance_finance_invoices.amount ELSE 0 END) as total_receipt
-            ")
-            ->groupBy(
-                'finance_finance_types.id',
-                'finance_finance_types.name',
-                'finance_finance_types.type',
-                'finance_finance_invoices.currency'
-            )
-            ->get();
+$modelTypeStats = Db::table('finance_finance_types')
+    ->leftJoin('finance_finance_invoices', function ($join) {
+        $join->on('finance_finance_invoices.type_id', '=', 'finance_finance_types.id');
+    })
+    ->selectRaw("
+        finance_finance_types.id,
+        finance_finance_types.name,
+        finance_finance_types.type,
+        finance_finance_invoices.currency,
+        COUNT(finance_finance_invoices.id) as total_count,
+        COALESCE(SUM(CASE WHEN finance_finance_invoices.type = 'payment' THEN finance_finance_invoices.amount ELSE 0 END), 0) as total_payment,
+        COALESCE(SUM(CASE WHEN finance_finance_invoices.type = 'receipt' THEN finance_finance_invoices.amount ELSE 0 END), 0) as total_receipt
+    ")
+    ->groupBy(
+        'finance_finance_types.id',
+        'finance_finance_types.name',
+        'finance_finance_types.type',
+        'finance_finance_invoices.currency'
+    )
+    ->orderBy('finance_finance_types.id')
+    ->get();
 
         // تجميع حسب model_type مع فصل العملات
         $modelTypeGrouped = [];

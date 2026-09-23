@@ -297,16 +297,16 @@
                     <tr>
                         <th rowspan="2" class="align-middle">#</th>
                         <th rowspan="2" class="align-middle">اسم الحساب</th>
-                        <th rowspan="2" class="align-middle">النوع</th>
+                        
                         <th colspan="4" class="text-center bg-dollar">💵 الدولار ($)</th>
                         <th colspan="4" class="text-center bg-syrian">💷 الليرة السورية (ل.س)</th>
                     </tr>
                     <tr>
-                        <th class="text-right bg-dollar">عدد</th>
+                       
                         <th class="text-right bg-dollar">صرف</th>
                         <th class="text-right bg-dollar">قبض</th>
                         <th class="text-right bg-dollar">الرصيد</th>
-                        <th class="text-right bg-syrian">عدد</th>
+                      
                         <th class="text-right bg-syrian">صرف</th>
                         <th class="text-right bg-syrian">قبض</th>
                         <th class="text-right bg-syrian">الرصيد</th>
@@ -317,29 +317,25 @@
                         <tr>
                             <td><?= $i + 1 ?></td>
                             <td><strong><?= e($stat['name']) ?></strong></td>
-                            <td>
-                                <span class="badge badge-<?= $stat['type'] === 'payment' ? 'danger' : 'success' ?>">
-                                    <?= $stat['type'] === 'payment' ? 'صرف' : 'قبض' ?>
-                                </span>
-                            </td>
+                            
 
                             <!-- دولار -->
-                            <td class="text-right"><?= $stat['dollar_count'] ?></td>
-                            <td class="text-right text-danger"><?= number_format($stat['dollar_payment'], 2) ?></td>
-                            <td class="text-right text-success"><?= number_format($stat['dollar_receipt'], 2) ?></td>
+                           
+                            <td class="text-right text-danger"><?= number_format($stat['dollar_payment'], 2) ?> $</td>
+                            <td class="text-right text-success"><?= number_format($stat['dollar_receipt'], 2) ?> $</td>
                             <td class="text-right">
                                 <strong class="<?= ($stat['dollar_receipt'] - $stat['dollar_payment']) >= 0 ? 'text-success' : 'text-danger' ?>">
-                                    <?= number_format($stat['dollar_receipt'] - $stat['dollar_payment'], 2) ?>
+                                    <?= number_format($stat['dollar_receipt'] - $stat['dollar_payment'], 2) ?> $
                                 </strong>
                             </td>
 
                             <!-- ليرة -->
-                            <td class="text-right"><?= $stat['syrian_count'] ?></td>
-                            <td class="text-right text-danger"><?= number_format($stat['syrian_payment'], 2) ?></td>
-                            <td class="text-right text-success"><?= number_format($stat['syrian_receipt'], 2) ?></td>
+                          
+                            <td class="text-right text-danger"><?= number_format($stat['syrian_payment'], 2) ?> ل.س</td>
+                            <td class="text-right text-success"><?= number_format($stat['syrian_receipt'], 2) ?> ل.س</td>
                             <td class="text-right">
                                 <strong class="<?= ($stat['syrian_receipt'] - $stat['syrian_payment']) >= 0 ? 'text-success' : 'text-danger' ?>">
-                                    <?= number_format($stat['syrian_receipt'] - $stat['syrian_payment'], 2) ?>
+                                    <?= number_format($stat['syrian_receipt'] - $stat['syrian_payment'], 2) ?> ل.س
                                 </strong>
                             </td>
                         </tr>
