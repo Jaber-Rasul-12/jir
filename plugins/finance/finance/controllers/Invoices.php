@@ -82,99 +82,200 @@ class Invoices extends Controller
         ];
     }
 
-    /**
-     * بناء كل الإحصائيات
-     */
     protected function buildStatistics()
     {
         $now = Carbon::now();
         $currentYear = $now->year;
-        $currentMonth = $now->month;
 
-        // ===== 1. الإحصائيات العامة =====
-        $all = Invoice::all();
-        $totalAmount     = $all->sum('amount');
-        $totalPayments   = $all->where('type', 'payment')->sum('amount');
-        $totalReceipts   = $all->where('type', 'receipt')->sum('amount');
-        $paymentCount    = $all->where('type', 'payment')->count();
-        $receiptCount    = $all->where('type', 'receipt')->count();
-        $balance         = $totalReceipts - $totalPayments;
+        // ============ 1. إحصائيات عامة حسب العملة ============
+        $general = Db::table('finance_finance_invoices')
+            ->selectRaw("
+                currency,
+                COUNT(*) as total_count,
+                SUM(amount) as total_amount,
+                SUM(CASE WHEN type = 'payment' THEN amount ELSE 0 END) as total_payment,
+                SUM(CASE WHEN type = 'receipt' THEN amount ELSE 0 END) as total_receipt,
+                SUM(CASE WHEN type = 'payment' THEN 1 ELSE 0 END) as payment_count,
+                SUM(CASE WHEN type = 'receipt' THEN 1 ELSE 0 END) as receipt_count
+            ")
+            ->groupBy('currency')
+            ->get()
+            ->keyBy('currency');
 
-        // ===== 2. إحصائيات هذا الشهر =====
-        $monthInvoices = Invoice::whereHas('month', function ($q) use ($currentMonth) {
-            $q->where('name', 'like', '%' . $currentMonth . '%');
-        })->get();
+        // استخراج كل عملة على حدة
+        $dollar = $general->get('dollar', (object) [
+            'total_count' => 0, 'total_amount' => 0,
+            'total_payment' => 0, 'total_receipt' => 0,
+            'payment_count' => 0, 'receipt_count' => 0,
+        ]);
 
-        $monthPayments = $monthInvoices->where('type', 'payment')->sum('amount');
-        $monthReceipts = $monthInvoices->where('type', 'receipt')->sum('amount');
+        $syrian = $general->get('syrian', (object) [
+            'total_count' => 0, 'total_amount' => 0,
+            'total_payment' => 0, 'total_receipt' => 0,
+            'payment_count' => 0, 'receipt_count' => 0,
+        ]);
 
-        // ===== 3. إحصائيات هذه السنة =====
-        $yearInvoices = Invoice::whereHas('year', function ($q) use ($currentYear) {
-            $q->where('name', 'like', '%' . $currentYear . '%');
-        })->get();
+        // ============ 2. إحصائيات هذا الشهر ============
+        $monthly = Db::table('finance_finance_invoices')
+            ->join('finance_finance_months', 'finance_finance_invoices.month_id', '=', 'finance_finance_months.id')
+            ->where('finance_finance_months.id', $now->month)
+            ->selectRaw("
+                currency,
+                SUM(CASE WHEN type = 'payment' THEN amount ELSE 0 END) as total_payment,
+                SUM(CASE WHEN type = 'receipt' THEN amount ELSE 0 END) as total_receipt
+            ")
+            ->groupBy('currency')
+            ->get()
+            ->keyBy('currency');
 
-        $yearPayments = $yearInvoices->where('type', 'payment')->sum('amount');
-        $yearReceipts = $yearInvoices->where('type', 'receipt')->sum('amount');
+        $monthDollar = $monthly->get('dollar', (object) ['total_payment' => 0, 'total_receipt' => 0]);
+        $monthSyrian = $monthly->get('syrian', (object) ['total_payment' => 0, 'total_receipt' => 0]);
 
-        // ===== 4. إحصائيات حسب model_type =====
-        $byModelType = ModelType::with(['invoices' => function ($q) {
-            // علاقة معكوسة - نحتاج لتعريفها
-        }])->get();
+        // ============ 3. إحصائيات هذه السنة ============
+        $yearly = Db::table('finance_finance_invoices')
+            ->join('finance_finance_years', 'finance_finance_invoices.year_id', '=', 'finance_finance_years.id')
+            ->where('finance_finance_years.id', $currentYear)
+            ->selectRaw("
+                currency,
+                SUM(CASE WHEN type = 'payment' THEN amount ELSE 0 END) as total_payment,
+                SUM(CASE WHEN type = 'receipt' THEN amount ELSE 0 END) as total_receipt
+            ")
+            ->groupBy('currency')
+            ->get()
+            ->keyBy('currency');
 
-        // إذا لم تكن العلاقة معرّفة، نستخدم استعلام مباشر
+        $yearDollar = $yearly->get('dollar', (object) ['total_payment' => 0, 'total_receipt' => 0]);
+        $yearSyrian = $yearly->get('syrian', (object) ['total_payment' => 0, 'total_receipt' => 0]);
+
+        // ============ 4. إحصائيات حسب model_type + العملة ============
         $modelTypeStats = Db::table('finance_finance_invoices')
             ->join('finance_finance_types', 'finance_finance_invoices.type_id', '=', 'finance_finance_types.id')
-            ->select(
-                'finance_finance_types.id',
-                'finance_finance_types.name',
-                'finance_finance_types.type',
-                Db::raw("SUM(CASE WHEN finance_finance_invoices.type = 'payment' THEN finance_finance_invoices.amount ELSE 0 END) as total_payment"),
-                Db::raw("SUM(CASE WHEN finance_finance_invoices.type = 'receipt' THEN finance_finance_invoices.amount ELSE 0 END) as total_receipt"),
-                Db::raw("COUNT(finance_finance_invoices.id) as total_count")
-            )
+            ->selectRaw("
+                finance_finance_types.id,
+                finance_finance_types.name,
+                finance_finance_types.type,
+                finance_finance_invoices.currency,
+                COUNT(*) as total_count,
+                SUM(CASE WHEN finance_finance_invoices.type = 'payment' THEN finance_finance_invoices.amount ELSE 0 END) as total_payment,
+                SUM(CASE WHEN finance_finance_invoices.type = 'receipt' THEN finance_finance_invoices.amount ELSE 0 END) as total_receipt
+            ")
             ->groupBy(
                 'finance_finance_types.id',
                 'finance_finance_types.name',
-                'finance_finance_types.type'
+                'finance_finance_types.type',
+                'finance_finance_invoices.currency'
             )
             ->get();
 
-        // ===== 5. توزيع الشهري (12 شهرًا) =====
+        // تجميع حسب model_type مع فصل العملات
+        $modelTypeGrouped = [];
+        foreach ($modelTypeStats as $stat) {
+            $id = $stat->id;
+            if (!isset($modelTypeGrouped[$id])) {
+                $modelTypeGrouped[$id] = [
+                    'id'             => $stat->id,
+                    'name'           => $stat->name,
+                    'type'           => $stat->type,
+                    'dollar_payment' => 0,
+                    'dollar_receipt' => 0,
+                    'syrian_payment' => 0,
+                    'syrian_receipt' => 0,
+                    'dollar_count'   => 0,
+                    'syrian_count'   => 0,
+                ];
+            }
+            if ($stat->currency === 'dollar') {
+                $modelTypeGrouped[$id]['dollar_payment'] = $stat->total_payment;
+                $modelTypeGrouped[$id]['dollar_receipt'] = $stat->total_receipt;
+                $modelTypeGrouped[$id]['dollar_count']   = $stat->total_count;
+            } elseif ($stat->currency === 'syrian') {
+                $modelTypeGrouped[$id]['syrian_payment'] = $stat->total_payment;
+                $modelTypeGrouped[$id]['syrian_receipt'] = $stat->total_receipt;
+                $modelTypeGrouped[$id]['syrian_count']   = $stat->total_count;
+            }
+        }
+        $modelTypeGrouped = array_values($modelTypeGrouped);
+
+        // ============ 5. التوزيع الشهري (لكل عملة) ============
         $monthlyStats = Db::table('finance_finance_invoices')
             ->join('finance_finance_months', 'finance_finance_invoices.month_id', '=', 'finance_finance_months.id')
-            ->select(
-                'finance_finance_months.name as month_name',
-                Db::raw("SUM(CASE WHEN finance_finance_invoices.type = 'payment' THEN finance_finance_invoices.amount ELSE 0 END) as payment"),
-                Db::raw("SUM(CASE WHEN finance_finance_invoices.type = 'receipt' THEN finance_finance_invoices.amount ELSE 0 END) as receipt")
+            ->selectRaw("
+                finance_finance_months.id as month_id,
+                finance_finance_months.name as month_name,
+                finance_finance_invoices.currency,
+                SUM(CASE WHEN finance_finance_invoices.type = 'payment' THEN finance_finance_invoices.amount ELSE 0 END) as payment,
+                SUM(CASE WHEN finance_finance_invoices.type = 'receipt' THEN finance_finance_invoices.amount ELSE 0 END) as receipt
+            ")
+            ->groupBy(
+                'finance_finance_months.id',
+                'finance_finance_months.name',
+                'finance_finance_invoices.currency'
             )
-            ->groupBy('finance_finance_months.id', 'finance_finance_months.name')
             ->orderBy('finance_finance_months.id')
             ->get();
 
-        // ===== 6. أعلى 5 معاملات =====
-        $topInvoices = Invoice::orderBy('amount', 'desc')->take(5)->get();
+        // ترتيب شهري لكل عملة
+        $months     = $monthlyStats->pluck('month_name', 'month_id')->unique()->values()->toArray();
+        $monthIds   = $monthlyStats->pluck('month_id')->unique()->sort()->values()->toArray();
 
-        // ===== 7. آخر المعاملات =====
+        $dollarMonthlyPayments = [];
+        $dollarMonthlyReceipts = [];
+        $syrianMonthlyPayments = [];
+        $syrianMonthlyReceipts = [];
+
+        foreach ($monthIds as $mid) {
+            $dRow = $monthlyStats->firstWhere(fn($r) => $r->month_id == $mid && $r->currency === 'dollar');
+            $sRow = $monthlyStats->firstWhere(fn($r) => $r->month_id == $mid && $r->currency === 'syrian');
+
+            $dollarMonthlyPayments[] = $dRow ? (float) $dRow->payment : 0;
+            $dollarMonthlyReceipts[] = $dRow ? (float) $dRow->receipt : 0;
+            $syrianMonthlyPayments[] = $sRow ? (float) $sRow->payment : 0;
+            $syrianMonthlyReceipts[] = $sRow ? (float) $sRow->receipt : 0;
+        }
+
+        // ============ 6. أعلى المعاملات ============
+        $topDollar = Invoice::where('currency', 'dollar')->orderBy('amount', 'desc')->take(5)->get();
+        $topSyrian = Invoice::where('currency', 'syrian')->orderBy('amount', 'desc')->take(5)->get();
+
+        // ============ 7. آخر المعاملات ============
         $recentInvoices = Invoice::orderBy('created_at', 'desc')->take(10)->get();
 
         return [
-            'invoices'         => $all,
-            'totalAmount'      => $totalAmount,
-            'totalPayments'    => $totalPayments,
-            'totalReceipts'    => $totalReceipts,
-            'paymentCount'     => $paymentCount,
-            'receiptCount'     => $receiptCount,
-            'balance'          => $balance,
-            'monthPayments'    => $monthPayments,
-            'monthReceipts'    => $monthReceipts,
-            'yearPayments'     => $yearPayments,
-            'yearReceipts'     => $yearReceipts,
-            'modelTypeStats'   => $modelTypeStats,
-            'monthlyStats'     => $monthlyStats,
-            'topInvoices'      => $topInvoices,
-            'recentInvoices'   => $recentInvoices,
-            'currentYear'      => $currentYear,
-            'currentMonth'     => $currentMonth,
+            // عام
+            'dollar'        => $dollar,
+            'syrian'        => $syrian,
+            'totalAmount'   => $dollar->total_amount + $syrian->total_amount,
+            'totalPayments' => $dollar->total_payment + $syrian->total_payment,
+            'totalReceipts' => $dollar->total_receipt + $syrian->total_receipt,
+            'paymentCount'  => $dollar->payment_count + $syrian->payment_count,
+            'receiptCount'  => $dollar->receipt_count + $syrian->receipt_count,
+            'balance'       => ($dollar->total_receipt + $syrian->total_receipt)
+                             - ($dollar->total_payment + $syrian->total_payment),
+
+            // شهري
+            'monthDollar'   => $monthDollar,
+            'monthSyrian'   => $monthSyrian,
+
+            // سنوي
+            'yearDollar'    => $yearDollar,
+            'yearSyrian'    => $yearSyrian,
+
+            // model_type
+            'modelTypeStats' => $modelTypeGrouped,
+
+            // chart
+            'months'                 => $months,
+            'dollarMonthlyPayments'  => $dollarMonthlyPayments,
+            'dollarMonthlyReceipts'  => $dollarMonthlyReceipts,
+            'syrianMonthlyPayments'  => $syrianMonthlyPayments,
+            'syrianMonthlyReceipts'  => $syrianMonthlyReceipts,
+
+            // top
+            'topDollar'      => $topDollar,
+            'topSyrian'      => $topSyrian,
+            'recentInvoices' => $recentInvoices,
+
+            'currentYear'    => $currentYear,
         ];
     }
 

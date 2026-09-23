@@ -1,23 +1,25 @@
 <div class="finance-dashboard">
     <!-- ========== Header ========== -->
     <div class="dashboard-header">
-        <h2>
-            <i class="wn-icon-bar-chart"></i>
-           أحصائيات الصرف والقبض
-        </h2>
-        <p class="text-muted">
-            <?= date('l, d F Y') ?>
-        </p>
+        <h2><i class="wn-icon-bar-chart"></i> لوحة الإحصائيات المالية</h2>
+        <p class="text-muted"><?= date('l, d F Y') ?></p>
     </div>
 
-    <!-- ========== KPI Cards ========== -->
-    <div class="kpi-grid">
+    <!-- ========== KPI عام ========== -->
+    <div class="section-title">
+        <i class="wn-icon-globe"></i> الإجمالي العام (جميع العملات)
+    </div>
+
+    <div class="kpi-grid kpi-grid-4">
         <div class="kpi-card kpi-primary">
             <div class="kpi-icon"><i class="wn-icon-money"></i></div>
             <div class="kpi-body">
                 <span class="kpi-label">إجمالي المبالغ</span>
                 <h3 class="kpi-value"><?= number_format($totalAmount, 2) ?></h3>
-                <span class="kpi-sub"><?= count($invoices) ?> معاملة</span>
+                <span class="kpi-sub">
+                    <?= number_format($dollar->total_amount, 2) ?> $ +
+                    <?= number_format($syrian->total_amount, 2) ?> ل.س
+                </span>
             </div>
         </div>
 
@@ -26,7 +28,10 @@
             <div class="kpi-body">
                 <span class="kpi-label">إجمالي الصرف</span>
                 <h3 class="kpi-value"><?= number_format($totalPayments, 2) ?></h3>
-                <span class="kpi-sub"><?= $paymentCount ?> معاملة</span>
+                <span class="kpi-sub">
+                    <?= number_format($dollar->total_payment, 2) ?> $ +
+                    <?= number_format($syrian->total_payment, 2) ?> ل.س
+                </span>
             </div>
         </div>
 
@@ -35,7 +40,57 @@
             <div class="kpi-body">
                 <span class="kpi-label">إجمالي القبض</span>
                 <h3 class="kpi-value"><?= number_format($totalReceipts, 2) ?></h3>
-                <span class="kpi-sub"><?= $receiptCount ?> معاملة</span>
+                <span class="kpi-sub">
+                    <?= number_format($dollar->total_receipt, 2) ?> $ +
+                    <?= number_format($syrian->total_receipt, 2) ?> ل.س
+                </span>
+            </div>
+        </div>
+
+        <div class="kpi-card kpi-info">
+            <div class="kpi-icon"><i class="wn-icon-balance-scale"></i></div>
+            <div class="kpi-body">
+                <span class="kpi-label">صافي الرصيد (تقريبي)</span>
+                <h3 class="kpi-value <?= ($dollar->total_receipt - $dollar->total_payment) >= 0 ? 'text-success' : 'text-danger' ?>">
+                    <?= number_format($dollar->total_receipt - $dollar->total_payment, 2) ?> $
+                </h3>
+                <span class="kpi-sub">
+                    <?= number_format($syrian->total_receipt - $syrian->total_payment, 2) ?> ل.س
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== قسم الدولار ========== -->
+    <div class="section-title section-title-dollar">
+        <i class="wn-icon-dollar"></i> الدولار الأمريكي ($)
+    </div>
+
+    <div class="kpi-grid kpi-grid-4">
+        <div class="kpi-card kpi-primary">
+            <div class="kpi-icon"><i class="wn-icon-money"></i></div>
+            <div class="kpi-body">
+                <span class="kpi-label">إجمالي المبالغ</span>
+                <h3 class="kpi-value"><?= number_format($dollar->total_amount, 2) ?> $</h3>
+                <span class="kpi-sub"><?= $dollar->total_count ?> معاملة</span>
+            </div>
+        </div>
+
+        <div class="kpi-card kpi-danger">
+            <div class="kpi-icon"><i class="wn-icon-arrow-up"></i></div>
+            <div class="kpi-body">
+                <span class="kpi-label">إجمالي الصرف</span>
+                <h3 class="kpi-value"><?= number_format($dollar->total_payment, 2) ?> $</h3>
+                <span class="kpi-sub"><?= $dollar->payment_count ?> معاملة</span>
+            </div>
+        </div>
+
+        <div class="kpi-card kpi-success">
+            <div class="kpi-icon"><i class="wn-icon-arrow-down"></i></div>
+            <div class="kpi-body">
+                <span class="kpi-label">إجمالي القبض</span>
+                <h3 class="kpi-value"><?= number_format($dollar->total_receipt, 2) ?> $</h3>
+                <span class="kpi-sub"><?= $dollar->receipt_count ?> معاملة</span>
             </div>
         </div>
 
@@ -43,34 +98,87 @@
             <div class="kpi-icon"><i class="wn-icon-balance-scale"></i></div>
             <div class="kpi-body">
                 <span class="kpi-label">الرصيد</span>
-                <h3 class="kpi-value" style="color: <?= $balance >= 0 ? '#38a169' : '#e53e3e' ?>;">
-                    <?= number_format($balance, 2) ?>
+                <h3 class="kpi-value <?= ($dollar->total_receipt - $dollar->total_payment) >= 0 ? 'text-success' : 'text-danger' ?>">
+                    <?= number_format($dollar->total_receipt - $dollar->total_payment, 2) ?> $
                 </h3>
-                <span class="kpi-sub"><?= $balance >= 0 ? 'فائض' : 'عجز' ?></span>
+                <span class="kpi-sub">
+                    <?= ($dollar->total_receipt - $dollar->total_payment) >= 0 ? 'فائض' : 'عجز' ?>
+                </span>
             </div>
         </div>
     </div>
 
-    <!-- ========== This Month / This Year ========== -->
+    <!-- ========== قسم الليرة السورية ========== -->
+    <div class="section-title section-title-syrian">
+        <i class="wn-icon-money"></i> الليرة السورية (ل.س)
+    </div>
+
+    <div class="kpi-grid kpi-grid-4">
+        <div class="kpi-card kpi-primary">
+            <div class="kpi-icon"><i class="wn-icon-money"></i></div>
+            <div class="kpi-body">
+                <span class="kpi-label">إجمالي المبالغ</span>
+                <h3 class="kpi-value"><?= number_format($syrian->total_amount, 2) ?> ل.س</h3>
+                <span class="kpi-sub"><?= $syrian->total_count ?> معاملة</span>
+            </div>
+        </div>
+
+        <div class="kpi-card kpi-danger">
+            <div class="kpi-icon"><i class="wn-icon-arrow-up"></i></div>
+            <div class="kpi-body">
+                <span class="kpi-label">إجمالي الصرف</span>
+                <h3 class="kpi-value"><?= number_format($syrian->total_payment, 2) ?> ل.س</h3>
+                <span class="kpi-sub"><?= $syrian->payment_count ?> معاملة</span>
+            </div>
+        </div>
+
+        <div class="kpi-card kpi-success">
+            <div class="kpi-icon"><i class="wn-icon-arrow-down"></i></div>
+            <div class="kpi-body">
+                <span class="kpi-label">إجمالي القبض</span>
+                <h3 class="kpi-value"><?= number_format($syrian->total_receipt, 2) ?> ل.س</h3>
+                <span class="kpi-sub"><?= $syrian->receipt_count ?> معاملة</span>
+            </div>
+        </div>
+
+        <div class="kpi-card kpi-info">
+            <div class="kpi-icon"><i class="wn-icon-balance-scale"></i></div>
+            <div class="kpi-body">
+                <span class="kpi-label">الرصيد</span>
+                <h3 class="kpi-value <?= ($syrian->total_receipt - $syrian->total_payment) >= 0 ? 'text-success' : 'text-danger' ?>">
+                    <?= number_format($syrian->total_receipt - $syrian->total_payment, 2) ?> ل.س
+                </h3>
+                <span class="kpi-sub">
+                    <?= ($syrian->total_receipt - $syrian->total_payment) >= 0 ? 'فائض' : 'عجز' ?>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== الشهر الحالي ========== -->
+    <div class="section-title">
+        <i class="wn-icon-calendar"></i> إحصائيات الشهر الحالي
+    </div>
+
     <div class="row">
         <div class="col-md-6">
-            <div class="finance-card">
+            <div class="finance-card currency-dollar">
                 <div class="card-header">
-                    <h4><i class="wn-icon-calendar"></i> إحصائيات هذا الشهر</h4>
+                    <h4><i class="wn-icon-dollar"></i> الدولار ($)</h4>
                 </div>
                 <div class="card-body">
                     <div class="mini-stat">
                         <span class="mini-label">صرف</span>
-                        <span class="mini-value text-danger"><?= number_format($monthPayments, 2) ?></span>
+                        <span class="mini-value text-danger"><?= number_format($monthDollar->total_payment, 2) ?> $</span>
                     </div>
                     <div class="mini-stat">
                         <span class="mini-label">قبض</span>
-                        <span class="mini-value text-success"><?= number_format($monthReceipts, 2) ?></span>
+                        <span class="mini-value text-success"><?= number_format($monthDollar->total_receipt, 2) ?> $</span>
                     </div>
                     <div class="mini-stat border-top">
                         <span class="mini-label">الفرق</span>
-                        <span class="mini-value <?= ($monthReceipts - $monthPayments) >= 0 ? 'text-success' : 'text-danger' ?>">
-                            <?= number_format($monthReceipts - $monthPayments, 2) ?>
+                        <span class="mini-value <?= ($monthDollar->total_receipt - $monthDollar->total_payment) >= 0 ? 'text-success' : 'text-danger' ?>">
+                            <?= number_format($monthDollar->total_receipt - $monthDollar->total_payment, 2) ?> $
                         </span>
                     </div>
                 </div>
@@ -78,23 +186,23 @@
         </div>
 
         <div class="col-md-6">
-            <div class="finance-card">
+            <div class="finance-card currency-syrian">
                 <div class="card-header">
-                    <h4><i class="wn-icon-calendar-o"></i> إحصائيات سنة <?= $currentYear ?></h4>
+                    <h4><i class="wn-icon-money"></i> الليرة السورية (ل.س)</h4>
                 </div>
                 <div class="card-body">
                     <div class="mini-stat">
                         <span class="mini-label">صرف</span>
-                        <span class="mini-value text-danger"><?= number_format($yearPayments, 2) ?></span>
+                        <span class="mini-value text-danger"><?= number_format($monthSyrian->total_payment, 2) ?> ل.س</span>
                     </div>
                     <div class="mini-stat">
                         <span class="mini-label">قبض</span>
-                        <span class="mini-value text-success"><?= number_format($yearReceipts, 2) ?></span>
+                        <span class="mini-value text-success"><?= number_format($monthSyrian->total_receipt, 2) ?> ل.س</span>
                     </div>
                     <div class="mini-stat border-top">
                         <span class="mini-label">الفرق</span>
-                        <span class="mini-value <?= ($yearReceipts - $yearPayments) >= 0 ? 'text-success' : 'text-danger' ?>">
-                            <?= number_format($yearReceipts - $yearPayments, 2) ?>
+                        <span class="mini-value <?= ($monthSyrian->total_receipt - $monthSyrian->total_payment) >= 0 ? 'text-success' : 'text-danger' ?>">
+                            <?= number_format($monthSyrian->total_receipt - $monthSyrian->total_payment, 2) ?> ل.س
                         </span>
                     </div>
                 </div>
@@ -102,79 +210,178 @@
         </div>
     </div>
 
-    <!-- ========== Chart: Monthly Distribution ========== -->
-    <div class="finance-card">
-        <div class="card-header">
-            <h4><i class="wn-icon-chart-bar"></i> التوزيع الشهري</h4>
+    <!-- ========== السنة الحالية ========== -->
+    <div class="section-title">
+        <i class="wn-icon-calendar-o"></i> إحصائيات سنة <?= $currentYear ?>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="finance-card currency-dollar">
+                <div class="card-header">
+                    <h4><i class="wn-icon-dollar"></i> الدولار ($)</h4>
+                </div>
+                <div class="card-body">
+                    <div class="mini-stat">
+                        <span class="mini-label">صرف</span>
+                        <span class="mini-value text-danger"><?= number_format($yearDollar->total_payment, 2) ?> $</span>
+                    </div>
+                    <div class="mini-stat">
+                        <span class="mini-label">قبض</span>
+                        <span class="mini-value text-success"><?= number_format($yearDollar->total_receipt, 2) ?> $</span>
+                    </div>
+                    <div class="mini-stat border-top">
+                        <span class="mini-label">الفرق</span>
+                        <span class="mini-value <?= ($yearDollar->total_receipt - $yearDollar->total_payment) >= 0 ? 'text-success' : 'text-danger' ?>">
+                            <?= number_format($yearDollar->total_receipt - $yearDollar->total_payment, 2) ?> $
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-            <canvas id="monthlyChart" height="80"></canvas>
+
+        <div class="col-md-6">
+            <div class="finance-card currency-syrian">
+                <div class="card-header">
+                    <h4><i class="wn-icon-money"></i> الليرة السورية (ل.س)</h4>
+                </div>
+                <div class="card-body">
+                    <div class="mini-stat">
+                        <span class="mini-label">صرف</span>
+                        <span class="mini-value text-danger"><?= number_format($yearSyrian->total_payment, 2) ?> ل.س</span>
+                    </div>
+                    <div class="mini-stat">
+                        <span class="mini-label">قبض</span>
+                        <span class="mini-value text-success"><?= number_format($yearSyrian->total_receipt, 2) ?> ل.س</span>
+                    </div>
+                    <div class="mini-stat border-top">
+                        <span class="mini-label">الفرق</span>
+                        <span class="mini-value <?= ($yearSyrian->total_receipt - $yearSyrian->total_payment) >= 0 ? 'text-success' : 'text-danger' ?>">
+                            <?= number_format($yearSyrian->total_receipt - $yearSyrian->total_payment, 2) ?> ل.س
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- ========== Model Type Statistics ========== -->
-    <div class="finance-card">
+    <!-- ========== Chart: دولار ========== -->
+    <div class="finance-card currency-dollar">
         <div class="card-header">
-            <h4><i class="wn-icon-list"></i> إحصائيات حسب نوع النموذج</h4>
+            <h4><i class="wn-icon-chart-bar"></i> التوزيع الشهري - الدولار ($)</h4>
         </div>
+        <div class="card-body">
+            <canvas id="chartDollar" height="80"></canvas>
+        </div>
+    </div>
+
+    <!-- ========== Chart: ليرة ========== -->
+    <div class="finance-card currency-syrian">
+        <div class="card-header">
+            <h4><i class="wn-icon-chart-bar"></i> التوزيع الشهري - الليرة السورية</h4>
+        </div>
+        <div class="card-body">
+            <canvas id="chartSyrian" height="80"></canvas>
+        </div>
+    </div>
+
+    <!-- ========== Model Type Stats ========== -->
+    <div class="section-title">
+        <i class="wn-icon-list"></i> تقرير حسابات عام
+    </div>
+
+    <div class="finance-card">
         <div class="card-body p-0">
             <table class="table table-hover mb-0">
                 <thead>
                     <tr>
-                        <th>#</th>
-                        <th>اسم النموذج</th>
-                        <th>النوع</th>
-                        <th class="text-right">عدد المعاملات</th>
-                        <th class="text-right">إجمالي الصرف</th>
-                        <th class="text-right">إجمالي القبض</th>
-                        <th class="text-right">الرصيد</th>
+                        <th rowspan="2" class="align-middle">#</th>
+                        <th rowspan="2" class="align-middle">اسم الحساب</th>
+                        <th rowspan="2" class="align-middle">النوع</th>
+                        <th colspan="4" class="text-center bg-dollar">💵 الدولار ($)</th>
+                        <th colspan="4" class="text-center bg-syrian">💷 الليرة السورية (ل.س)</th>
+                    </tr>
+                    <tr>
+                        <th class="text-right bg-dollar">عدد</th>
+                        <th class="text-right bg-dollar">صرف</th>
+                        <th class="text-right bg-dollar">قبض</th>
+                        <th class="text-right bg-dollar">الرصيد</th>
+                        <th class="text-right bg-syrian">عدد</th>
+                        <th class="text-right bg-syrian">صرف</th>
+                        <th class="text-right bg-syrian">قبض</th>
+                        <th class="text-right bg-syrian">الرصيد</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($modelTypeStats as $i => $stat): ?>
                         <tr>
                             <td><?= $i + 1 ?></td>
-                            <td><strong><?= e($stat->name) ?></strong></td>
+                            <td><strong><?= e($stat['name']) ?></strong></td>
                             <td>
-                                <span class="badge badge-<?= $stat->type === 'payment' ? 'danger' : 'success' ?>">
-                                    <?= $stat->type === 'payment' ? 'صرف' : 'قبض' ?>
+                                <span class="badge badge-<?= $stat['type'] === 'payment' ? 'danger' : 'success' ?>">
+                                    <?= $stat['type'] === 'payment' ? 'صرف' : 'قبض' ?>
                                 </span>
                             </td>
-                            <td class="text-right"><?= $stat->total_count ?></td>
-                            <td class="text-right text-danger">
-                                <?= number_format($stat->total_payment, 2) ?>
-                            </td>
-                            <td class="text-right text-success">
-                                <?= number_format($stat->total_receipt, 2) ?>
-                            </td>
+
+                            <!-- دولار -->
+                            <td class="text-right"><?= $stat['dollar_count'] ?></td>
+                            <td class="text-right text-danger"><?= number_format($stat['dollar_payment'], 2) ?></td>
+                            <td class="text-right text-success"><?= number_format($stat['dollar_receipt'], 2) ?></td>
                             <td class="text-right">
-                                <strong class="<?= ($stat->total_receipt - $stat->total_payment) >= 0 ? 'text-success' : 'text-danger' ?>">
-                                    <?= number_format($stat->total_receipt - $stat->total_payment, 2) ?>
+                                <strong class="<?= ($stat['dollar_receipt'] - $stat['dollar_payment']) >= 0 ? 'text-success' : 'text-danger' ?>">
+                                    <?= number_format($stat['dollar_receipt'] - $stat['dollar_payment'], 2) ?>
+                                </strong>
+                            </td>
+
+                            <!-- ليرة -->
+                            <td class="text-right"><?= $stat['syrian_count'] ?></td>
+                            <td class="text-right text-danger"><?= number_format($stat['syrian_payment'], 2) ?></td>
+                            <td class="text-right text-success"><?= number_format($stat['syrian_receipt'], 2) ?></td>
+                            <td class="text-right">
+                                <strong class="<?= ($stat['syrian_receipt'] - $stat['syrian_payment']) >= 0 ? 'text-success' : 'text-danger' ?>">
+                                    <?= number_format($stat['syrian_receipt'] - $stat['syrian_payment'], 2) ?>
                                 </strong>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
+                <tfoot>
+                    <tr class="font-weight-bold">
+                        <td colspan="3" class="text-right">الإجمالي العام</td>
+                        <td class="text-right"><?= $dollar->total_count ?></td>
+                        <td class="text-right text-danger"><?= number_format($dollar->total_payment, 2) ?></td>
+                        <td class="text-right text-success"><?= number_format($dollar->total_receipt, 2) ?></td>
+                        <td class="text-right">
+                            <?= number_format($dollar->total_receipt - $dollar->total_payment, 2) ?>
+                        </td>
+                        <td class="text-right"><?= $syrian->total_count ?></td>
+                        <td class="text-right text-danger"><?= number_format($syrian->total_payment, 2) ?></td>
+                        <td class="text-right text-success"><?= number_format($syrian->total_receipt, 2) ?></td>
+                        <td class="text-right">
+                            <?= number_format($syrian->total_receipt - $syrian->total_payment, 2) ?>
+                        </td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
     </div>
 
-    <!-- ========== Top 5 & Recent ========== -->
+    <!-- ========== Top Invoices ========== -->
     <div class="row">
         <div class="col-md-6">
-            <div class="finance-card">
+            <div class="finance-card currency-dollar">
                 <div class="card-header">
-                    <h4><i class="wn-icon-star"></i> أعلى 5 معاملات</h4>
+                    <h4><i class="wn-icon-star"></i> أعلى 5 معاملات - دولار</h4>
                 </div>
                 <div class="card-body p-0">
                     <ul class="top-list">
-                        <?php foreach ($topInvoices as $inv): ?>
+                        <?php foreach ($topDollar as $inv): ?>
                             <li>
                                 <span class="badge badge-<?= $inv->type === 'payment' ? 'danger' : 'success' ?>">
                                     <?= $inv->type === 'payment' ? 'صرف' : 'قبض' ?>
                                 </span>
                                 <span class="flex-1"><?= e($inv->amount_name) ?></span>
-                                <strong><?= number_format($inv->amount, 2) ?></strong>
+                                <strong><?= number_format($inv->amount, 2) ?> $</strong>
                             </li>
                         <?php endforeach; ?>
                     </ul>
@@ -183,25 +390,51 @@
         </div>
 
         <div class="col-md-6">
-            <div class="finance-card">
+            <div class="finance-card currency-syrian">
                 <div class="card-header">
-                    <h4><i class="wn-icon-clock-o"></i> آخر 10 معاملات</h4>
+                    <h4><i class="wn-icon-star"></i> أعلى 5 معاملات - ليرة سورية</h4>
                 </div>
                 <div class="card-body p-0">
                     <ul class="top-list">
-                        <?php foreach ($recentInvoices as $inv): ?>
+                        <?php foreach ($topSyrian as $inv): ?>
                             <li>
                                 <span class="badge badge-<?= $inv->type === 'payment' ? 'danger' : 'success' ?>">
                                     <?= $inv->type === 'payment' ? 'صرف' : 'قبض' ?>
                                 </span>
                                 <span class="flex-1"><?= e($inv->amount_name) ?></span>
-                                <small class="text-muted"><?= $inv->created_at->format('d/m') ?></small>
-                                <strong><?= number_format($inv->amount, 2) ?></strong>
+                                <strong><?= number_format($inv->amount, 2) ?> ل.س</strong>
                             </li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- ========== Recent Invoices ========== -->
+    <div class="finance-card">
+        <div class="card-header">
+            <h4><i class="wn-icon-clock-o"></i> آخر 10 معاملات</h4>
+        </div>
+        <div class="card-body p-0">
+            <ul class="top-list">
+                <?php foreach ($recentInvoices as $inv): ?>
+                    <li>
+                        <span class="badge badge-<?= $inv->type === 'payment' ? 'danger' : 'success' ?>">
+                            <?= $inv->type === 'payment' ? 'صرف' : 'قبض' ?>
+                        </span>
+                        <span class="badge badge-light">
+                            <?= $inv->currency === 'dollar' ? '$' : 'ل.س' ?>
+                        </span>
+                        <span class="flex-1"><?= e($inv->amount_name) ?></span>
+                        <small class="text-muted"><?= $inv->created_at->format('d/m') ?></small>
+                        <strong>
+                            <?= number_format($inv->amount, 2) ?>
+                            <?= $inv->currency === 'dollar' ? '$' : 'ل.س' ?>
+                        </strong>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
         </div>
     </div>
 </div>
@@ -211,60 +444,171 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    var ctx = document.getElementById('monthlyChart');
-    if (!ctx) return;
+    var months = <?= json_encode($months) ?>;
 
-    new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: <?= json_encode($monthlyStats->pluck('month_name')) ?>,
-            datasets: [
-                {
-                    label: 'صرف',
-                    data: <?= json_encode($monthlyStats->pluck('payment')) ?>,
-                    backgroundColor: 'rgba(229, 62, 62, 0.7)',
-                    borderColor: 'rgba(229, 62, 62, 1)',
-                    borderWidth: 1,
-                    borderRadius: 6
-                },
-                {
-                    label: 'قبض',
-                    data: <?= json_encode($monthlyStats->pluck('receipt')) ?>,
-                    backgroundColor: 'rgba(56, 161, 105, 0.7)',
-                    borderColor: 'rgba(56, 161, 105, 1)',
-                    borderWidth: 1,
-                    borderRadius: 6
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: true,
-            plugins: {
-                legend: { position: 'top' },
-                tooltip: {
-                    callbacks: {
-                        label: function (ctx) {
-                            return ctx.dataset.label + ': ' + ctx.parsed.y.toLocaleString();
+    // ===== Chart: دولار =====
+    var dollarCtx = document.getElementById('chartDollar');
+    if (dollarCtx) {
+        new Chart(dollarCtx, {
+            type: 'bar',
+            data: {
+                labels: months,
+                datasets: [
+                    {
+                        label: 'صرف ($)',
+                        data: <?= json_encode($dollarMonthlyPayments) ?>,
+                        backgroundColor: 'rgba(229, 62, 62, 0.75)',
+                        borderColor: 'rgba(229, 62, 62, 1)',
+                        borderWidth: 1,
+                        borderRadius: 6
+                    },
+                    {
+                        label: 'قبض ($)',
+                        data: <?= json_encode($dollarMonthlyReceipts) ?>,
+                        backgroundColor: 'rgba(56, 161, 105, 0.75)',
+                        borderColor: 'rgba(56, 161, 105, 1)',
+                        borderWidth: 1,
+                        borderRadius: 6
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    tooltip: {
+                        callbacks: {
+                            label: function (ctx) {
+                                return ctx.dataset.label + ': ' + Number(ctx.parsed.y).toLocaleString() + ' $';
+                            }
                         }
                     }
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        callback: function (v) { return v.toLocaleString(); }
-                    }
-                }
+                },
+                scales: { y: { beginAtZero: true } }
             }
-        }
-    });
+        });
+    }
+
+    // ===== Chart: ليرة =====
+    var syrianCtx = document.getElementById('chartSyrian');
+    if (syrianCtx) {
+        new Chart(syrianCtx, {
+            type: 'bar',
+            data: {
+                labels: months,
+                datasets: [
+                    {
+                        label: 'صرف (ل.س)',
+                        data: <?= json_encode($syrianMonthlyPayments) ?>,
+                        backgroundColor: 'rgba(229, 62, 62, 0.75)',
+                        borderColor: 'rgba(229, 62, 62, 1)',
+                        borderWidth: 1,
+                        borderRadius: 6
+                    },
+                    {
+                        label: 'قبض (ل.س)',
+                        data: <?= json_encode($syrianMonthlyReceipts) ?>,
+                        backgroundColor: 'rgba(56, 161, 105, 0.75)',
+                        borderColor: 'rgba(56, 161, 105, 1)',
+                        borderWidth: 1,
+                        borderRadius: 6
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { position: 'top' },
+                    tooltip: {
+                        callbacks: {
+                            label: function (ctx) {
+                                return ctx.dataset.label + ': ' + Number(ctx.parsed.y).toLocaleString() + ' ل.س';
+                            }
+                        }
+                    }
+                },
+                scales: { y: { beginAtZero: true } }
+            }
+        });
+    }
 });
 </script>
 
 <style>
-    <style>
+/* ============ Section Titles ============ */
+.section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #2d3748;
+    margin: 30px 0 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #edf2f7;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.section-title i {
+    color: #667eea;
+    font-size: 20px;
+}
+
+.section-title-dollar {
+    border-bottom-color: #38a169;
+    color: #276749;
+}
+
+.section-title-dollar i { color: #38a169; }
+
+.section-title-syrian {
+    border-bottom-color: #3182ce;
+    color: #2c5282;
+}
+
+.section-title-syrian i { color: #3182ce; }
+
+/* ============ KPI Grids ============ */
+.kpi-grid-4 {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+/* ============ Currency Highlight Cards ============ */
+.currency-dollar {
+    border-top: 4px solid #38a169;
+}
+
+.currency-syrian {
+    border-top: 4px solid #3182ce;
+}
+
+/* ============ Table Backgrounds ============ */
+.bg-dollar {
+    background: #f0fff4 !important;
+}
+
+.bg-syrian {
+    background: #ebf8ff !important;
+}
+
+/* ============ Total Footer ============ */
+tfoot tr {
+    background: #2d3748;
+    color: #fff;
+    font-size: 14px;
+}
+
+tfoot td {
+    padding: 14px 16px !important;
+}
+
+/* ============ Badge Light ============ */
+.badge-light {
+    background: #edf2f7;
+    color: #4a5568;
+}
+</style>
+
+<style>
 /* ============ Dashboard Container ============ */
 .finance-dashboard {
     padding: 20px;
@@ -491,5 +835,4 @@ document.addEventListener('DOMContentLoaded', function () {
     .finance-card .table th,
     .finance-card .table td { padding: 8px 10px; }
 }
-</style>
 </style>
