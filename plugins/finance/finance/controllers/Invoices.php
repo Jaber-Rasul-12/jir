@@ -6,7 +6,10 @@ use Finance\Finance\Models\Invoice;
 use Finance\Finance\Models\Month;
 use Finance\Finance\Models\Year;
 use Flash;
+use Carbon\Carbon;
+use Finance\Finance\Models\ModelType;
 use Jacob\Logbook\ReportWidgets\LogBookModelChanges;
+use Db;
 
 class Invoices extends Controller
 {
@@ -58,18 +61,122 @@ class Invoices extends Controller
 
     }
 
-public function onDailyFundMovement()
-{
-    $invoices = \Finance\Finance\Models\Invoice::all();
+// public function onDailyFundMovement()
+// {
+//     $invoices = \Finance\Finance\Models\Invoice::all();
     
-    return [
-        '#Lists' => $this->makePartial('daily_fund_movement', [
-            'invoices' => $invoices
-        ]),
-        '#Filter-listFilter' => ' ',
-    ];
-}
+//     return [
+//         '#Lists' => $this->makePartial('daily_fund_movement', [
+//             'invoices' => $invoices
+//         ]),
+//         '#Filter-listFilter' => ' ',
+//     ];
+// }
 
+
+ public function onDailyFundMovement()
+    {
+        return [
+            '#Lists' => $this->makePartial('daily_fund_movement', $this->buildStatistics()),
+            '#Filter-listFilter' => ' ',
+        ];
+    }
+
+    /**
+     * بناء كل الإحصائيات
+     */
+    protected function buildStatistics()
+    {
+        $now = Carbon::now();
+        $currentYear = $now->year;
+        $currentMonth = $now->month;
+
+        // ===== 1. الإحصائيات العامة =====
+        $all = Invoice::all();
+        $totalAmount     = $all->sum('amount');
+        $totalPayments   = $all->where('type', 'payment')->sum('amount');
+        $totalReceipts   = $all->where('type', 'receipt')->sum('amount');
+        $paymentCount    = $all->where('type', 'payment')->count();
+        $receiptCount    = $all->where('type', 'receipt')->count();
+        $balance         = $totalReceipts - $totalPayments;
+
+        // ===== 2. إحصائيات هذا الشهر =====
+        $monthInvoices = Invoice::whereHas('month', function ($q) use ($currentMonth) {
+            $q->where('name', 'like', '%' . $currentMonth . '%');
+        })->get();
+
+        $monthPayments = $monthInvoices->where('type', 'payment')->sum('amount');
+        $monthReceipts = $monthInvoices->where('type', 'receipt')->sum('amount');
+
+        // ===== 3. إحصائيات هذه السنة =====
+        $yearInvoices = Invoice::whereHas('year', function ($q) use ($currentYear) {
+            $q->where('name', 'like', '%' . $currentYear . '%');
+        })->get();
+
+        $yearPayments = $yearInvoices->where('type', 'payment')->sum('amount');
+        $yearReceipts = $yearInvoices->where('type', 'receipt')->sum('amount');
+
+        // ===== 4. إحصائيات حسب model_type =====
+        $byModelType = ModelType::with(['invoices' => function ($q) {
+            // علاقة معكوسة - نحتاج لتعريفها
+        }])->get();
+
+        // إذا لم تكن العلاقة معرّفة، نستخدم استعلام مباشر
+        $modelTypeStats = Db::table('finance_finance_invoices')
+            ->join('finance_finance_types', 'finance_finance_invoices.type_id', '=', 'finance_finance_types.id')
+            ->select(
+                'finance_finance_types.id',
+                'finance_finance_types.name',
+                'finance_finance_types.type',
+                Db::raw("SUM(CASE WHEN finance_finance_invoices.type = 'payment' THEN finance_finance_invoices.amount ELSE 0 END) as total_payment"),
+                Db::raw("SUM(CASE WHEN finance_finance_invoices.type = 'receipt' THEN finance_finance_invoices.amount ELSE 0 END) as total_receipt"),
+                Db::raw("COUNT(finance_finance_invoices.id) as total_count")
+            )
+            ->groupBy(
+                'finance_finance_types.id',
+                'finance_finance_types.name',
+                'finance_finance_types.type'
+            )
+            ->get();
+
+        // ===== 5. توزيع الشهري (12 شهرًا) =====
+        $monthlyStats = Db::table('finance_finance_invoices')
+            ->join('finance_finance_months', 'finance_finance_invoices.month_id', '=', 'finance_finance_months.id')
+            ->select(
+                'finance_finance_months.name as month_name',
+                Db::raw("SUM(CASE WHEN finance_finance_invoices.type = 'payment' THEN finance_finance_invoices.amount ELSE 0 END) as payment"),
+                Db::raw("SUM(CASE WHEN finance_finance_invoices.type = 'receipt' THEN finance_finance_invoices.amount ELSE 0 END) as receipt")
+            )
+            ->groupBy('finance_finance_months.id', 'finance_finance_months.name')
+            ->orderBy('finance_finance_months.id')
+            ->get();
+
+        // ===== 6. أعلى 5 معاملات =====
+        $topInvoices = Invoice::orderBy('amount', 'desc')->take(5)->get();
+
+        // ===== 7. آخر المعاملات =====
+        $recentInvoices = Invoice::orderBy('created_at', 'desc')->take(10)->get();
+
+        return [
+            'invoices'         => $all,
+            'totalAmount'      => $totalAmount,
+            'totalPayments'    => $totalPayments,
+            'totalReceipts'    => $totalReceipts,
+            'paymentCount'     => $paymentCount,
+            'receiptCount'     => $receiptCount,
+            'balance'          => $balance,
+            'monthPayments'    => $monthPayments,
+            'monthReceipts'    => $monthReceipts,
+            'yearPayments'     => $yearPayments,
+            'yearReceipts'     => $yearReceipts,
+            'modelTypeStats'   => $modelTypeStats,
+            'monthlyStats'     => $monthlyStats,
+            'topInvoices'      => $topInvoices,
+            'recentInvoices'   => $recentInvoices,
+            'currentYear'      => $currentYear,
+            'currentMonth'     => $currentMonth,
+        ];
+    }
 
 public function reports(){
     $this->pageTitle = trans('finance.finance::lang.plugin.print_tables');
