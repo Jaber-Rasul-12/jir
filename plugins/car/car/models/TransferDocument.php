@@ -38,7 +38,7 @@ class TransferDocument extends Model
      */
     public $jsonable = [];
 
-    // نسخ بيانات السيارة تلقائياً
+    // نسخ بيانات ألية تلقائياً
     public function beforeSave()
     {
         if ($this->car) {
@@ -113,7 +113,7 @@ public function getTransferDocumentHtml()
     $newOwnerAddress  = $doc->new_owner_address ?? '...........................';
     $newOwnerPhone    = $doc->new_owner_phone ?? '...........................';
 
-    // بيانات السيارة
+    // بيانات ألية
     $carLicensePlate = $doc->car_license_plate ?? '...........................';
     $carChassis      = $doc->car_chassis_number ?? '...........................';
     $carEngine       = $doc->car_engine_number ?? '...........................';
@@ -165,9 +165,9 @@ public function getTransferDocumentHtml()
             <h3 style="color: #8e44ad; margin-top: 0;">مقدمة</h3>
             <p style="line-height: 1.9; text-align: justify; margin: 0;">
                 أنا الموقع أدناه (المالك القديم / المتنازل)، أقر بكامل الأهلية المعتبرة شرعاً وقانوناً،
-                بأنني قد تنازلت عن ملكية السيارة المبينة أوصافها أدناه إلى السيد (المالك الجديد / المتنازل إليه)،
+                بأنني قد تنازلت عن ملكية ألية المبينة أوصافها أدناه إلى السيد (المالك الجديد / المتنازل إليه)،
                 وقد تم هذا التنازل بموجب هذا السند الرسمي وفقاً لأحكام القانون السوري النافذ،
-                وبعد أن تم تسليم السيارة بكامل ملحقاتها ووثائقها، وأصبح المتنازل إليه هو المالك الشرعي الوحيد للسيارة.
+                وبعد أن تم تسليم ألية بكامل ملحقاتها ووثائقها، وأصبح المتنازل إليه هو المالك الشرعي الوحيد للسيارة.
             </p>
         </div>
 
@@ -194,7 +194,7 @@ public function getTransferDocumentHtml()
         </div>
 
         <div style="margin-bottom: 5px;">
-            <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px;">المادة 1: وصف السيارة المتنازل عنها</h3>
+            <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px;">المادة 1: وصف ألية المتنازل عنها</h3>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 30px; background: #fcfcfc; padding: 15px; border-radius: 6px;">
                 <span><strong>رقم اللوحة:</strong> {$carLicensePlate}</span>
                 <span><strong>الماركة:</strong> {$carBrand}</span>
