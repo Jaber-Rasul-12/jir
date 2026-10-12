@@ -27,7 +27,7 @@ tabs:
             label: 'car.car::lang.model.transferdocument.transfer_place'
             span: auto
             type: text
-            default: 'الحسكة - القامشلي - نقل بري'
+            default: 'الحسكة - القامشلي - مقر الشركة'
             tab: 'car.car::lang.plugin.document_data'
 
         is_full_transfer:
@@ -84,7 +84,7 @@ tabs:
         old_owner_address:
             label: 'car.car::lang.model.transferdocument.old_owner_address'
             span: auto
-            default: 'الحسكة - القامشلي - نقل بري'
+            default: 'الحسكة - القامشلي - مقر الشركة'
             type: text
             tab: 'car.car::lang.plugin.parties_to_the_contract'
 

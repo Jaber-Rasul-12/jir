@@ -144,7 +144,7 @@ tabs:
             label: 'car.car::lang.model.salecontract.contract_place'
             span: auto
             type: text
-            default: 'الحسكة - القامشلي - نقل بري'
+            default: 'الحسكة - القامشلي - مقر الشركة'
             tab: 'car.car::lang.plugin.terms'
 
         general_terms:
