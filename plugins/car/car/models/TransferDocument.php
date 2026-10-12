@@ -161,8 +161,8 @@ public function getTransferDocumentHtml()
             </div>
         </div>
 
-        <div style="margin: 10px 0; padding: 15px; background: #fdfaf0; border-radius: 8px; border: 1px solid #f1c40f;">
-            <h3 style="color: #8e44ad; margin-top: 0;">مقدمة</h3>
+        <div style="margin: 5px 0; padding: 5px; background: #fdfaf0; border-radius: 8px; border: 1px solid #f1c40f;">
+            <h4 style="color: #8e44ad; margin-top: 0;">مقدمة</h4>
             <p style="line-height: 1.9; text-align: justify; margin: 0;">
                 أنا الموقع أدناه (المالك القديم / المتنازل)، أقر بكامل الأهلية المعتبرة شرعاً وقانوناً،
                 بأنني قد تنازلت عن ملكية ألية المبينة أوصافها أدناه إلى السيد (المالك الجديد / المتنازل إليه)،
@@ -182,7 +182,7 @@ public function getTransferDocumentHtml()
             </div>
         </div>
 
-        <div style="margin-bottom: 5px; background: #f0f4f8; padding: 15px; border-radius: 8px; border-right: 6px solid #27ae60;">
+        <div style="margin-bottom: 3px; background: #f0f4f8; padding: 5px; border-radius: 8px; border-right: 6px solid #27ae60;">
             <h3 style="margin: 0 0 8px 0; color: #27ae60; font-size: 18px;">المالك الجديد (المتنازل إليه)</h3>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px 20px;">
                 <span><strong>الاسم الرباعي:</strong> {$newOwnerName}</span>
@@ -193,9 +193,9 @@ public function getTransferDocumentHtml()
             </div>
         </div>
 
-        <div style="margin-bottom: 5px;">
-            <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px;">المادة 1: وصف ألية المتنازل عنها</h3>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 30px; background: #fcfcfc; padding: 15px; border-radius: 6px;">
+        <div style="margin-bottom: 3px;">
+            <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 3px;">المادة 1: وصف ألية المتنازل عنها</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 30px; background: #fcfcfc; padding: 5px; border-radius: 6px;">
                 <span><strong>رقم اللوحة:</strong> {$carLicensePlate}</span>
                 <span><strong>الماركة:</strong> {$carBrand}</span>
                 <span><strong>الطراز:</strong> {$carModel}</span>
