@@ -151,32 +151,17 @@ public function getTransferDocumentHtml()
          style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.05; z-index: 0; pointer-events: none;" alt="خلفية الوثيقة">
     <div style="background: #fff; padding: 40px 50px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); position: relative; z-index: 1;">
 
-        <div id="header_print" style="
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 3px double #2c3e50;
-    padding: 15px 20px;
-    margin-bottom: 25px;
-    background: #000000 !important;
-    color: #ffffff !important;
-    border-radius: 8px;
-    -webkit-print-color-adjust: exact !important;
-    print-color-adjust: exact !important;
-    color-adjust: exact !important;
-">
-    <div id="header_print_title" style="font-size: 22px; font-weight: bold; color: #ffffff !important;">
-        وثيقة تنازل عن سيارة
-    </div>
-    <div id="header_print_meta" style="text-align: left; font-size: 14px; color: #ffffff !important; line-height: 1.6;">
-        رقم الوثيقة: {$documentNumber}<br>
-        رقم الهيكل: {$carChassis}<br>
-        رقم اللوحة: {$carLicensePlate}<br>
-        التاريخ: {$transferDate}<br>
-    </div>
-</div>
+        <div id="header_print" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px double #2c3e50; padding-bottom: 15px; margin-bottom: 5px; background: white; color: black!important; border-radius: 8px; pad">
+            <div id="header_print_new" style="font-size: 22px; font-weight: bold; color: black!important;">بوابتكم إلى عالم التجارة والاستثمار</div>
+            <div> <img src="{$imageUrl}" width="100" height="100" alt=""></div>
+            <div id="header_print_new" style="text-align: left; font-size: 14px; color: black!important;">
+             <h4 style="border: 1px solid #48979c; padding: 2px; border-radius: 8px; text-align: center;">وثيقة تنازل عن الية</h4>  
+              
+              رقم الوثيقة: {$documentNumber}<br> رقم الهيكل: {$carChassis}<br> رقم اللوحة: {$carLicensePlate}<br> التاريخ: {$transferDate}<br> الحالة: <span class="status-badge">{$statusText}</span>
+            </div>
+        </div>
 
-        <div style="margin: 25px 0; padding: 15px; background: #fdfaf0; border-radius: 8px; border: 1px solid #f1c40f;">
+        <div style="margin: 10px 0; padding: 15px; background: #fdfaf0; border-radius: 8px; border: 1px solid #f1c40f;">
             <h3 style="color: #8e44ad; margin-top: 0;">مقدمة</h3>
             <p style="line-height: 1.9; text-align: justify; margin: 0;">
                 أنا الموقع أدناه (المالك القديم / المتنازل)، أقر بكامل الأهلية المعتبرة شرعاً وقانوناً،
@@ -186,7 +171,7 @@ public function getTransferDocumentHtml()
             </p>
         </div>
 
-        <div style="margin-bottom: 20px; background: #f0f4f8; padding: 15px; border-radius: 8px; border-right: 6px solid #e67e22;">
+        <div style="margin-bottom: 5px; background: #f0f4f8; padding: 15px; border-radius: 8px; border-right: 6px solid #e67e22;">
             <h3 style="margin: 0 0 8px 0; color: #e67e22; font-size: 18px;">المالك القديم (المتنازل)</h3>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px 20px;">
                 <span><strong>الاسم الرباعي:</strong> {$oldOwnerName}</span>
@@ -197,7 +182,7 @@ public function getTransferDocumentHtml()
             </div>
         </div>
 
-        <div style="margin-bottom: 20px; background: #f0f4f8; padding: 15px; border-radius: 8px; border-right: 6px solid #27ae60;">
+        <div style="margin-bottom: 5px; background: #f0f4f8; padding: 15px; border-radius: 8px; border-right: 6px solid #27ae60;">
             <h3 style="margin: 0 0 8px 0; color: #27ae60; font-size: 18px;">المالك الجديد (المتنازل إليه)</h3>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px 20px;">
                 <span><strong>الاسم الرباعي:</strong> {$newOwnerName}</span>
@@ -208,7 +193,7 @@ public function getTransferDocumentHtml()
             </div>
         </div>
 
-        <div style="margin-bottom: 25px;">
+        <div style="margin-bottom: 5px;">
             <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px;">المادة 1: وصف السيارة المتنازل عنها</h3>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 30px; background: #fcfcfc; padding: 15px; border-radius: 6px;">
                 <span><strong>رقم اللوحة:</strong> {$carLicensePlate}</span>
@@ -220,7 +205,7 @@ public function getTransferDocumentHtml()
             </div>
         </div>
 
-        <div style="margin-bottom: 25px;">
+        <div style="margin-bottom: 5px;">
             <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px;">المادة 2: تفاصيل التنازل</h3>
             <div style="background: #f9f9f9; padding: 12px 20px; border-radius: 6px; line-height: 1.8;">
                 <p><strong>نوع التنازل:</strong> {$isFullTransfer}</p>
@@ -231,7 +216,7 @@ public function getTransferDocumentHtml()
         </div>
 
 
-        <div style="margin-bottom: 25px;">
+        <div style="margin-bottom: 5px;">
             <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px;">المادة 3: الوثائق المرفقة</h3>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; background: #fcfcfc; padding: 15px; border-radius: 6px;">
                 <span><strong>صورة الهوية الشخصية:</strong> {$docsCheck($doc->has_identity_copy)}</span>
@@ -242,7 +227,7 @@ public function getTransferDocumentHtml()
             </div>
         </div>
 
-        <div style="margin-bottom: 25px;">
+        <div style="margin-bottom: 5px;">
             <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px;">المادة 4: أحكام عامة</h3>
             <div style="background: #f9f9f9; padding: 12px 20px; border-radius: 6px; line-height: 1.8;">
                 <ol style="padding-right: 20px; margin: 0;">
@@ -259,7 +244,7 @@ HTML;
     // إضافة الملاحظات إن وُجدت
     if (!empty($doc->notes)) {
         $html .= <<<HTML
-        <div style="margin-bottom: 25px;">
+        <div style="margin-bottom: 5px;">
             <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px;">ملاحظات</h3>
             <div style="background: #fff8e1; padding: 12px 20px; border-radius: 6px; border-right: 4px solid #f39c12; line-height: 1.8;">
                 {$doc->notes}
@@ -270,7 +255,7 @@ HTML;
 
     // التوقيعات
     $html .= <<<HTML
-        <div style="border-top: 2px solid #2c3e50; padding-top: 25px; margin-top: 10px;">
+        <div style="border-top: 2px solid #2c3e50; padding-top: 25px; margin-top: 3px;">
             <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
                 <div style="width: 45%;">
                     <h4 style="margin: 0 0 10px 0; color: #e67e22;">المالك القديم (المتنازل)</h4>
@@ -285,7 +270,7 @@ HTML;
                     <p><strong>البصمة:</strong> ........................</p>
                 </div>
             </div>
-            <p style="text-align: left; margin-top: 20px; color: #7f8c8d;">
+            <p style="text-align: left; margin-top: 5px; color: #7f8c8d;">
                 <strong>حرر في:</strong> {$transferPlace} &nbsp;&nbsp; <strong>بتاريخ:</strong> {$today}
             </p>
         </div>
