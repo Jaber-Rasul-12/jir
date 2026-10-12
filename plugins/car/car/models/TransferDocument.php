@@ -143,14 +143,14 @@ public function getTransferDocumentHtml()
     $html = <<<HTML
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
 <style>
     .contract-wrapper {
         direction: rtl;
-        font-family: 'Amiri', 'Traditional Arabic', 'Times New Roman', serif;
+        font-family: 'Calibri', 'Carlito', 'Segoe UI', 'Tahoma', sans-serif;
         font-size: 16px;
-        line-height: 1.95;
+        line-height: 1.85;
         max-width: 1100px;
         margin: 0 auto;
         background: #fafafa;
@@ -166,14 +166,14 @@ public function getTransferDocumentHtml()
     .contract-wrapper h2,
     .contract-wrapper h3,
     .contract-wrapper h4 {
-        font-family: 'Cairo', 'Tahoma', sans-serif;
+        font-family: 'Calibri', 'Carlito', 'Segoe UI', 'Tahoma', sans-serif;
         font-weight: 700;
         letter-spacing: -0.3px;
     }
 
     .contract-wrapper strong {
-        font-family: 'Cairo', 'Tahoma', sans-serif;
-        font-weight: 600;
+        font-family: 'Calibri', 'Carlito', 'Segoe UI', 'Tahoma', sans-serif;
+        font-weight: 700;
         color: #2c3e50;
     }
 
@@ -187,7 +187,7 @@ public function getTransferDocumentHtml()
     }
 
     .contract-title {
-        font-family: 'Amiri', serif;
+        font-family: 'Calibri', 'Carlito', 'Segoe UI', sans-serif;
         font-weight: 700;
         font-size: 28px;
         color: #2c3e50;
@@ -207,7 +207,7 @@ public function getTransferDocumentHtml()
         text-align: left;
         font-size: 14px;
         color: #7f8c8d;
-        font-family: 'Cairo', sans-serif;
+        font-family: 'Calibri', 'Carlito', sans-serif;
         line-height: 1.6;
     }
 
@@ -216,8 +216,8 @@ public function getTransferDocumentHtml()
         padding: 3px 10px;
         border-radius: 12px;
         font-size: 12px;
-        font-family: 'Cairo', sans-serif;
-        font-weight: 600;
+        font-family: 'Calibri', 'Carlito', sans-serif;
+        font-weight: 700;
         background: #ecf0f1;
         color: #2c3e50;
     }
@@ -320,7 +320,6 @@ public function getTransferDocumentHtml()
         border-radius: 6px;
         border-right: 4px solid #f39c12;
         line-height: 1.8;
-        font-family: 'Amiri', serif;
     }
 
     .signatures {
@@ -355,7 +354,7 @@ public function getTransferDocumentHtml()
         text-align: left;
         margin-top: 20px;
         color: #7f8c8d;
-        font-family: 'Cairo', sans-serif;
+        font-family: 'Calibri', 'Carlito', sans-serif;
         font-size: 14px;
     }
 
@@ -409,7 +408,7 @@ public function getTransferDocumentHtml()
     <div class="contract-inner">
 
         <!-- رأس الوثيقة -->
-        <div class="contract-header" style="background: black; color: white!important; border-radius: 10px; padding: 15px;">
+        <div class="contract-header" style="background: #000000db; color: white!important; border-radius: 10px; padding: 15px;">
             <div class="contract-title" style="color: white!important;">وثيقة تنازل عن سيارة</div>
             <div class="contract-header-meta" style="color: white!important;">
                 رقم الوثيقة: {$documentNumber}<br>

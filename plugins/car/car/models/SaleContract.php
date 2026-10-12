@@ -156,14 +156,14 @@ CAR;
     $html = <<<HTML
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
 <style>
     .contract-wrapper {
         direction: rtl;
-        font-family: 'Amiri', 'Traditional Arabic', 'Times New Roman', serif;
+        font-family: 'Calibri', 'Carlito', 'Segoe UI', 'Tahoma', sans-serif;
         font-size: 16px;
-        line-height: 1.95;
+        line-height: 1.85;
         max-width: 1100px;
         margin: 0 auto;
         background: #fafafa;
@@ -179,14 +179,14 @@ CAR;
     .contract-wrapper h2,
     .contract-wrapper h3,
     .contract-wrapper h4 {
-        font-family: 'Cairo', 'Tahoma', sans-serif;
+        font-family: 'Calibri', 'Carlito', 'Segoe UI', 'Tahoma', sans-serif;
         font-weight: 700;
         letter-spacing: -0.3px;
     }
 
     .contract-wrapper strong {
-        font-family: 'Cairo', 'Tahoma', sans-serif;
-        font-weight: 600;
+        font-family: 'Calibri', 'Carlito', 'Segoe UI', 'Tahoma', sans-serif;
+        font-weight: 700;
         color: #2c3e50;
     }
 
@@ -200,7 +200,7 @@ CAR;
     }
 
     .contract-title {
-        font-family: 'Amiri', serif;
+        font-family: 'Calibri', 'Carlito', 'Segoe UI', sans-serif;
         font-weight: 700;
         font-size: 28px;
         color: #2c3e50;
@@ -220,7 +220,7 @@ CAR;
         text-align: left;
         font-size: 14px;
         color: #7f8c8d;
-        font-family: 'Cairo', sans-serif;
+        font-family: 'Calibri', 'Carlito', sans-serif;
         line-height: 1.6;
     }
 
@@ -335,12 +335,14 @@ CAR;
         text-align: center;
         border-radius: 50%;
         font-size: 14px;
+        font-family: 'Calibri', 'Carlito', sans-serif;
+        font-weight: 700;
     }
 
     .car-card-brand {
         font-size: 13px;
         color: #7f8c8d;
-        font-family: 'Cairo', sans-serif;
+        font-family: 'Calibri', 'Carlito', sans-serif;
     }
 
     .car-card-body {
@@ -366,7 +368,7 @@ CAR;
     .price-highlight {
         color: #c0392b;
         font-weight: 700;
-        font-family: 'Cairo', sans-serif;
+        font-family: 'Calibri', 'Carlito', sans-serif;
     }
 
     .signatures {
@@ -401,7 +403,7 @@ CAR;
         text-align: left;
         margin-top: 20px;
         color: #7f8c8d;
-        font-family: 'Cairo', sans-serif;
+        font-family: 'Calibri', 'Carlito', sans-serif;
         font-size: 14px;
     }
 
