@@ -1,0 +1,10 @@
+name: 'car.car::lang.controller.salecontracts.salecontracts'
+form: $/car/car/models/salecontract/fields.yaml
+modelClass: Car\Car\Models\SaleContract
+defaultRedirect: car/car/salecontracts
+create:
+    redirect: 'car/car/salecontracts/update/:id'
+    redirectClose: car/car/salecontracts
+update:
+    redirect: car/car/salecontracts
+    redirectClose: car/car/salecontracts

@@ -1,0 +1,10 @@
+name: 'car.car::lang.controller.transferdocuments.transferdocuments'
+form: $/car/car/models/transferdocument/fields.yaml
+modelClass: Car\Car\Models\TransferDocument
+defaultRedirect: car/car/transferdocuments
+create:
+    redirect: 'car/car/transferdocuments/update/:id'
+    redirectClose: car/car/transferdocuments
+update:
+    redirect: car/car/transferdocuments
+    redirectClose: car/car/transferdocuments

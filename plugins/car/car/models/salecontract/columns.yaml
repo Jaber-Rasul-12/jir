@@ -1,0 +1,67 @@
+columns:
+    id:
+        label: 'car.car::lang.model.salecontract.id'
+        type: number
+    contract_number:
+        label: 'car.car::lang.model.salecontract.contract_number'
+        type: text
+    contract_date:
+        label: 'car.car::lang.model.salecontract.contract_date'
+        type: text
+    contract_place:
+        label: 'car.car::lang.model.salecontract.contract_place'
+        type: text
+    seller_name:
+        label: 'car.car::lang.model.salecontract.seller_name'
+        type: text
+    seller_id_number:
+        label: 'car.car::lang.model.salecontract.seller_id_number'
+        type: text
+    seller_id_issuer:
+        label: 'car.car::lang.model.salecontract.seller_id_issuer'
+        type: text
+    seller_address:
+        label: 'car.car::lang.model.salecontract.seller_address'
+        type: text
+    seller_phone:
+        label: 'car.car::lang.model.salecontract.seller_phone'
+        type: text
+    buyer_name:
+        label: 'car.car::lang.model.salecontract.buyer_name'
+        type: text
+    buyer_id_number:
+        label: 'car.car::lang.model.salecontract.buyer_id_number'
+        type: text
+    buyer_id_issuer:
+        label: 'car.car::lang.model.salecontract.buyer_id_issuer'
+        type: text
+    buyer_address:
+        label: 'car.car::lang.model.salecontract.buyer_address'
+        type: text
+    buyer_phone:
+        label: 'car.car::lang.model.salecontract.buyer_phone'
+        type: text
+    total_price:
+        label: 'car.car::lang.model.salecontract.total_price'
+        type: text
+    paid_amount:
+        label: 'car.car::lang.model.salecontract.paid_amount'
+        type: text
+    remaining_amount:
+        label: 'car.car::lang.model.salecontract.remaining_amount'
+        type: text
+    payment_terms:
+        label: 'car.car::lang.model.salecontract.payment_terms'
+        type: text
+    general_terms:
+        label: 'car.car::lang.model.salecontract.general_terms'
+        type: text
+    notes:
+        label: 'car.car::lang.model.salecontract.notes'
+        type: text
+    created_at:
+        label: 'car.car::lang.model.salecontract.created_at'
+        type: datetime
+    updated_at:
+        label: 'car.car::lang.model.salecontract.updated_at'
+        type: datetime

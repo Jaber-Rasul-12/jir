@@ -1,0 +1,72 @@
+columns:
+    id:
+        label: 'car.car::lang.model.car.id'
+        type: number
+
+    ownership:
+        label: 'car.car::lang.model.car.ownership'
+        type: text
+    color:
+        label: 'car.car::lang.model.car.color'
+        type: text
+        
+    brand:
+        label: 'car.car::lang.model.car.brand'
+        relation: brand
+        select: name
+        
+    model:
+        label: 'car.car::lang.model.car.model'
+        relation: model
+        select: name
+        
+    type:
+        label: 'car.car::lang.model.car.type'
+        type: text
+
+    chassis_number:
+        label: 'car.car::lang.model.car.chassis_number'
+        type: text
+        searchable: true
+    year_of_manufacturing_date:
+        label: 'car.car::lang.model.car.year_of_manufacturing_date'
+        type: text
+    fuel_lists:
+        label: 'car.car::lang.model.car.fuel_type'
+        type: text
+    status_lists:
+        label: 'car.car::lang.model.car.status'
+        type: text
+
+    country:
+        label: 'car.car::lang.model.car.country'
+        relation: country
+        select: name
+    license_plate_number:
+        label: 'car.car::lang.model.car.license_plate_number'
+        type: text
+        searchable: true
+    license_plate_number_new:
+        label: 'car.car::lang.model.car.license_plate_number_new'
+        type: text
+    country_new:
+        label: 'car.car::lang.model.car.country_new'
+        relation: country_new
+        select: name
+    country_location:
+        label: 'car.car::lang.model.car.country_location'
+        relation: country_location
+        select: name
+    notes:
+        label: 'car.car::lang.model.car.notes'
+        type: jaber-list-truncate
+        truncate: true 
+        truncate_limit: 12
+        show_more: true 
+        
+    created_at:
+        label: 'car.car::lang.model.car.created_at'
+        type: datetime
+    updated_at:
+        label: 'car.car::lang.model.car.updated_at'
+        type: datetime

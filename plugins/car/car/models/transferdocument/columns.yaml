@@ -1,0 +1,92 @@
+columns:
+    id:
+        label: 'car.car::lang.model.transferdocument.id'
+        type: number
+    car:
+        label: 'car.car::lang.model.transferdocument.car'
+        relation : car
+        select: chassis_number
+    old_owner_name:
+        label: 'car.car::lang.model.transferdocument.old_owner_name'
+        type: text
+    old_owner_id_number:
+        label: 'car.car::lang.model.transferdocument.old_owner_id_number'
+        type: text
+    old_owner_id_issuer:
+        label: 'car.car::lang.model.transferdocument.old_owner_id_issuer'
+        type: text
+    old_owner_address:
+        label: 'car.car::lang.model.transferdocument.old_owner_address'
+        type: text
+    old_owner_phone:
+        label: 'car.car::lang.model.transferdocument.old_owner_phone'
+        type: text
+    new_owner_name:
+        label: 'car.car::lang.model.transferdocument.new_owner_name'
+        type: text
+    new_owner_id_number:
+        label: 'car.car::lang.model.transferdocument.new_owner_id_number'
+        type: text
+    new_owner_id_issuer:
+        label: 'car.car::lang.model.transferdocument.new_owner_id_issuer'
+        type: text
+    new_owner_address:
+        label: 'car.car::lang.model.transferdocument.new_owner_address'
+        type: text
+    new_owner_phone:
+        label: 'car.car::lang.model.transferdocument.new_owner_phone'
+        type: text
+    car_license_plate:
+        label: 'car.car::lang.model.transferdocument.car_license_plate'
+        type: text
+    car_chassis_number:
+        label: 'car.car::lang.model.transferdocument.car_chassis_number'
+        type: text
+    car_engine_number:
+        label: 'car.car::lang.model.transferdocument.car_engine_number'
+        type: text
+    car_brand:
+        label: 'car.car::lang.model.transferdocument.car_brand'
+        type: text
+    car_model:
+        label: 'car.car::lang.model.transferdocument.car_model'
+        type: text
+    car_color:
+        label: 'car.car::lang.model.transferdocument.car_color'
+        type: text
+    transfer_date:
+        label: 'car.car::lang.model.transferdocument.transfer_date'
+        type: text
+    transfer_place:
+        label: 'car.car::lang.model.transferdocument.transfer_place'
+        type: text
+    is_full_transfer:
+        label: 'car.car::lang.model.transferdocument.is_full_transfer'
+        type: text
+    transfer_percentage:
+        label: 'car.car::lang.model.transferdocument.transfer_percentage'
+        type: text
+    has_identity_copy:
+        label: 'car.car::lang.model.transferdocument.has_identity_copy'
+        type: text
+    has_traffic_clearance:
+        label: 'car.car::lang.model.transferdocument.has_traffic_clearance'
+        type: text
+    has_insurance:
+        label: 'car.car::lang.model.transferdocument.has_insurance'
+        type: text
+    has_inspection:
+        label: 'car.car::lang.model.transferdocument.has_inspection'
+        type: text
+    has_old_registration:
+        label: 'car.car::lang.model.transferdocument.has_old_registration'
+        type: text
+    created_at:
+        label: 'car.car::lang.model.transferdocument.created_at'
+        type: datetime
+    updated_at:
+        label: 'car.car::lang.model.transferdocument.updated_at'
+        type: datetime
+    document_number:
+        label: 'car.car::lang.model.transferdocument.document_number'
+        type: text

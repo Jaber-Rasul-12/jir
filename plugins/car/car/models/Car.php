@@ -72,9 +72,6 @@ public $fillable = ['ownership', 'brand_id' , 'model_id' , 'type' , 'chassis_num
         'country' => [\Car\Car\Models\Country::class, 'key' => 'country_id'],
         'country_new' => [\Car\Car\Models\Country::class, 'key' => 'country_new_id'],
         'country_location' => [\Car\Car\Models\Country::class, 'key' => 'country_location_id'],
-
-        
-
     ];
 
         public function scopeIsLisense($query, $state)
@@ -87,12 +84,27 @@ public $fillable = ['ownership', 'brand_id' , 'model_id' , 'type' , 'chassis_num
     }
 
 
+ 
+
+public $belongsToMany = [
+    'saleContracts' => [
+        'Car\Car\Models\SaleContract',
+        'table'    => 'car_car_cars_sale_contracts',
+        'key'      => 'car_id',
+        'otherKey' => 'sale_contract_id',
+    ],
+];
+
     public $attachMany = [
         'photos' => 'System\Models\File'
     ];
 
         public $hasMany = [
         'rents' => ['Car\Car\Models\Rent', 'key' => 'car_id'],
+            'transferDocuments' => [
+        'Car\Car\Models\TransferDocument',
+        'key' => 'car_id',
+    ],
     ];
 
     // In your Car model

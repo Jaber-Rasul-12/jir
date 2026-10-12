@@ -1,0 +1,176 @@
+tabs:
+    icons:
+        'car.car::lang.plugin.parties_to_the_contract': 'icon-users'
+        'car.car::lang.plugin.cars': 'icon-car'
+        'car.car::lang.plugin.price': 'icon-money'
+        'car.car::lang.plugin.terms': 'icon-file-text-o'
+        'car.car::lang.plugin.notes': 'icon-pencil-square-o'
+        'car.car::lang.plugin.log_changes': 'icon-history'
+
+    fields:
+        # ===== تاب: أطراف العقد =====
+        seller_name:
+            label: 'car.car::lang.model.salecontract.seller_name'
+            span: auto
+            type: text
+           
+            default: 'شركة JIR'
+            tab: 'car.car::lang.plugin.parties_to_the_contract'
+
+        seller_id_number:
+            label: 'car.car::lang.model.salecontract.seller_id_number'
+            span: auto
+            type: text
+            default: 'لا يوجد'
+            tab: 'car.car::lang.plugin.parties_to_the_contract'
+
+        seller_id_issuer:
+            label: 'car.car::lang.model.salecontract.seller_id_issuer'
+            span: auto
+            type: text
+            default: 'لا يوجد'
+
+            tab: 'car.car::lang.plugin.parties_to_the_contract'
+
+        seller_address:
+            label: 'car.car::lang.model.salecontract.seller_address'
+            span: auto
+            default: 'خلق شركة المياه'
+            type: text
+            tab: 'car.car::lang.plugin.parties_to_the_contract'
+
+        seller_phone:
+            label: 'car.car::lang.model.salecontract.seller_phone'
+            span: auto
+            type: text
+            default: 'لا يوجد'
+
+            tab: 'car.car::lang.plugin.parties_to_the_contract'
+
+        buyer_name:
+            label: 'car.car::lang.model.salecontract.buyer_name'
+            span: auto
+            type: text
+            required: true
+            tab: 'car.car::lang.plugin.parties_to_the_contract'
+
+        buyer_id_number:
+            label: 'car.car::lang.model.salecontract.buyer_id_number'
+            span: auto
+            type: text
+            required: true
+            tab: 'car.car::lang.plugin.parties_to_the_contract'
+
+        buyer_id_issuer:
+            label: 'car.car::lang.model.salecontract.buyer_id_issuer'
+            span: auto
+            default: 'لا يوجد'
+            type: text
+            tab: 'car.car::lang.plugin.parties_to_the_contract'
+
+        buyer_address:
+            label: 'car.car::lang.model.salecontract.buyer_address'
+            span: auto
+            default: 'لا يوجد'
+
+            type: text
+            tab: 'car.car::lang.plugin.parties_to_the_contract'
+
+        buyer_phone:
+            label: 'car.car::lang.model.salecontract.buyer_phone'
+            span: auto
+            type: text
+            default: 'لا يوجد'
+            tab: 'car.car::lang.plugin.parties_to_the_contract'
+
+        # ===== تاب: السيارات =====
+        cars:
+            label: 'car.car::lang.model.salecontract.cars'
+            span: full
+            type: relationmanager
+            context: ['update', 'preview']
+            placeholder: car.car::lang.plugin.select
+            tab: 'car.car::lang.plugin.cars'
+
+        # ===== تاب: الثمن =====
+        total_price:
+            label: 'car.car::lang.model.salecontract.total_price'
+            span: auto
+            type: number
+            required: true
+            default: 0
+            tab: 'car.car::lang.plugin.price'
+
+        paid_amount:
+            label: 'car.car::lang.model.salecontract.paid_amount'
+            span: auto
+            type: number
+            default: 0
+
+            tab: 'car.car::lang.plugin.price'
+
+        remaining_amount:
+            label: 'car.car::lang.model.salecontract.remaining_amount'
+            span: auto
+            type: number
+            default: 0
+            tab: 'car.car::lang.plugin.price'
+
+        payment_terms:
+            label: 'car.car::lang.model.salecontract.payment_terms'
+            span: auto
+            type: text
+            default: 'دفعة واحدة'
+            tab: 'car.car::lang.plugin.price'
+
+        # ===== تاب: الشروط العامة =====
+        contract_number:
+            label: 'car.car::lang.model.salecontract.contract_number'
+            span: auto
+            type: text
+            readOnly: true
+            context: 'update|preview'
+            tab: 'car.car::lang.plugin.terms'
+
+        contract_date:
+            label: 'car.car::lang.model.salecontract.contract_date'
+            span: auto
+            type: datepicker
+            mode: date
+            required: true
+            tab: 'car.car::lang.plugin.terms'
+
+        contract_place:
+            label: 'car.car::lang.model.salecontract.contract_place'
+            span: auto
+            type: text
+            default: 'الحسكة - القامشلي - نقل بري'
+            tab: 'car.car::lang.plugin.terms'
+
+        general_terms:
+            label: 'car.car::lang.model.salecontract.general_terms'
+            span: full
+            type: textarea
+            tab: 'car.car::lang.plugin.terms'
+            default: |
+                1. يعتبر هذا البيع قطعياً نهائياً لا يحق لأي من الطرفين الرجوع فيه.
+                2. يضمن البائع أن السيارات مملوكة له ملكية خالصة وخالية من أي حقوق أو ديون.
+                3. يقر المشتري أنه عاين السيارات معاينة تامة نافية للجهالة وقبلها بحالتها الراهنة.
+                4. جميع مصاريف ورسوم نقل الملكية يتحملها المشتري.
+
+        # ===== تاب: ملاحظات =====
+        notes:
+            label: 'car.car::lang.model.salecontract.notes'
+            span: full
+            type: textarea
+            tab: 'car.car::lang.plugin.notes'
+
+        # ===== تاب: سجل التغييرات =====
+        _logbook@update:
+            type: jacob_logbook_log
+            limitPerPage: 10
+            startPage: 1
+            permissions: log_changes_cars
+            tab: 'car.car::lang.plugin.log_changes'
+            showUndoChangesButton: true
+            refreshFormAfterUndo: true

@@ -29,6 +29,12 @@ permissions:
     rents:
         tab: 'car.car::lang.plugin.cars'
         label: 'car.car::lang.plugin.rents'
+    transfer_documents:
+        tab: 'car.car::lang.plugin.cars'
+        label: 'car.car::lang.plugin.transfer_documents'
+    sale_contracts:
+        tab: 'car.car::lang.plugin.cars'
+        label: 'car.car::lang.plugin.sale_contracts'
 navigation:
     cars_settings:
         label: 'car.car::lang.plugin.cars_settings'
@@ -86,3 +92,15 @@ navigation:
                 icon: icon-bar-chart
                 permissions:
                     - rents
+            sale_contracts:
+                label: 'car.car::lang.plugin.sale_contracts'
+                url: car/car/salecontracts
+                icon: icon-slack
+                permissions:
+                    - sale_contracts
+            transfer_documents:
+                label: 'car.car::lang.plugin.transfer_documents'
+                url: car/car/transferdocuments
+                icon: icon-skyatlas
+                permissions:
+                    - transfer_documents

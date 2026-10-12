@@ -46,6 +46,14 @@ return [
         'import_excel' => 'استيراد إكسل',
         'license_plate_number' => 'سيارات مؤرشفة',
 
+        'sale_contracts'     => 'عقود البيع',
+'transfer_documents' => 'وثائق التنازل',
+'document_data'      => 'بيانات الوثيقة',
+'documents'          => 'الوثائق',
+'price'              => 'الثمن',
+'terms'              => 'الشروط',
+'notes'              => 'ملاحظات',
+
 
 
 
@@ -142,6 +150,70 @@ return [
             'created_at' => 'تاريخ الإنشاء',
             'updated_at' => 'تاريخ التحديث',
         ],
+
+        'salecontract' => [
+    'id' => 'المعرف',
+    'contract_number' => 'رقم العقد',
+    'contract_date' => 'تاريخ العقد',
+    'contract_place' => 'مكان العقد',
+    'seller_name' => 'اسم البائع',
+    'seller_id_number' => 'رقم هوية البائع',
+    'seller_id_issuer' => 'جهة إصدار هوية البائع',
+    'seller_address' => 'عنوان البائع',
+    'seller_phone' => 'هاتف البائع',
+    'buyer_name' => 'اسم المشتري',
+    'buyer_id_number' => 'رقم هوية المشتري',
+    'buyer_id_issuer' => 'جهة إصدار هوية المشتري',
+    'buyer_address' => 'عنوان المشتري',
+    'buyer_phone' => 'هاتف المشتري',
+    'total_price' => 'الثمن الإجمالي',
+    'paid_amount' => 'المبلغ المدفوع',
+    'remaining_amount' => 'المبلغ المتبقي',
+    'payment_terms' => 'شروط الدفع',
+    'general_terms' => 'الشروط العامة',
+    'notes' => 'ملاحظات',
+    'created_at' => 'تاريخ الإنشاء',
+    'updated_at' => 'تاريخ التحديث',
+    'cars' => 'معرف السيارة',
+],
+'transferdocument' => [
+    'id' => 'المعرف',
+    'car' => 'معرف السيارة',
+    'old_owner_name' => 'اسم المالك القديم',
+    'old_owner_id_number' => 'رقم هوية المالك القديم',
+    'old_owner_id_issuer' => 'جهة إصدار هوية المالك القديم',
+    'old_owner_address' => 'عنوان المالك القديم',
+    'old_owner_phone' => 'هاتف المالك القديم',
+    'new_owner_name' => 'اسم المالك الجديد',
+    'new_owner_id_number' => 'رقم هوية المالك الجديد',
+    'new_owner_id_issuer' => 'جهة إصدار هوية المالك الجديد',
+    'new_owner_address' => 'عنوان المالك الجديد',
+    'new_owner_phone' => 'هاتف المالك الجديد',
+    'car_license_plate' => 'رقم اللوحة',
+    'car_chassis_number' => 'رقم الهيكل',
+    'car_engine_number' => 'رقم المحرك',
+    'car_brand' => 'الماركة',
+    'car_model' => 'الطراز',
+    'car_color' => 'اللون',
+    'transfer_date' => 'تاريخ التنازل',
+    'transfer_place' => 'مكان التنازل',
+    'is_full_transfer' => 'تنازل كامل',
+    'transfer_percentage' => 'نسبة التنازل',
+    'has_identity_copy' => 'يوجد صورة هوية',
+    'has_traffic_clearance' => 'يوجد براءة ذمة مرور',
+    'has_insurance' => 'يوجد تأمين',
+    'has_inspection' => 'يوجد فحص فني',
+    'has_old_registration' => 'يوجد رخصة سير قديمة',
+    'created_at' => 'تاريخ الإنشاء',
+    'updated_at' => 'تاريخ التحديث',
+    'document_number' => 'رقم الوثيقة',
+    'status' => 'الحالة',
+    'status_pending' => 'قيد الانتظار',
+    'status_completed' => 'مكتملة',
+    'status_cancelled' => 'ملغاة',
+            'notes' => 'ملاحظات',
+
+],
     ],
     'controller' => [
         'brands' => [
@@ -162,6 +234,12 @@ return [
         'rents' => [
             'rents' => 'الإيجارات',
         ],
+        'salecontracts' => [
+    'salecontracts' => 'عقود البيع',
+],
+'transferdocuments' => [
+    'transferdocuments' => 'وثائق التنازل',
+],
     ],
     'models' => [
         'report' => [

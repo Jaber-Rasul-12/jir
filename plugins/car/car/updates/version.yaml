@@ -18,3 +18,12 @@
 1.0.7:
     - 'Created table car_car_rents'
     - builder_table_create_car_car_rents.php
+1.0.8:
+    - 'Created table car_car_transfer_documents'
+    - builder_table_create_car_car_transfer_documents.php
+1.0.9:
+    - 'Created table builder_table_create_car_car_sale_contracts'
+    - builder_table_create_car_car_sale_contracts.php
+1.0.10:
+    - 'Created table car_car_cars_sale_contracts'
+    - builder_table_create_car_car_cars_sale_contracts.php

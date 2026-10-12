@@ -1,0 +1,240 @@
+tabs:
+    icons:
+        'car.car::lang.plugin.document_data': 'icon-file-text'
+        'car.car::lang.plugin.parties_to_the_contract': 'icon-users'
+        'car.car::lang.plugin.car': 'icon-car'
+        'car.car::lang.plugin.documents': 'icon-folder-open'
+        'car.car::lang.plugin.log_changes': 'icon-history'
+
+    fields:
+        # ===== تاب: بيانات الوثيقة =====
+        document_number:
+            label: 'car.car::lang.model.transferdocument.document_number'
+            type: text
+            span: auto
+            readOnly: true
+            context: 'update|preview'
+            tab: 'car.car::lang.plugin.document_data'
+
+        transfer_date:
+            label: 'car.car::lang.model.transferdocument.transfer_date'
+            span: auto
+            type: datepicker
+            mode: date
+            tab: 'car.car::lang.plugin.document_data'
+
+        transfer_place:
+            label: 'car.car::lang.model.transferdocument.transfer_place'
+            span: auto
+            type: text
+            default: 'الحسكة - القامشلي - نقل بري'
+            tab: 'car.car::lang.plugin.document_data'
+
+        is_full_transfer:
+            label: 'car.car::lang.model.transferdocument.is_full_transfer'
+            span: auto
+            type: switch
+            default: true
+            tab: 'car.car::lang.plugin.document_data'
+
+        transfer_percentage:
+            label: 'car.car::lang.model.transferdocument.transfer_percentage'
+            span: auto
+            type: number
+            # trigger:
+            #     action: show
+            #     field: is_full_transfer
+            #     condition: 'false'
+            tab: 'car.car::lang.plugin.document_data'
+
+        status:
+            label: 'car.car::lang.model.transferdocument.status'
+            span: auto
+            type: dropdown
+            options:
+                pending: 'car.car::lang.model.transferdocument.status_pending'
+                completed: 'car.car::lang.model.transferdocument.status_completed'
+                cancelled: 'car.car::lang.model.transferdocument.status_cancelled'
+            tab: 'car.car::lang.plugin.document_data'
+
+        # ===== تاب: أطراف التنازل =====
+        old_owner_name:
+            label: 'car.car::lang.model.transferdocument.old_owner_name'
+            span: auto
+            type: text
+            default: 'شركة JIR'
+            required: true
+            tab: 'car.car::lang.plugin.parties_to_the_contract'
+
+        old_owner_id_number:
+            label: 'car.car::lang.model.transferdocument.old_owner_id_number'
+            span: auto
+            type: text
+            default: 'لا يوجد'
+            required: true
+            tab: 'car.car::lang.plugin.parties_to_the_contract'
+
+        old_owner_id_issuer:
+            label: 'car.car::lang.model.transferdocument.old_owner_id_issuer'
+            span: auto
+            default: 'لا يوجد'
+            type: text
+            tab: 'car.car::lang.plugin.parties_to_the_contract'
+
+        old_owner_address:
+            label: 'car.car::lang.model.transferdocument.old_owner_address'
+            span: auto
+            default: 'الحسكة - القامشلي - نقل بري'
+            type: text
+            tab: 'car.car::lang.plugin.parties_to_the_contract'
+
+        old_owner_phone:
+            label: 'car.car::lang.model.transferdocument.old_owner_phone'
+            span: auto
+            type: text
+            default: 'لا يوجد'
+            tab: 'car.car::lang.plugin.parties_to_the_contract'
+
+        new_owner_name:
+            label: 'car.car::lang.model.transferdocument.new_owner_name'
+            span: auto
+            type: text
+            required: true
+            tab: 'car.car::lang.plugin.parties_to_the_contract'
+
+        new_owner_id_number:
+            label: 'car.car::lang.model.transferdocument.new_owner_id_number'
+            span: auto
+            type: text
+            required: true
+            tab: 'car.car::lang.plugin.parties_to_the_contract'
+
+        new_owner_id_issuer:
+            label: 'car.car::lang.model.transferdocument.new_owner_id_issuer'
+            span: auto
+            type: text
+            default: 'لا يوجد'
+            tab: 'car.car::lang.plugin.parties_to_the_contract'
+
+        new_owner_address:
+            label: 'car.car::lang.model.transferdocument.new_owner_address'
+            span: auto
+            type: text
+            default: 'لا يوجد'
+            tab: 'car.car::lang.plugin.parties_to_the_contract'
+
+        new_owner_phone:
+            label: 'car.car::lang.model.transferdocument.new_owner_phone'
+            span: auto
+            type: text
+            default: 'لا يوجد'
+            tab: 'car.car::lang.plugin.parties_to_the_contract'
+
+        # ===== تاب: السيارة =====
+        car:
+            label: 'car.car::lang.model.transferdocument.car'
+            span: full
+            type: relation
+            select: chassis_number
+            placeholder: car.car::lang.plugin.select
+            tab: 'car.car::lang.plugin.car'
+
+        car_license_plate:
+            label: 'car.car::lang.model.transferdocument.car_license_plate'
+            span: auto
+            type: text
+            dependsOn: car
+            readOnly: true
+            tab: 'car.car::lang.plugin.car'
+
+        car_chassis_number:
+            label: 'car.car::lang.model.transferdocument.car_chassis_number'
+            span: auto
+            type: text
+            dependsOn: car
+
+            readOnly: true
+            tab: 'car.car::lang.plugin.car'
+
+        car_engine_number:
+            label: 'car.car::lang.model.transferdocument.car_engine_number'
+            span: auto
+            type: text
+            dependsOn: car
+
+            readOnly: true
+            tab: 'car.car::lang.plugin.car'
+
+        car_brand:
+            label: 'car.car::lang.model.transferdocument.car_brand'
+            span: auto
+            type: text
+            dependsOn: car
+
+            readOnly: true
+            tab: 'car.car::lang.plugin.car'
+
+        car_model:
+            label: 'car.car::lang.model.transferdocument.car_model'
+            span: auto
+            type: text
+            dependsOn: car
+
+            readOnly: true
+            tab: 'car.car::lang.plugin.car'
+
+        car_color:
+            label: 'car.car::lang.model.transferdocument.car_color'
+            span: auto
+            type: text
+            dependsOn: car
+
+            readOnly: true
+            tab: 'car.car::lang.plugin.car'
+
+        # ===== تاب: الوثائق المرفقة =====
+        has_identity_copy:
+            label: 'car.car::lang.model.transferdocument.has_identity_copy'
+            span: auto
+            type: switch
+            tab: 'car.car::lang.plugin.documents'
+
+        has_traffic_clearance:
+            label: 'car.car::lang.model.transferdocument.has_traffic_clearance'
+            span: auto
+            type: switch
+            tab: 'car.car::lang.plugin.documents'
+
+        has_insurance:
+            label: 'car.car::lang.model.transferdocument.has_insurance'
+            span: auto
+            type: switch
+            tab: 'car.car::lang.plugin.documents'
+
+        has_inspection:
+            label: 'car.car::lang.model.transferdocument.has_inspection'
+            span: auto
+            type: switch
+            tab: 'car.car::lang.plugin.documents'
+
+        has_old_registration:
+            label: 'car.car::lang.model.transferdocument.has_old_registration'
+            span: auto
+            type: switch
+            tab: 'car.car::lang.plugin.documents'
+
+        notes:
+            label: 'car.car::lang.model.transferdocument.notes'
+            span: full
+            type: textarea
+            tab: 'car.car::lang.plugin.documents'
+
+        # ===== تاب: سجل التغييرات =====
+        _logbook@update:
+            type: jacob_logbook_log
+            limitPerPage: 10
+            startPage: 1
+            permissions: log_changes_transferdocuments
+            tab: 'car.car::lang.plugin.log_changes'
+            showUndoChangesButton: true
+            refreshFormAfterUndo: true

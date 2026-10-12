@@ -1,0 +1,21 @@
+
+cars:
+    label: Role
+    view:
+        list: $/car/car/models/car/columns_.yaml
+        toolbarButtons: add|remove
+    
+    manage:
+        list: $/car/car/models/car/columns_.yaml
+        form: $/car/car/models/car/fields.yaml
+        recordsPerPage: 10
+        showSearch: true
+        # search:
+        #     prompt: 'ابحث عن رقم الشاصي'
+        #     mode: contains
+        #     scope: search  
+        # showSorting: true
+        # defaultSort:
+        #     column: chassis_number
+        #     direction: asc
+        showSetup: true
