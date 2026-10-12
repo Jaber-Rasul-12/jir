@@ -205,19 +205,10 @@ public function getTransferDocumentHtml()
             </div>
         </div>
 
-        <div style="margin-bottom: 5px;">
-            <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px;">المادة 2: تفاصيل التنازل</h3>
-            <div style="background: #f9f9f9; padding: 12px 20px; border-radius: 6px; line-height: 1.8;">
-                <p><strong>نوع التنازل:</strong> {$isFullTransfer}</p>
-                <p><strong>نسبة التنازل:</strong> {$transferPct} %</p>
-                <p><strong>تاريخ التنازل:</strong> {$transferDate}</p>
-                <p><strong>مكان التنازل:</strong> {$transferPlace}</p>
-            </div>
-        </div>
 
 
         <div style="margin-bottom: 5px;">
-            <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px;">المادة 3: الوثائق المرفقة</h3>
+            <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px;">المادة 2: الوثائق المرفقة</h3>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; background: #fcfcfc; padding: 15px; border-radius: 6px;">
                 <span><strong>صورة الهوية الشخصية:</strong> {$docsCheck($doc->has_identity_copy)}</span>
                 <span><strong>براءة ذمة مرور:</strong> {$docsCheck($doc->has_traffic_clearance)}</span>
@@ -228,7 +219,7 @@ public function getTransferDocumentHtml()
         </div>
 
         <div style="margin-bottom: 5px;">
-            <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px;">المادة 4: أحكام عامة</h3>
+            <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px;">المادة 3: أحكام عامة</h3>
             <div style="background: #f9f9f9; padding: 12px 20px; border-radius: 6px; line-height: 1.8;">
                 <ol style="padding-right: 20px; margin: 0;">
                     <li>يعتبر هذا التنازل قطعياً نهائياً لا يحق للمتنازل الرجوع عنه لأي سبب من الأسباب.</li>
