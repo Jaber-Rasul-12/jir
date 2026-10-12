@@ -157,7 +157,7 @@ public function getTransferDocumentHtml()
             <div id="header_print_new" style="text-align: left; font-size: 14px; color: black!important;">
              <h4 style="border: 1px solid #48979c; padding: 2px; border-radius: 8px; text-align: center;">وثيقة تنازل عن الية</h4>  
               
-              رقم الوثيقة: {$documentNumber}<br> رقم الهيكل: {$carChassis}<br> رقم اللوحة: {$carLicensePlate}<br> التاريخ: {$transferDate}<br> الحالة: <span class="status-badge">{$statusText}</span>
+              رقم الوثيقة: {$documentNumber}<br> رقم الهيكل: {$carChassis}<br> رقم اللوحة: {$carLicensePlate}<br> التاريخ: {$transferDate}<br> 
             </div>
         </div>
 
