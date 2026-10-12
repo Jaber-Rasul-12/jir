@@ -146,10 +146,10 @@ public function getTransferDocumentHtml()
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
-<div class="contract-wrapper" style="direction: rtl; font-family: 'Calibri', 'Carlito', 'Segoe UI', 'Tahoma', 'Arial', sans-serif; max-width: 1100px; margin: 0 auto; background: #fafafa; padding: 30px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); position: relative; overflow: hidden;">
+<div class="contract-wrapper" style="direction: rtl; font-family: 'Calibri', 'Carlito', 'Segoe UI', 'Tahoma', 'Arial', sans-serif; max-width: 1100px; margin: 0 auto; background: #fafafa; padding: 10px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); position: relative; overflow: hidden;">
     <img src="{$imageUrl}" class="contract-background-image"
          style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.05; z-index: 0; pointer-events: none;" alt="خلفية الوثيقة">
-    <div style="background: #fff; padding: 40px 50px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); position: relative; z-index: 1;">
+    <div style="background: #fff; padding: 10px 10px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); position: relative; z-index: 1;">
 
         <div id="header_print" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px double #2c3e50; padding-bottom: 15px; margin-bottom: 5px; background: white; color: black!important; border-radius: 8px; pad">
             <div id="header_print_new" style="font-size: 22px; font-weight: bold; color: black!important;">بوابتكم إلى عالم التجارة والاستثمار</div>
