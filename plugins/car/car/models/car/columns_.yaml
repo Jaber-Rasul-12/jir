@@ -49,6 +49,7 @@ columns:
     license_plate_number_new:
         label: 'car.car::lang.model.car.license_plate_number_new'
         type: text
+        searchable: true
     country_new:
         label: 'car.car::lang.model.car.country_new'
         relation: country_new
