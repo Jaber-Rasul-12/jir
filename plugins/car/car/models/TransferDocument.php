@@ -201,7 +201,6 @@ public function getTransferDocumentHtml()
                 <span><strong>الطراز:</strong> {$carModel}</span>
                 <span><strong>اللون:</strong> {$carColor}</span>
                 <span><strong>رقم الهيكل:</strong> {$carChassis}</span>
-                <span><strong>رقم المحرك:</strong> {$carLicensePlate}</span>
             </div>
         </div>
 
