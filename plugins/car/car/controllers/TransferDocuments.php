@@ -37,4 +37,8 @@ class TransferDocuments extends Controller
             }
         }
     }
+
+    public function printall(){
+        $this->vars['records'] = \Car\Car\Models\TransferDocument::all();
+    }
 }

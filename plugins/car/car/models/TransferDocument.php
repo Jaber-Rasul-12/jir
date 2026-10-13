@@ -59,7 +59,7 @@ class TransferDocument extends Model
             // جلب القيم وتحويلها إلى أرقام عشرية (float)
             $fields->car_license_plate->value = $car->license_plate_number ? $car->license_plate_number : 'لا يوجد';
              $fields->car_chassis_number->value = $car->chassis_number ? $car->chassis_number : 'لا يوجد';
-             $fields->car_engine_number->value = $car->engine_number ? $car->engine_number : 'لا يوجد';
+             $fields->car_engine_number->value = $car->license_plate_number_new ? $car->license_plate_number_new : 'لا يوجد';
              $fields->car_brand->value = $car->brand->name ? $car->brand->name : 'لا يوجد';
              $fields->car_model->value = $car->model->name ? $car->model->name : 'لا يوجد';
              $fields->car_color->value = $car->color ? $car->color : 'لا يوجد';

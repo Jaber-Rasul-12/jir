@@ -2,6 +2,13 @@ columns:
     id:
         label: 'car.car::lang.model.transferdocument.id'
         type: number
+    print:
+        label: 'car.car::lang.plugin.print'
+        type: partial
+        path: button_print
+        clickable: false
+        sortable: false
+        searchable: false
     car:
         label: 'car.car::lang.model.transferdocument.car'
         relation : car

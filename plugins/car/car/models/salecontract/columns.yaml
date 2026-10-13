@@ -2,6 +2,13 @@ columns:
     id:
         label: 'car.car::lang.model.salecontract.id'
         type: number
+    print:
+        label: 'car.car::lang.plugin.print'
+        type: partial
+        path: button_print
+        clickable: false
+        sortable: false
+        searchable: false
     contract_number:
         label: 'car.car::lang.model.salecontract.contract_number'
         type: text
