@@ -13,9 +13,12 @@
         <div style="max-width: 1100px; margin: auto auto auto auto; display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 5px 5px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
            
             <div>
-                <button onclick="window.print()" class="btn btn-primary" style="background: #2980b9; border: none; padding: 8px 20px; border-radius: 6px; color: #fff; cursor: pointer; font-size: 14px;">
+                <!-- <button onclick="window.print()" class="btn btn-primary" style="background: #2980b9; border: none; padding: 8px 20px; border-radius: 6px; color: #fff; cursor: pointer; font-size: 14px;">
                     <i class="icon-print"></i> طباعة الوثيقة
-                </button>
+                </button> -->
+                <button onclick="printCleanContract()" class="btn btn-primary" style="background: #2980b9; border: none; padding: 8px 20px; border-radius: 6px; color: #fff; cursor: pointer; font-size: 14px;">
+    <i class="icon-print"></i> طباعة الوثيقة
+</button>
                 <a href="<?= Backend::url('car/car/transferdocuments') ?>" class="btn btn-default" style="margin-right: 10px; padding: 8px 20px; border-radius: 6px; background: #ecf0f1; color: #2c3e50; text-decoration: none; font-size: 14px;">
                     <i class="icon-chevron-left"></i> الرجوع
                 </a>
@@ -33,6 +36,117 @@
     <p class="flash-message static error"><?= e($this->fatalError) ?></p>
 <?php endif ?>
 
+
+<script>
+function printCleanContract() {
+    // 1) خذ HTML الوثيقة فقط
+    var contractEl = document.querySelector('.contract-wrapper');
+    if (!contractEl) {
+        alert('لم يتم العثور على الوثيقة');
+        return;
+    }
+    var contractHtml = contractEl.outerHTML;
+
+    // 2) افتح نافذة جديدة نظيفة
+    var printWindow = window.open('', '_blank', 'width=900,height=700');
+    if (!printWindow) {
+        alert('الرجاء السماح بالنوافذ المنبثقة للطباعة');
+        return;
+    }
+
+    // 3) اكتب داخل النافذة الجديدة صفحة HTML نظيفة تماماً
+    printWindow.document.open();
+    printWindow.document.write(`
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>طباعة وثيقة التنازل</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <style>
+        /* إعدادات الصفحة */
+        @page {
+            size: A4 portrait;
+            margin: 5mm !important;
+        }
+
+        html, body {
+            margin: 0 !important;
+            padding: 10px !important;
+            width: 100% !important;
+            background: #fff !important;
+            font-family: 'Calibri', 'Carlito', 'Segoe UI', Tahoma, Arial, sans-serif;
+            direction: rtl;
+            color: #000;
+            zoom: 85%;
+        }
+
+        /* الوثيقة تأخذ كامل العرض بدون أي قيود */
+        .contract-wrapper {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            background: #fff !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            overflow: visible !important;
+        }
+
+        .contract-wrapper > div {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;     /* ألغِ الحشو الداخلي تماماً */
+            background: #fff !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+        }
+
+        /* صورة الخلفية */
+        .contract-background-image {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            opacity: 0.05 !important;
+            z-index: -1 !important;
+            pointer-events: none !important;
+        }
+
+        /* ضبط الشبكات */
+        [style*="display: grid"] {
+            gap: 4px 12px !important;
+        }
+
+        /* منع قطع العناصر */
+        * {
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            box-sizing: border-box !important;
+        }
+
+        h3, h4 {
+            page-break-after: avoid;
+        }
+    </style>
+</head>
+<body>${contractHtml}</body>
+</html>
+    `);
+    printWindow.document.close();
+
+    // 4) انتظر تحميل المحتوى والخطوط ثم اطبع
+    setTimeout(function () {
+        printWindow.focus();
+        printWindow.print();
+    }, 800);
+}
+</script>
 <!-- تحسينات إضافية للطباعة -->
 <style>
 @media print {
