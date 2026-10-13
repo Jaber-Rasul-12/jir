@@ -11,7 +11,7 @@ class TransferDocument extends Model
 
 
       use LogChanges;
-      protected $nullable = ['old_owner_id_issuer' , 'old_owner_address' , 'old_owner_phone' , 'new_owner_id_issuer' , 'new_owner_address' , 'new_owner_phone' , 'car_license_plate' , 'car_chassis_number' , 'car_engine_number' , 'car_brand' , 'car_model' , 'car_color' , 'transfer_place' , 'is_full_transfer' , 'transfer_percentage' , 'notes' ];
+      protected $nullable = ['old_owner_id_issuer' ,'new_owner_name' , 'new_owner_id_number', 'old_owner_address' , 'old_owner_phone' , 'new_owner_id_issuer' , 'new_owner_address' , 'new_owner_phone' , 'car_license_plate' , 'car_chassis_number' , 'car_engine_number' , 'car_brand' , 'car_model' , 'car_color' , 'transfer_place' , 'is_full_transfer' , 'transfer_percentage' , 'notes' ];
 
   public $logBookModelName = 'car.car::lang.plugin.transfer_documents';
   public static function changeLogBookDisplayColumn($column)
@@ -25,7 +25,6 @@ class TransferDocument extends Model
         'document_number' => 'required|unique:car_car_transfer_documents,document_number',
         'car_id'          => 'required|exists:car_car_cars,id',
         'old_owner_name'  => 'required',
-        'new_owner_name'  => 'required',
         'transfer_date'   => 'required|date',
     ];
 

@@ -22,8 +22,8 @@ class BuilderTableCreateCarCarTransferDocuments extends Migration
             $table->string('old_owner_phone')->nullable();
 
             // بيانات المالك الجديد (المتنازل إليه)
-            $table->string('new_owner_name');
-            $table->string('new_owner_id_number');
+            $table->string('new_owner_name')->nullable();
+            $table->string('new_owner_id_number')->nullable();
             $table->string('new_owner_id_issuer')->nullable();
             $table->string('new_owner_address')->nullable();
             $table->string('new_owner_phone')->nullable();
