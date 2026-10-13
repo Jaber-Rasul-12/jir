@@ -11,10 +11,7 @@
 
         <!-- شريط الأدوات العلوي -->
         <div style="max-width: 1100px; margin: auto auto auto auto; display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 5px 5px; border-radius: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
-            <div>
-                <span style="font-weight: bold; color: #2c3e50; font-size: 16px;">📄 معاينة وثيقة التنازل</span>
-                <span style="margin-right: 0px; color: #7f8c8d; font-size: 14px;">رقم الوثيقة: #<?= $formModel->id ?></span>
-            </div>
+           
             <div>
                 <button onclick="window.print()" class="btn btn-primary" style="background: #2980b9; border: none; padding: 8px 20px; border-radius: 6px; color: #fff; cursor: pointer; font-size: 14px;">
                     <i class="icon-print"></i> طباعة الوثيقة
@@ -26,9 +23,9 @@
         </div>
 
         <!-- عرض الوثيقة -->
-        <div style="max-width: 1100px; margin: 0 auto;">
-            <?= $formModel->getTransferDocumentHtml() ?>
-        </div>
+        <div style="max-width: 100%; margin: 0;">
+    <?= $formModel->getTransferDocumentHtml() ?>
+</div>
 
     </div>
 
@@ -114,7 +111,7 @@
     body {
         margin: 0px !important;
         padding: 0px !important;
-        zoom: 75%;
+        zoom: 78%;
     }
 
     .form-group {

@@ -146,22 +146,23 @@ public function getTransferDocumentHtml()
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Carlito:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
-<div class="contract-wrapper" style="direction: rtl; font-family: 'Calibri', 'Carlito', 'Segoe UI', 'Tahoma', 'Arial', sans-serif; max-width: 1100px; margin: 0 auto; background: #fafafa; padding: 10px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); position: relative; overflow: hidden;">
-    <img src="{$imageUrl}" class="contract-background-image"
+<div class="contract-wrapper" style="direction: rtl; font-family: 'Calibri', 'Carlito', 'Segoe UI', 'Tahoma', 'Arial', sans-serif; max-width: 1100px; margin: 0 auto; background: #fafafa; padding: 5px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); position: relative; overflow: hidden;">
+    
+<img src="{$imageUrl}" class="contract-background-image"
          style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.05; z-index: 0; pointer-events: none;" alt="خلفية الوثيقة">
-    <div style="background: #fff; padding: 10px 10px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); position: relative; z-index: 1;">
+    <div style="background: #fff; padding: 5px 5px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); position: relative; z-index: 1;">
 
-        <div id="header_print" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px double #2c3e50; padding-bottom: 15px; margin-bottom: 5px; background: white; color: black!important; border-radius: 8px; pad">
+        <div id="header_print" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px double #2c3e50; padding-bottom: 5px; margin-bottom: 3px; background: white; color: black!important; border-radius: 8px; pad">
             <div id="header_print_new" style="font-size: 22px; font-weight: bold; color: black!important;">بوابتكم إلى عالم التجارة والاستثمار</div>
             <div> <img src="{$imageUrl}" width="100" height="100" alt=""></div>
             <div id="header_print_new" style="text-align: left; font-size: 14px; color: black!important;">
              <h4 style="border: 1px solid #48979c; padding: 2px; border-radius: 8px; text-align: center;">وثيقة تنازل عن الية</h4>  
               
-              رقم الوثيقة: {$documentNumber}<br> رقم الهيكل: {$carChassis}<br> رقم اللوحة: {$carLicensePlate}<br> التاريخ: {$transferDate}<br> 
+              رقم الوثيقة: {$documentNumber}<br> رقم الهيكل: {$carChassis}<br> رقم اللوحة: {$carLicensePlate}<br> التاريخ: {$transferDate}<br>  
             </div>
         </div>
 
-        <div style="margin: 5px 0; padding: 5px; background: #fdfaf0; border-radius: 8px; border: 1px solid #f1c40f;">
+        <div style="margin: 3px 0; padding: 3px; background: #fdfaf0; border-radius: 8px; border: 1px solid #f1c40f;">
             <h4 style="color: #8e44ad; margin-top: 0;">مقدمة</h4>
             <p style="line-height: 1.9; text-align: justify; margin: 0;">
                 أنا الموقع أدناه (المالك القديم / المتنازل)، أقر بكامل الأهلية المعتبرة شرعاً وقانوناً،
@@ -171,7 +172,7 @@ public function getTransferDocumentHtml()
             </p>
         </div>
 
-        <div style="margin-bottom: 5px; background: #f0f4f8; padding: 15px; border-radius: 8px; border-right: 6px solid #e67e22;">
+        <div style="margin-bottom: 3px; background: #f0f4f8; padding: 5px; border-radius: 8px; border-right: 6px solid #e67e22;">
             <h3 style="margin: 0 0 8px 0; color: #e67e22; font-size: 18px;">المالك القديم (المتنازل)</h3>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px 20px;">
                 <span><strong>الاسم الرباعي:</strong> {$oldOwnerName}</span>
@@ -193,7 +194,7 @@ public function getTransferDocumentHtml()
             </div>
         </div>
 
-        <div style="margin-bottom: 3px;">
+        <div style="margin-bottom: 2px;">
             <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 3px;">المادة 1: وصف ألية المتنازل عنها</h3>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 30px; background: #fcfcfc; padding: 5px; border-radius: 6px;">
                 <span><strong>رقم اللوحة:</strong> {$carLicensePlate}</span>
@@ -207,7 +208,7 @@ public function getTransferDocumentHtml()
 
 
 
-        <div style="margin-bottom: 5px;">
+        <div style="margin-bottom: 2px;">
             <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px;">المادة 2: الوثائق المرفقة</h3>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 20px; background: #fcfcfc; padding: 15px; border-radius: 6px;">
                 <span><strong>صورة الهوية الشخصية:</strong> {$docsCheck($doc->has_identity_copy)}</span>
@@ -218,7 +219,7 @@ public function getTransferDocumentHtml()
             </div>
         </div>
 
-        <div style="margin-bottom: 5px;">
+        <div style="margin-bottom: 2px;">
             <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px;">المادة 3: أحكام عامة</h3>
             <div style="background: #f9f9f9; padding: 12px 20px; border-radius: 6px; line-height: 1.8;">
                 <ol style="padding-right: 20px; margin: 0;">
@@ -235,7 +236,7 @@ HTML;
     // إضافة الملاحظات إن وُجدت
     if (!empty($doc->notes)) {
         $html .= <<<HTML
-        <div style="margin-bottom: 5px;">
+        <div style="margin-bottom: 2px;">
             <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 5px;">ملاحظات</h3>
             <div style="background: #fff8e1; padding: 12px 20px; border-radius: 6px; border-right: 4px solid #f39c12; line-height: 1.8;">
                 {$doc->notes}
@@ -246,7 +247,7 @@ HTML;
 
     // التوقيعات
     $html .= <<<HTML
-        <div style="border-top: 2px solid #2c3e50; padding-top: 25px; margin-top: 3px;">
+        <div style="border-top: 2px solid #2c3e50; padding-top: 5px; margin-top: 2px;">
             <div style="display: flex; flex-wrap: wrap; justify-content: space-between;">
                 <div style="width: 45%;">
                     <h4 style="margin: 0 0 10px 0; color: #e67e22;">المالك القديم (المتنازل)</h4>
