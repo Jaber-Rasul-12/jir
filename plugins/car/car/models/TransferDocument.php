@@ -157,7 +157,7 @@ public function getTransferDocumentHtml()
             <div id="header_print_new" style="text-align: left; font-size: 14px; color: black!important;">
              <h4 style="border: 1px solid #48979c; padding: 2px; border-radius: 8px; text-align: center;">وثيقة تنازل عن الية</h4>  
               
-              رقم الوثيقة: {$documentNumber}<br> رقم الهيكل: {$carChassis}<br> رقم اللوحة: {$carLicensePlate}<br> التاريخ: {$transferDate}<br>  
+              رقم الوثيقة: {$documentNumber}<br> رقم الهيكل: {$carChassis}<br> رقم اللوحة: {$carEngine}<br> التاريخ: {$transferDate}<br>  
             </div>
         </div>
 
@@ -196,12 +196,12 @@ public function getTransferDocumentHtml()
         <div style="margin-bottom: 2px;">
             <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 3px;">المادة 1: وصف ألية المتنازل عنها</h3>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 30px; background: #fcfcfc; padding: 5px; border-radius: 6px;">
-                <span><strong>رقم اللوحة:</strong> {$carLicensePlate}</span>
+                <span><strong>رقم اللوحة:</strong> {$carEngine}</span>
                 <span><strong>الماركة:</strong> {$carBrand}</span>
                 <span><strong>الطراز:</strong> {$carModel}</span>
                 <span><strong>اللون:</strong> {$carColor}</span>
                 <span><strong>رقم الهيكل:</strong> {$carChassis}</span>
-                <span><strong>رقم المحرك:</strong> {$carEngine}</span>
+                <span><strong>رقم المحرك:</strong> {$carLicensePlate}</span>
             </div>
         </div>
 

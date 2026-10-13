@@ -189,7 +189,7 @@ return [
     'new_owner_id_issuer' => 'جهة إصدار هوية المالك الجديد',
     'new_owner_address' => 'عنوان المالك الجديد',
     'new_owner_phone' => 'هاتف المالك الجديد',
-    'car_license_plate' => 'رقم اللوحة',
+    'car_license_plate' => 'رقم اللوحة ',
     'car_chassis_number' => 'رقم الهيكل',
     'car_engine_number' => 'رقم المحرك',
     'car_brand' => 'الماركة',
