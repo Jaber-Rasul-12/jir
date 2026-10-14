@@ -62,7 +62,11 @@ columns:
         type: text
     general_terms:
         label: 'car.car::lang.model.salecontract.general_terms'
-        type: text
+        type: jaber-list-truncate
+        truncate: true 
+        truncate_limit: 12
+        show_more: true 
+
     notes:
         label: 'car.car::lang.model.salecontract.notes'
         type: text
