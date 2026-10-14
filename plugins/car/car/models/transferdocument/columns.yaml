@@ -67,25 +67,43 @@ columns:
         type: text
     is_full_transfer:
         label: 'car.car::lang.model.transferdocument.is_full_transfer'
-        type: text
+        type: jaber-list-switch
+        icon: true
+        text-color: true  
+        font-size: 20  
     transfer_percentage:
         label: 'car.car::lang.model.transferdocument.transfer_percentage'
         type: text
     has_identity_copy:
         label: 'car.car::lang.model.transferdocument.has_identity_copy'
-        type: text
+        type: jaber-list-switch
+        icon: true
+        text-color: true  
+        font-size: 20
     has_traffic_clearance:
         label: 'car.car::lang.model.transferdocument.has_traffic_clearance'
-        type: text
+        type: jaber-list-switch
+        icon: true
+        text-color: true  
+        font-size: 20
     has_insurance:
         label: 'car.car::lang.model.transferdocument.has_insurance'
-        type: text
+        type: jaber-list-switch
+        icon: true
+        text-color: true  
+        font-size: 20
     has_inspection:
         label: 'car.car::lang.model.transferdocument.has_inspection'
-        type: text
+        type: jaber-list-switch
+        icon: true
+        text-color: true  
+        font-size: 20
     has_old_registration:
         label: 'car.car::lang.model.transferdocument.has_old_registration'
-        type: text
+        type: jaber-list-switch
+        icon: true
+        text-color: true  
+        font-size: 20
     created_at:
         label: 'car.car::lang.model.transferdocument.created_at'
         type: datetime
