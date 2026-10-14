@@ -57,6 +57,12 @@ public $fillable = ['ownership', 'brand_id' , 'model_id' , 'type' , 'chassis_num
         'country_location_id' => 'nullable|integer|exists:car_car_countries,id',
     ];
 
+
+public function scopeSearch($query)
+{
+    return $query->whereDoesntHave('saleContracts');
+}
+
     /**
      * Defines a "belongsTo" relationship.
      *

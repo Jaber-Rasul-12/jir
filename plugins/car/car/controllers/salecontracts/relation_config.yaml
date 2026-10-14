@@ -10,6 +10,7 @@ cars:
         form: $/car/car/models/car/fields.yaml
         recordsPerPage: 10
         showSearch: true
+        scope: search
         # search:
         #     prompt: 'ابحث عن رقم الشاصي'
         #     mode: contains
