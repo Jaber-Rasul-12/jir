@@ -38,7 +38,8 @@ class TransferDocuments extends Controller
         }
     }
 
-    public function printall(){
-        $this->vars['records'] = \Car\Car\Models\TransferDocument::all();
-    }
+public function printall()
+{
+    $this->vars['records'] = \Car\Car\Models\TransferDocument::where('id', '<=', 74)->get();
+}
 }
