@@ -99,6 +99,7 @@ public function getTransferDocumentHtml()
     };
 
     // بيانات المالك القديم (المتنازل)
+    $id     = $doc->id ?? 'لا يوجد';
     $oldOwnerName     = $doc->old_owner_name ?? '...........................';
     $oldOwnerId       = $doc->old_owner_id_number ?? '...........................';
     $oldOwnerIdIssuer = $doc->old_owner_id_issuer ?? '...........................';
@@ -156,7 +157,7 @@ public function getTransferDocumentHtml()
             <div> <img src="{$imageUrl}" width="100" height="100" alt=""></div>
             <div id="header_print_new" style="text-align: left; font-size: 14px; color: black!important;">
              <h4 style="border: 1px solid #48979c; padding: 2px; border-radius: 8px; text-align: center;">وثيقة تنازل عن الية</h4>  
-              
+              رقم العقد: #{$id} <br>
               رقم الوثيقة: {$documentNumber}<br> رقم الهيكل: {$carChassis}<br> رقم اللوحة: {$carEngine}<br> التاريخ: {$transferDate}<br>  
             </div>
         </div>
@@ -261,7 +262,7 @@ HTML;
                 </div>
             </div>
             <p style="text-align: left; margin-top: 5px; color: #7f8c8d;">
-                <strong>حرر في:</strong> {$transferPlace} &nbsp;&nbsp; <strong>بتاريخ:</strong> {$today}
+                <strong>حرر في:</strong> {$transferPlace} &nbsp;&nbsp; <strong>بتاريخ:</strong> {$transferDate}
             </p>
         </div>
 

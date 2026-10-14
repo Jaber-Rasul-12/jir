@@ -294,7 +294,7 @@ CAR;
                 </div>
             </div>
             <p style="text-align: left; margin-top: 20px; color: #7f8c8d;">
-                <strong>حرر في:</strong> {$contractPlace} &nbsp;&nbsp; <strong>بتاريخ:</strong> {$today}
+                <strong>حرر في:</strong> {$contractPlace} &nbsp;&nbsp; <strong>بتاريخ:</strong> {$contractDate}
             </p>
         </div>
 
