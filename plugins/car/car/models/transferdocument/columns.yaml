@@ -46,9 +46,11 @@ columns:
     car_license_plate:
         label: 'car.car::lang.model.transferdocument.car_license_plate'
         type: text
+        searchable: true
     car_chassis_number:
         label: 'car.car::lang.model.transferdocument.car_chassis_number'
         type: text
+        searchable: true
 
     car_brand:
         label: 'car.car::lang.model.transferdocument.car_brand'
