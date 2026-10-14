@@ -84,10 +84,30 @@ public function scopeSearch($query)
     {
         return match ($state) {
             '0' => $query,
-            '1' => $query->whereNull('license_plate_number_new'),
+            '1' => $query->whereDoesntHave('license_plate_number_new'),
             '2' => $query->whereNotNull('license_plate_number_new'),
         };
     }
+
+            public function scopeIsByed($query, $state)
+    {
+        return match ($state) {
+            '0' => $query,
+            '1' => $query->whereDoesntHave('saleContracts'),
+            '2' => $query->whereHas('saleContracts'),
+        };
+    }
+
+    public function scopeIsTransfered($query, $state)
+    {
+        return match ($state) {
+            '0' => $query,
+            '1' => $query->whereDoesntHave('transferDocuments'),
+            '2' => $query->whereHas('transferDocuments'),
+        };
+    }
+
+    
 
 
  

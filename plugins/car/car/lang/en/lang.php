@@ -74,6 +74,8 @@ return [
         'price' => 'Price',
         'terms' => 'Terms',
         'notes' => 'Notes',
+'IsByed' => 'IsByed',
+        'IsTransfered' => 'IsTransfered',
 
     ],
     'model' => [

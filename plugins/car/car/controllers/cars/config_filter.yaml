@@ -56,6 +56,18 @@ scopes:
         type: switch
         default: 0
         scope: isLisense
+    IsByed:
+        label: car.car::lang.plugin.IsByed
+        type: switch
+        default: 0
+        scope: IsByed
+    IsTransfered:
+        label: car.car::lang.plugin.IsTransfered
+        type: switch
+        default: 0
+        scope: IsTransfered
+
+       
 
 
     
