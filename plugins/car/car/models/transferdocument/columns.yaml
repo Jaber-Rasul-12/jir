@@ -49,9 +49,7 @@ columns:
     car_chassis_number:
         label: 'car.car::lang.model.transferdocument.car_chassis_number'
         type: text
-    car_engine_number:
-        label: 'car.car::lang.model.transferdocument.car_engine_number'
-        type: text
+
     car_brand:
         label: 'car.car::lang.model.transferdocument.car_brand'
         type: text

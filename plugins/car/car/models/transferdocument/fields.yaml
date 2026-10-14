@@ -156,14 +156,7 @@ tabs:
             readOnly: true
             tab: 'car.car::lang.plugin.car'
 
-        car_engine_number:
-            label: 'car.car::lang.model.transferdocument.car_engine_number'
-            span: auto
-            type: text
-            dependsOn: car
 
-            readOnly: true
-            tab: 'car.car::lang.plugin.car'
 
         car_brand:
             label: 'car.car::lang.model.transferdocument.car_brand'

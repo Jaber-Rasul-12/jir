@@ -110,7 +110,7 @@ class SaleContract extends Model
     if ($carsCount > 0) {
         foreach ($cars as $index => $car) {
             $carNumber       = $index + 1;
-            $carLicensePlate = $car->license_plate_number ?? '...........................';
+            $carLicensePlate = $car->license_plate_number_new ?? '...........................';
             $carChassis      = $car->chassis_number ?? '...........................';
             $carEngine       = $car->engine_number ?? '...........................';
             $carBrand        = $car->brand ? $car->brand->name : '...........................';
@@ -188,7 +188,7 @@ CAR;
         <div style="margin-bottom: 20px; background: #f0f4f8; padding: 15px; border-radius: 8px; border-right: 6px solid #2980b9;">
             <h3 style="margin: 0 0 8px 0; color: #2980b9; font-size: 18px;">الفريق الأول (البائع)</h3>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px 20px;">
-                <span><strong>الاسم الرباعي:</strong> {$sellerName}</span>
+                <span><strong>الاسم الثلاثي:</strong> {$sellerName}</span>
                 <span><strong>رقم الهوية:</strong> {$sellerId}</span>
                 <span><strong>جهة الإصدار:</strong> {$sellerIdIssuer}</span>
                 <span><strong>العنوان:</strong> {$sellerAddress}</span>
@@ -200,7 +200,7 @@ CAR;
         <div style="margin-bottom: 20px; background: #f0f4f8; padding: 15px; border-radius: 8px; border-right: 6px solid #27ae60;">
             <h3 style="margin: 0 0 8px 0; color: #27ae60; font-size: 18px;">الفريق الثاني (المشتري)</h3>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px 20px;">
-                <span><strong>الاسم الرباعي:</strong> {$buyerName}</span>
+                <span><strong>الاسم الثلاثي:</strong> {$buyerName}</span>
                 <span><strong>رقم الهوية:</strong> {$buyerId}</span>
                 <span><strong>جهة الإصدار:</strong> {$buyerIdIssuer}</span>
                 <span><strong>العنوان:</strong> {$buyerAddress}</span>

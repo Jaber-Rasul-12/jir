@@ -11,7 +11,7 @@ class TransferDocument extends Model
 
 
       use LogChanges;
-      protected $nullable = ['old_owner_id_issuer' ,'new_owner_name' , 'new_owner_id_number', 'old_owner_address' , 'old_owner_phone' , 'new_owner_id_issuer' , 'new_owner_address' , 'new_owner_phone' , 'car_license_plate' , 'car_chassis_number' , 'car_engine_number' , 'car_brand' , 'car_model' , 'car_color' , 'transfer_place' , 'is_full_transfer' , 'transfer_percentage' , 'notes' ];
+      protected $nullable = ['old_owner_id_issuer' ,'new_owner_name' , 'new_owner_id_number', 'old_owner_address' , 'old_owner_phone' , 'new_owner_id_issuer' , 'new_owner_address' , 'new_owner_phone' , 'car_license_plate' , 'car_chassis_number' ,  'car_brand' , 'car_model' , 'car_color' , 'transfer_place' , 'is_full_transfer' , 'transfer_percentage' , 'notes' ];
 
   public $logBookModelName = 'car.car::lang.plugin.transfer_documents';
   public static function changeLogBookDisplayColumn($column)
@@ -41,7 +41,7 @@ class TransferDocument extends Model
     public function beforeSave()
     {
         if ($this->car) {
-            $this->car_license_plate  = $this->car->license_plate_number;
+            $this->car_license_plate  = $this->car->license_plate_number_new;
             $this->car_chassis_number = $this->car->chassis_number;
             $this->car_brand          = optional($this->car->brand)->name;
             $this->car_model          = optional($this->car->model)->name;
@@ -57,9 +57,9 @@ class TransferDocument extends Model
           $car = Car::find($fields->car->value);
             
             // جلب القيم وتحويلها إلى أرقام عشرية (float)
-            $fields->car_license_plate->value = $car->license_plate_number ? $car->license_plate_number : 'لا يوجد';
+            $fields->car_license_plate->value = $car->license_plate_number_new ? $car->license_plate_number_new : 'لا يوجد';
              $fields->car_chassis_number->value = $car->chassis_number ? $car->chassis_number : 'لا يوجد';
-             $fields->car_engine_number->value = $car->license_plate_number_new ? $car->license_plate_number_new : 'لا يوجد';
+            //  $fields->car_engine_number->value = $car->engine_number ? $car->engine_number : 'لا يوجد';
              $fields->car_brand->value = $car->brand->name ? $car->brand->name : 'لا يوجد';
              $fields->car_model->value = $car->model->name ? $car->model->name : 'لا يوجد';
              $fields->car_color->value = $car->color ? $car->color : 'لا يوجد';
@@ -68,7 +68,7 @@ class TransferDocument extends Model
           
             $fields->car_license_plate->value = 'لا يوجد';
              $fields->car_chassis_number->value = 'لا يوجد';
-             $fields->car_engine_number->value = 'لا يوجد';
+            //  $fields->car_engine_number->value = 'لا يوجد';
              $fields->car_brand->value = 'لا يوجد';
              $fields->car_model->value = 'لا يوجد';
              $fields->car_color->value = 'لا يوجد';
@@ -116,7 +116,7 @@ public function getTransferDocumentHtml()
     // بيانات ألية
     $carLicensePlate = $doc->car_license_plate ?? '...........................';
     $carChassis      = $doc->car_chassis_number ?? '...........................';
-    $carEngine       = $doc->car_engine_number ?? '...........................';
+    // $carEngine       = $doc->car_engine_number ?? '...........................';
     $carBrand        = $doc->car_brand ?? '...........................';
     $carModel        = $doc->car_model ?? '...........................';
     $carColor        = $doc->car_color ?? '...........................';
@@ -158,7 +158,7 @@ public function getTransferDocumentHtml()
             <div id="header_print_new" style="text-align: left; font-size: 14px; color: black!important;">
              <h4 style="border: 1px solid #48979c; padding: 2px; border-radius: 8px; text-align: center;">وثيقة تنازل عن الية</h4>  
               رقم العقد: #{$id} <br>
-              رقم الوثيقة: {$documentNumber}<br> رقم الهيكل: {$carChassis}<br> رقم اللوحة: {$carEngine}<br> التاريخ: {$transferDate}<br>  
+              رقم الوثيقة: {$documentNumber}<br> رقم الهيكل: {$carChassis}<br> رقم اللوحة: {$carLicensePlate}<br> التاريخ: {$transferDate}<br>  
             </div>
         </div>
 
@@ -175,7 +175,7 @@ public function getTransferDocumentHtml()
         <div style="margin-bottom: 3px; background: #f0f4f8; padding: 5px; border-radius: 8px; border-right: 6px solid #e67e22;">
             <h3 style="margin: 0 0 8px 0; color: #e67e22; font-size: 18px;">المالك القديم (المتنازل)</h3>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px 20px;">
-                <span><strong>الاسم الرباعي:</strong> {$oldOwnerName}</span>
+                <span><strong>الاسم الثلاثي:</strong> {$oldOwnerName}</span>
                 <span><strong>رقم الهوية:</strong> {$oldOwnerId}</span>
                 <span><strong>جهة الإصدار:</strong> {$oldOwnerIdIssuer}</span>
                 <span><strong>العنوان:</strong> {$oldOwnerAddress}</span>
@@ -186,7 +186,7 @@ public function getTransferDocumentHtml()
         <div style="margin-bottom: 3px; background: #f0f4f8; padding: 5px; border-radius: 8px; border-right: 6px solid #27ae60;">
             <h3 style="margin: 0 0 8px 0; color: #27ae60; font-size: 18px;">المالك الجديد (المتنازل إليه)</h3>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px 20px;">
-                <span><strong>الاسم الرباعي:</strong> {$newOwnerName}</span>
+                <span><strong>الاسم الثلاثي:</strong> {$newOwnerName}</span>
                 <span><strong>رقم الهوية:</strong> {$newOwnerId}</span>
                 <span><strong>جهة الإصدار:</strong> {$newOwnerIdIssuer}</span>
                 <span><strong>العنوان:</strong> {$newOwnerAddress}</span>
@@ -197,7 +197,7 @@ public function getTransferDocumentHtml()
         <div style="margin-bottom: 2px;">
             <h3 style="color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 3px;">المادة 1: وصف ألية المتنازل عنها</h3>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 30px; background: #fcfcfc; padding: 5px; border-radius: 6px;">
-                <span><strong>رقم اللوحة:</strong> {$carEngine}</span>
+                <span><strong>رقم اللوحة:</strong> {$carLicensePlate}</span>
                 <span><strong>الماركة:</strong> {$carBrand}</span>
                 <span><strong>الطراز:</strong> {$carModel}</span>
                 <span><strong>اللون:</strong> {$carColor}</span>

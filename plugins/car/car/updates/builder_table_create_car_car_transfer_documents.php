@@ -31,7 +31,7 @@ class BuilderTableCreateCarCarTransferDocuments extends Migration
             // بيانات السيارة (منسوخة للتوثيق التاريخي)
             $table->string('car_license_plate')->nullable();
             $table->string('car_chassis_number')->nullable();
-            $table->string('car_engine_number')->nullable();
+            // $table->string('car_engine_number')->nullable();
             $table->string('car_brand')->nullable();
             $table->string('car_model')->nullable();
             $table->string('car_color')->nullable();
