@@ -139,7 +139,6 @@ class SaleContract extends Model
                     <span><strong>سنة الصنع:</strong> {$carYear}</span>
                     <span><strong>نوع الوقود:</strong> {$carFuel}</span>
                     <span style="grid-column: span 3;"><strong>رقم الهيكل:</strong> {$carChassis}</span>
-                    <span style="grid-column: span 3;"><strong>رقم المحرك:</strong> {$carEngine}</span>
                 </div>
             </div>
 CAR;
