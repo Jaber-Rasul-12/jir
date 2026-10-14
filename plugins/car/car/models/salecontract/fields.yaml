@@ -35,7 +35,7 @@ tabs:
         seller_address:
             label: 'car.car::lang.model.salecontract.seller_address'
             span: auto
-            default: 'خلق شركة المياه'
+            default: 'خلف شركة المياه'
             type: text
             tab: 'car.car::lang.plugin.parties_to_the_contract'
 
