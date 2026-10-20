@@ -29,7 +29,7 @@ class TransferDocument extends Model
     ];
 
     public $belongsTo = [
-        'car' => ['Car\Car\Models\Car', 'key' => 'car_id' , 'scope' => 'isNotHasCar'],
+        'car' => ['Car\Car\Models\Car', 'key' => 'car_id'],
     ];
     
     /**
