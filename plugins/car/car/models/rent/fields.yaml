@@ -40,12 +40,14 @@ tabs:
             label: 'car.car::lang.model.rent.start_date'
             span: auto
             type: datepicker
+            ignoreTimezone: true
             tab: 'car.car::lang.plugin.lease_term'
 
         end_date:
             label: 'car.car::lang.model.rent.end_date'
             span: auto
             type: datepicker
+            ignoreTimezone: true
             tab: 'car.car::lang.plugin.lease_term'
         watch_price:
             label: 'car.car::lang.model.rent.watch_price'

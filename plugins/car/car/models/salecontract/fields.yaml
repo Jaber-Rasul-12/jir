@@ -136,6 +136,7 @@ tabs:
             label: 'car.car::lang.model.salecontract.contract_date'
             span: auto
             type: datepicker
+            ignoreTimezone: true
             mode: date
             required: true
             tab: 'car.car::lang.plugin.terms'

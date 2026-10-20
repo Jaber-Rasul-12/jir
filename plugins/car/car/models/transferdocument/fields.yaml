@@ -20,6 +20,7 @@ tabs:
             label: 'car.car::lang.model.transferdocument.transfer_date'
             span: auto
             type: datepicker
+            ignoreTimezone: true
             mode: date
             tab: 'car.car::lang.plugin.document_data'
 
