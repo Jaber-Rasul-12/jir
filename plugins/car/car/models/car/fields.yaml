@@ -31,6 +31,7 @@ fields:
         label: 'car.car::lang.model.car.year_of_manufacturing_date'
         span: auto
         type: datepicker
+        ignoreTimezone: true
         mode: date
     fuel_type:
         label: 'car.car::lang.model.car.fuel_type'

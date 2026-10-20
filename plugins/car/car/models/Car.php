@@ -108,7 +108,10 @@ public function scopeSearch($query)
     }
 
     
-
+   public function scopeIsNotHasCar($query)
+    {
+        return $query->whereDoesntHave('transferDocuments');
+    }
 
  
 
