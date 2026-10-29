@@ -99,6 +99,8 @@ class SaleContract extends Model
     $contractNumber = $contract->contract_number ?? '...........................';
     $contractDate   = $formatDate($contract->contract_date);
     $contractPlace  = $contract->contract_place ?? '...........................';
+    $contractNote  = $contract->notes ?? '...........................';
+
     $today          = now()->format('Y-m-d');
     $imageUrl       = e(\Backend\Models\BrandSetting::getFavicon());
 
@@ -294,6 +296,13 @@ CAR;
             </div>
             <p style="text-align: left; margin-top: 20px; color: #7f8c8d;">
                 <strong>حرر في:</strong> {$contractPlace} &nbsp;&nbsp; <strong>بتاريخ:</strong> {$contractDate}
+            </p>
+        </div>
+
+        <div style="margin: 25px 0; padding: 15px; background: #fdfaf0; border-radius: 8px; border: 1px solid #f1c40f;">
+            <h3 style="color: #8e44ad; margin-top: 0;">مقدمة</h3>
+            <p style="line-height: 1.9; text-align: justify; margin: 0;">
+                {$contractNote}
             </p>
         </div>
 
