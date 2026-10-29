@@ -300,7 +300,7 @@ CAR;
         </div>
 
         <div style="margin: 25px 0; padding: 15px; background: #fdfaf0; border-radius: 8px; border: 1px solid #f1c40f;">
-            <h3 style="color: #8e44ad; margin-top: 0;">مقدمة</h3>
+            <h3 style="color: #8e44ad; margin-top: 0;">ملاحظة</h3>
             <p style="line-height: 1.9; text-align: justify; margin: 0;">
                 {$contractNote}
             </p>
