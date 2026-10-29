@@ -62,7 +62,7 @@ class NumberToWords
             $thousands = floor($number / 1000);
             $remainder = $number % 1000;
             $result = '';
-            
+
             if ($thousands == 1) {
                 $result = 'ألف';
             } elseif ($thousands == 2) {
@@ -72,7 +72,7 @@ class NumberToWords
             } else {
                 $result = self::convertNumber($thousands) . ' ألف';
             }
-            
+
             if ($remainder > 0) {
                 $result .= ' و ' . self::convertNumber($remainder);
             }
@@ -83,7 +83,7 @@ class NumberToWords
             $millions = floor($number / 1000000);
             $remainder = $number % 1000000;
             $result = '';
-            
+
             if ($millions == 1) {
                 $result = 'مليون';
             } elseif ($millions == 2) {
@@ -93,7 +93,28 @@ class NumberToWords
             } else {
                 $result = self::convertNumber($millions) . ' مليون';
             }
-            
+
+            if ($remainder > 0) {
+                $result .= ' و ' . self::convertNumber($remainder);
+            }
+            return $result;
+        }
+
+        if ($number < 1000000000000) {
+            $billions = floor($number / 1000000000);
+            $remainder = $number % 1000000000;
+            $result = '';
+
+            if ($billions == 1) {
+                $result = 'مليار';
+            } elseif ($billions == 2) {
+                $result = 'ملياران';
+            } elseif ($billions >= 3 && $billions <= 10) {
+                $result = self::convertNumber($billions) . ' مليارات';
+            } else {
+                $result = self::convertNumber($billions) . ' مليار';
+            }
+
             if ($remainder > 0) {
                 $result .= ' و ' . self::convertNumber($remainder);
             }
@@ -105,5 +126,9 @@ class NumberToWords
 }
 
 // اختبار الكود
-// echo NumberToWords::convert(1234567); // مليون و مائتان و أربعة و ثلاثون ألف و خمسمائة و سبعة و ستون
+// echo NumberToWords::convert(1234567);    // مليون و مائتان و أربعة و ثلاثون ألف و خمسمائة و سبعة و ستون
+// echo NumberToWords::convert(1000000000); // مليار
+// echo NumberToWords::convert(2000000000); // ملياران
+// echo NumberToWords::convert(3000000000); // ثلاثة مليارات
+// echo NumberToWords::convert(1234567890); // مليار و مائتان و أربعة و ثلاثون مليون و خمسمائة و سبعة و ستون ألف و ثمانمائة و تسعون
 ?>
