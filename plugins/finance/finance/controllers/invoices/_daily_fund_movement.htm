@@ -32,42 +32,42 @@
             <h4><i class="wn-icon-list"></i> Rapora Qasa a Giştî</h4>
         </div>
         <div class="card-body p-0">
-            <table class="table table-hover mb-0">
+            <table class="table mb-0 report-table">
                 <thead>
                     <tr>
-                        <th rowspan="2" class="align-middle">#</th>
-                        <th rowspan="2" class="align-middle">Navê</th>
-                        <th colspan="3" class="text-center bg-dollar">💵 Dolarê Amerîkî ($)</th>
-                        <th colspan="3" class="text-center bg-syrian">💷 Lîreya Sûrî (ل.س)</th>
+                        <th rowspan="2" class="align-middle col-base">#</th>
+                        <th rowspan="2" class="align-middle col-base">Navê</th>
+                        <th colspan="3" class="text-center col-dollar-head">💵 Dolarê Amerîkî ($)</th>
+                        <th colspan="3" class="text-center col-syrian-head">💷 Lîreya Sûrî (ل.س)</th>
                     </tr>
                     <tr>
-                        <th class="text-right bg-dollar">çûn</th>
-                        <th class="text-right bg-dollar">Hatin</th>
-                        <th class="text-right bg-dollar">Pereyên mayî yên giştî</th>
-                        <th class="text-right bg-syrian">çûn</th>
-                        <th class="text-right bg-syrian">Hatin</th>
-                        <th class="text-right bg-syrian">Pereyên mayî yên giştî</th>
+                        <th class="text-right col-dollar">çûn</th>
+                        <th class="text-right col-dollar">Hatin</th>
+                        <th class="text-right col-dollar">Pereyên mayî</th>
+                        <th class="text-right col-syrian">çûn</th>
+                        <th class="text-right col-syrian">Hatin</th>
+                        <th class="text-right col-syrian">Pereyên mayî</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($modelTypeStats as $i => $stat): ?>
                         <tr>
-                            <td><?= $i + 1 ?></td>
-                            <td><strong><?= e($stat['name']) ?></strong></td>
+                            <td class="col-base"><?= $i + 1 ?></td>
+                            <td class="col-base"><strong><?= e($stat['name']) ?></strong></td>
 
                             <!-- Dolar -->
-                            <td class="text-right text-danger"><?= number_format($stat['dollar_payment'], 2) ?> $</td>
-                            <td class="text-right text-success"><?= number_format($stat['dollar_receipt'], 2) ?> $</td>
-                            <td class="text-right">
+                            <td class="text-right text-danger col-dollar"><?= number_format($stat['dollar_payment'], 2) ?> $</td>
+                            <td class="text-right text-success col-dollar"><?= number_format($stat['dollar_receipt'], 2) ?> $</td>
+                            <td class="text-right col-dollar">
                                 <strong class="<?= ($stat['dollar_receipt'] - $stat['dollar_payment']) >= 0 ? 'text-success' : 'text-danger' ?>">
                                     <?= number_format($stat['dollar_receipt'] - $stat['dollar_payment'], 2) ?> $
                                 </strong>
                             </td>
 
                             <!-- Lîre -->
-                            <td class="text-right text-danger"><?= number_format($stat['syrian_payment'], 2) ?> ل.س</td>
-                            <td class="text-right text-success"><?= number_format($stat['syrian_receipt'], 2) ?> ل.س</td>
-                            <td class="text-right">
+                            <td class="text-right text-danger col-syrian"><?= number_format($stat['syrian_payment'], 2) ?> ل.س</td>
+                            <td class="text-right text-success col-syrian"><?= number_format($stat['syrian_receipt'], 2) ?> ل.س</td>
+                            <td class="text-right col-syrian">
                                 <strong class="<?= ($stat['syrian_receipt'] - $stat['syrian_payment']) >= 0 ? 'text-success' : 'text-danger' ?>">
                                     <?= number_format($stat['syrian_receipt'] - $stat['syrian_payment'], 2) ?> ل.س
                                 </strong>
@@ -77,15 +77,15 @@
                 </tbody>
                 <tfoot>
                     <tr class="font-weight-bold">
-                        <td colspan="2" class="text-right"> Giştî</td>
-                        <td class="text-right text-danger"><?= number_format($dollar->total_payment, 2) ?> $</td>
-                        <td class="text-right text-success"><?= number_format($dollar->total_receipt, 2) ?> $</td>
-                        <td class="text-right">
+                        <td colspan="2" class="text-right col-base">Giştî</td>
+                        <td class="text-right text-danger col-dollar"><?= number_format($dollar->total_payment, 2) ?> $</td>
+                        <td class="text-right text-success col-dollar"><?= number_format($dollar->total_receipt, 2) ?> $</td>
+                        <td class="text-right col-dollar">
                             <?= number_format($dollar->total_receipt - $dollar->total_payment, 2) ?> $
                         </td>
-                        <td class="text-right text-danger"><?= number_format($syrian->total_payment, 2) ?> ل.س</td>
-                        <td class="text-right text-success"><?= number_format($syrian->total_receipt, 2) ?> ل.س</td>
-                        <td class="text-right">
+                        <td class="text-right text-danger col-syrian"><?= number_format($syrian->total_payment, 2) ?> ل.س</td>
+                        <td class="text-right text-success col-syrian"><?= number_format($syrian->total_receipt, 2) ?> ل.س</td>
+                        <td class="text-right col-syrian">
                             <?= number_format($syrian->total_receipt - $syrian->total_payment, 2) ?> ل.س
                         </td>
                     </tr>
@@ -472,6 +472,7 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: { position: 'top' },
                     tooltip: {
@@ -515,6 +516,7 @@ document.addEventListener('DOMContentLoaded', function () {
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: { position: 'top' },
                     tooltip: {
@@ -739,15 +741,6 @@ function printReport() {
     border-top: 4px solid #3182ce;
 }
 
-/* ============ Table Backgrounds ============ */
-.bg-dollar {
-    background: #f0fff4 !important;
-}
-
-.bg-syrian {
-    background: #ebf8ff !important;
-}
-
 /* ============ Mini Stats ============ */
 .mini-stat {
     display: flex;
@@ -774,46 +767,6 @@ function printReport() {
 .text-success { color: #38a169 !important; }
 .text-right   { text-align: right; }
 .border-top   { border-top: 2px solid #edf2f7; }
-
-/* ============ Table ============ */
-.finance-card .table {
-    margin: 0;
-    font-size: 14px;
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.finance-card .table th {
-    background: #f7fafc;
-    font-weight: 700;
-    color: #4a5568;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding: 12px 16px;
-    border: none;
-}
-
-.finance-card .table td {
-    padding: 12px 16px;
-    vertical-align: middle;
-    border-top: 1px solid #edf2f7;
-}
-
-.finance-card .table tbody tr:hover {
-    background: #f7fafc;
-}
-
-/* ============ Total Footer ============ */
-tfoot tr {
-    background: #2d3748;
-    color: #fff;
-    font-size: 14px;
-}
-
-tfoot td {
-    padding: 14px 16px !important;
-}
 
 /* ============ Badges ============ */
 .badge {
@@ -855,40 +808,216 @@ tfoot td {
     white-space: nowrap;
 }
 
+/* ================================================================
+   REPORT TABLE — PROFESSIONAL DESIGN
+   ================================================================ */
+.report-table {
+    margin: 0;
+    font-size: 14px;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.report-table thead th {
+    background: #f7fafc;
+    font-weight: 700;
+    color: #4a5568;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    padding: 12px 14px;
+    border: none;
+    border-bottom: 2px solid #e2e8f0;
+    white-space: nowrap;
+}
+
+.report-table tbody td {
+    padding: 12px 14px;
+    vertical-align: middle;
+    border-bottom: 1px solid #edf2f7;
+    background: #fff;
+}
+
+.report-table tbody tr:hover td {
+    background: #f7fafc;
+}
+
+/* --- Col Base (#, Navê) --- */
+.report-table .col-base {
+    background: #fafbfc;
+}
+
+.report-table tbody tr:hover .col-base {
+    background: #f0f2f5;
+}
+
+/* --- Dolar Head --- */
+.report-table .col-dollar-head {
+    background: linear-gradient(135deg, #38a169 0%, #2f855a 100%) !important;
+    color: #fff !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.8px;
+    border-bottom: 3px solid #276749 !important;
+    border-left: 2px solid #fff !important;
+    border-right: 2px solid #fff !important;
+}
+
+/* --- Lîreya Sûrî Head --- */
+.report-table .col-syrian-head {
+    background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%) !important;
+    color: #fff !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.8px;
+    border-bottom: 3px solid #2c5282 !important;
+    border-left: 2px solid #fff !important;
+    border-right: 2px solid #fff !important;
+}
+
+/* --- Sub-headers (çûn / Hatin / Pereyên mayî) --- */
+.report-table thead th.col-dollar {
+    background: #e6fffa !important;
+    color: #234e52 !important;
+    border-bottom: 2px solid #38a169 !important;
+    border-left: 1px solid #c6f6d5 !important;
+}
+
+.report-table thead th.col-syrian {
+    background: #ebf8ff !important;
+    color: #2a4365 !important;
+    border-bottom: 2px solid #3182ce !important;
+    border-left: 1px solid #bee3f8 !important;
+}
+
+/* آخر خلية في مجموعة الدولار — حدود فاصلة قوية */
+.report-table thead th.col-dollar:last-of-type,
+.report-table tbody td.col-dollar:nth-child(5),
+.report-table tfoot td.col-dollar:nth-child(5) {
+    border-right: 3px solid #38a169 !important;
+}
+
+/* آخر خلية في مجموعة الليرة — حدود نهائية */
+.report-table thead th.col-syrian:last-of-type,
+.report-table tbody td.col-syrian:nth-child(8),
+.report-table tfoot td.col-syrian:nth-child(8) {
+    border-right: 1px solid #bee3f8 !important;
+}
+
+/* --- Dolar Cells --- */
+.report-table tbody td.col-dollar {
+    background: #f0fff4;
+    border-left: 1px solid #e6fffa;
+}
+
+.report-table tbody tr:hover td.col-dollar {
+    background: #e6fffa;
+}
+
+/* --- Lîreya Sûrî Cells --- */
+.report-table tbody td.col-syrian {
+    background: #ebf8ff;
+    border-left: 1px solid #e6f7ff;
+}
+
+.report-table tbody tr:hover td.col-syrian {
+    background: #e0f2fe;
+}
+
+/* --- Tfoot: Design Profesyonel --- */
+.report-table tfoot tr {
+    background: #1a202c !important;
+}
+
+.report-table tfoot td {
+    padding: 14px !important;
+    font-weight: 800;
+    font-size: 13px;
+    border-top: 3px solid #2d3748 !important;
+    border-bottom: none !important;
+}
+
+.report-table tfoot td.col-base {
+    background: #1a202c !important;
+    color: #fff !important;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border-right: 2px solid #4a5568 !important;
+}
+
+.report-table tfoot td.col-dollar {
+    background: #276749 !important;
+    color: #f0fff4 !important;
+    border-left: 1px solid #38a169 !important;
+}
+
+.report-table tfoot td.col-dollar:last-of-type {
+    border-right: 3px solid #38a169 !important;
+}
+
+.report-table tfoot td.col-syrian {
+    background: #2c5282 !important;
+    color: #ebf8ff !important;
+    border-left: 1px solid #3182ce !important;
+}
+
+.report-table tfoot td.col-syrian:last-of-type {
+    border-right: 1px solid #3182ce !important;
+}
+
+/* ألوان النصوص في tfoot */
+.report-table tfoot td.col-dollar.text-danger { color: #feb2b2 !important; }
+.report-table tfoot td.col-dollar.text-success { color: #c6f6d5 !important; }
+.report-table tfoot td.col-syrian.text-danger { color: #feb2b2 !important; }
+.report-table tfoot td.col-syrian.text-success { color: #c6f6d5 !important; }
+
 /* ============ Responsive ============ */
+@media (max-width: 992px) {
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .report-table { font-size: 12px; }
+    .report-table th, .report-table td { padding: 8px 8px !important; }
+}
+
 @media (max-width: 768px) {
     .kpi-grid { grid-template-columns: 1fr; }
     .kpi-value { font-size: 22px; }
-    .finance-card .table { font-size: 12px; }
+
+    .finance-card .table { font-size: 11px; }
     .finance-card .table th,
-    .finance-card .table td { padding: 8px 10px; }
+    .finance-card .table td { padding: 6px 6px; }
+
+    .report-table thead th.col-dollar-head,
+    .report-table thead th.col-syrian-head {
+        font-size: 10px !important;
+        padding: 8px 6px !important;
+    }
+
+    .report-table thead th.col-dollar,
+    .report-table thead th.col-syrian {
+        font-size: 9px !important;
+        padding: 6px 4px !important;
+    }
 }
 
-/* ============ PRINT: Rapora Qasa a Giştî tenê ============ */
+/* ================================================================
+   PRINT
+   ================================================================ */
 @media print {
-    /* Veşartina hemû tiştan */
-    body.printing-report * {
-        visibility: hidden !important;
-    }
+    body.printing-report * { visibility: hidden !important; }
 
-    /* Tenê rapora Qasa nîşan bide */
     body.printing-report .report-only,
-    body.printing-report .report-only * {
-        visibility: visible !important;
-    }
+    body.printing-report .report-only * { visibility: visible !important; }
 
-    /* Rapora li serê rûpelê sabît bike */
     body.printing-report .report-only {
         position: absolute !important;
-        left: 0 !important;
-        top: 0 !important;
+        left: 0 !important; top: 0 !important;
         width: 100% !important;
-        margin: 0 !important;
-        padding: 0 !important;
+        margin: 0 !important; padding: 0 !important;
         background: #fff !important;
     }
 
-    /* Tiştên nehewce veşêre */
     body.printing-report .no-print,
     body.printing-report .print-toolbar,
     body.printing-report .dashboard-header,
@@ -899,12 +1028,8 @@ tfoot td {
         display: none !important;
     }
 
-    /* Rengên çapê ferz bike */
-    body.printing-report .bg-dollar,
-    body.printing-report .bg-syrian,
-    body.printing-report tfoot tr,
-    body.printing-report .text-danger,
-    body.printing-report .text-success {
+    /* Colors */
+    body.printing-report .report-table * {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
         color-adjust: exact !important;
@@ -920,11 +1045,28 @@ tfoot td {
         page-break-inside: avoid !important;
     }
 
+    /* إعادة تأكيد الألوان في الطباعة */
+    body.printing-report .report-table .col-dollar-head {
+        background: linear-gradient(135deg, #38a169 0%, #2f855a 100%) !important;
+        color: #fff !important;
+    }
+
+    body.printing-report .report-table .col-syrian-head {
+        background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%) !important;
+        color: #fff !important;
+    }
+
+    body.printing-report .report-table tbody td.col-dollar { background: #f0fff4 !important; }
+    body.printing-report .report-table tbody td.col-syrian { background: #ebf8ff !important; }
+    body.printing-report .report-table tbody td.col-base { background: #fafbfc !important; }
+
+    body.printing-report .report-table tfoot td.col-dollar { background: #276749 !important; color: #f0fff4 !important; }
+    body.printing-report .report-table tfoot td.col-syrian { background: #2c5282 !important; color: #ebf8ff !important; }
+    body.printing-report .report-table tfoot td.col-base { background: #1a202c !important; color: #fff !important; }
+
     @page {
         margin: 1.2cm !important;
         size: A4 landscape !important;
     }
 }
-
-
 </style>
