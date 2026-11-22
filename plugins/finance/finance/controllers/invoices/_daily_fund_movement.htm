@@ -24,29 +24,29 @@
 
     <!-- ========== Model Type Stats (report-only) ========== -->
     <div class="section-title">
-        <i class="wn-icon-list"></i> Rapora Hesaban a Giştî
+        <i class="wn-icon-list"></i> Rapora Qasa a Giştî
     </div>
 
     <div class="finance-card report-only">
         <div class="card-header">
-            <h4><i class="wn-icon-list"></i> Rapora Hesaban a Giştî</h4>
+            <h4><i class="wn-icon-list"></i> Rapora Qasa a Giştî</h4>
         </div>
         <div class="card-body p-0">
             <table class="table table-hover mb-0">
                 <thead>
                     <tr>
                         <th rowspan="2" class="align-middle">#</th>
-                        <th rowspan="2" class="align-middle">Navê Hesabê</th>
+                        <th rowspan="2" class="align-middle">Navê</th>
                         <th colspan="3" class="text-center bg-dollar">💵 Dolarê Amerîkî ($)</th>
                         <th colspan="3" class="text-center bg-syrian">💷 Lîreya Sûrî (ل.س)</th>
                     </tr>
                     <tr>
-                        <th class="text-right bg-dollar">Xerc</th>
-                        <th class="text-right bg-dollar">Wergirtin</th>
-                        <th class="text-right bg-dollar">Balanç</th>
-                        <th class="text-right bg-syrian">Xerc</th>
-                        <th class="text-right bg-syrian">Wergirtin</th>
-                        <th class="text-right bg-syrian">Balanç</th>
+                        <th class="text-right bg-dollar">çûn</th>
+                        <th class="text-right bg-dollar">Hatin</th>
+                        <th class="text-right bg-dollar">Pereyên mayî yên giştî</th>
+                        <th class="text-right bg-syrian">çûn</th>
+                        <th class="text-right bg-syrian">Hatin</th>
+                        <th class="text-right bg-syrian">Pereyên mayî yên giştî</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -77,7 +77,7 @@
                 </tbody>
                 <tfoot>
                     <tr class="font-weight-bold">
-                        <td colspan="2" class="text-right">Komî ya Giştî</td>
+                        <td colspan="2" class="text-right"> Giştî</td>
                         <td class="text-right text-danger"><?= number_format($dollar->total_payment, 2) ?> $</td>
                         <td class="text-right text-success"><?= number_format($dollar->total_receipt, 2) ?> $</td>
                         <td class="text-right">
@@ -115,7 +115,7 @@
         <div class="kpi-card kpi-danger">
             <div class="kpi-icon"><i class="wn-icon-arrow-up"></i></div>
             <div class="kpi-body">
-                <span class="kpi-label">Komî ya Xerckirinê</span>
+                <span class="kpi-label">Komî ya çûnkirinê</span>
                 <h3 class="kpi-value"><?= number_format($totalPayments, 2) ?></h3>
                 <span class="kpi-sub">
                     <?= number_format($dollar->total_payment, 2) ?> $ +
@@ -127,7 +127,7 @@
         <div class="kpi-card kpi-success">
             <div class="kpi-icon"><i class="wn-icon-arrow-down"></i></div>
             <div class="kpi-body">
-                <span class="kpi-label">Komî ya Wergirtinê</span>
+                <span class="kpi-label">Komî ya Hatinê</span>
                 <h3 class="kpi-value"><?= number_format($totalReceipts, 2) ?></h3>
                 <span class="kpi-sub">
                     <?= number_format($dollar->total_receipt, 2) ?> $ +
@@ -139,7 +139,7 @@
         <div class="kpi-card kpi-info">
             <div class="kpi-icon"><i class="wn-icon-balance-scale"></i></div>
             <div class="kpi-body">
-                <span class="kpi-label">Balança Safî (Nêzîkî)</span>
+                <span class="kpi-label">Pereyên mayî yên giştîa Safî (Nêzîkî)</span>
                 <h3 class="kpi-value <?= ($dollar->total_receipt - $dollar->total_payment) >= 0 ? 'text-success' : 'text-danger' ?>">
                     <?= number_format($dollar->total_receipt - $dollar->total_payment, 2) ?> $
                 </h3>
@@ -168,7 +168,7 @@
         <div class="kpi-card kpi-danger">
             <div class="kpi-icon"><i class="wn-icon-arrow-up"></i></div>
             <div class="kpi-body">
-                <span class="kpi-label">Komî ya Xerckirinê</span>
+                <span class="kpi-label">Komî ya çûnkirinê</span>
                 <h3 class="kpi-value"><?= number_format($dollar->total_payment, 2) ?> $</h3>
                 <span class="kpi-sub"><?= $dollar->payment_count ?> muamele</span>
             </div>
@@ -177,7 +177,7 @@
         <div class="kpi-card kpi-success">
             <div class="kpi-icon"><i class="wn-icon-arrow-down"></i></div>
             <div class="kpi-body">
-                <span class="kpi-label">Komî ya Wergirtinê</span>
+                <span class="kpi-label">Komî ya Hatinê</span>
                 <h3 class="kpi-value"><?= number_format($dollar->total_receipt, 2) ?> $</h3>
                 <span class="kpi-sub"><?= $dollar->receipt_count ?> muamele</span>
             </div>
@@ -186,7 +186,7 @@
         <div class="kpi-card kpi-info">
             <div class="kpi-icon"><i class="wn-icon-balance-scale"></i></div>
             <div class="kpi-body">
-                <span class="kpi-label">Balanç</span>
+                <span class="kpi-label">Pereyên mayî yên giştî</span>
                 <h3 class="kpi-value <?= ($dollar->total_receipt - $dollar->total_payment) >= 0 ? 'text-success' : 'text-danger' ?>">
                     <?= number_format($dollar->total_receipt - $dollar->total_payment, 2) ?> $
                 </h3>
@@ -215,7 +215,7 @@
         <div class="kpi-card kpi-danger">
             <div class="kpi-icon"><i class="wn-icon-arrow-up"></i></div>
             <div class="kpi-body">
-                <span class="kpi-label">Komî ya Xerckirinê</span>
+                <span class="kpi-label">Komî ya çûnkirinê</span>
                 <h3 class="kpi-value"><?= number_format($syrian->total_payment, 2) ?> ل.س</h3>
                 <span class="kpi-sub"><?= $syrian->payment_count ?> muamele</span>
             </div>
@@ -224,7 +224,7 @@
         <div class="kpi-card kpi-success">
             <div class="kpi-icon"><i class="wn-icon-arrow-down"></i></div>
             <div class="kpi-body">
-                <span class="kpi-label">Komî ya Wergirtinê</span>
+                <span class="kpi-label">Komî ya Hatinê</span>
                 <h3 class="kpi-value"><?= number_format($syrian->total_receipt, 2) ?> ل.س</h3>
                 <span class="kpi-sub"><?= $syrian->receipt_count ?> muamele</span>
             </div>
@@ -233,7 +233,7 @@
         <div class="kpi-card kpi-info">
             <div class="kpi-icon"><i class="wn-icon-balance-scale"></i></div>
             <div class="kpi-body">
-                <span class="kpi-label">Balanç</span>
+                <span class="kpi-label">Pereyên mayî yên giştî</span>
                 <h3 class="kpi-value <?= ($syrian->total_receipt - $syrian->total_payment) >= 0 ? 'text-success' : 'text-danger' ?>">
                     <?= number_format($syrian->total_receipt - $syrian->total_payment, 2) ?> ل.س
                 </h3>
@@ -257,11 +257,11 @@
                 </div>
                 <div class="card-body">
                     <div class="mini-stat">
-                        <span class="mini-label">Xerc</span>
+                        <span class="mini-label">çûn</span>
                         <span class="mini-value text-danger"><?= number_format($monthDollar->total_payment, 2) ?> $</span>
                     </div>
                     <div class="mini-stat">
-                        <span class="mini-label">Wergirtin</span>
+                        <span class="mini-label">Hatin</span>
                         <span class="mini-value text-success"><?= number_format($monthDollar->total_receipt, 2) ?> $</span>
                     </div>
                     <div class="mini-stat border-top">
@@ -281,11 +281,11 @@
                 </div>
                 <div class="card-body">
                     <div class="mini-stat">
-                        <span class="mini-label">Xerc</span>
+                        <span class="mini-label">çûn</span>
                         <span class="mini-value text-danger"><?= number_format($monthSyrian->total_payment, 2) ?> ل.س</span>
                     </div>
                     <div class="mini-stat">
-                        <span class="mini-label">Wergirtin</span>
+                        <span class="mini-label">Hatin</span>
                         <span class="mini-value text-success"><?= number_format($monthSyrian->total_receipt, 2) ?> ل.س</span>
                     </div>
                     <div class="mini-stat border-top">
@@ -312,11 +312,11 @@
                 </div>
                 <div class="card-body">
                     <div class="mini-stat">
-                        <span class="mini-label">Xerc</span>
+                        <span class="mini-label">çûn</span>
                         <span class="mini-value text-danger"><?= number_format($yearDollar->total_payment, 2) ?> $</span>
                     </div>
                     <div class="mini-stat">
-                        <span class="mini-label">Wergirtin</span>
+                        <span class="mini-label">Hatin</span>
                         <span class="mini-value text-success"><?= number_format($yearDollar->total_receipt, 2) ?> $</span>
                     </div>
                     <div class="mini-stat border-top">
@@ -336,11 +336,11 @@
                 </div>
                 <div class="card-body">
                     <div class="mini-stat">
-                        <span class="mini-label">Xerc</span>
+                        <span class="mini-label">çûn</span>
                         <span class="mini-value text-danger"><?= number_format($yearSyrian->total_payment, 2) ?> ل.س</span>
                     </div>
                     <div class="mini-stat">
-                        <span class="mini-label">Wergirtin</span>
+                        <span class="mini-label">Hatin</span>
                         <span class="mini-value text-success"><?= number_format($yearSyrian->total_receipt, 2) ?> ل.س</span>
                     </div>
                     <div class="mini-stat border-top">
@@ -376,7 +376,7 @@
                         <?php foreach ($topDollar as $inv): ?>
                             <li>
                                 <span class="badge badge-<?= $inv->type === 'payment' ? 'danger' : 'success' ?>">
-                                    <?= $inv->type === 'payment' ? 'Xerc' : 'Wergirtin' ?>
+                                    <?= $inv->type === 'payment' ? 'çûn' : 'Hatin' ?>
                                 </span>
                                 <span class="flex-1"><?= e($inv->amount_name) ?></span>
                                 <strong><?= number_format($inv->amount, 2) ?> $</strong>
@@ -397,7 +397,7 @@
                         <?php foreach ($topSyrian as $inv): ?>
                             <li>
                                 <span class="badge badge-<?= $inv->type === 'payment' ? 'danger' : 'success' ?>">
-                                    <?= $inv->type === 'payment' ? 'Xerc' : 'Wergirtin' ?>
+                                    <?= $inv->type === 'payment' ? 'çûn' : 'Hatin' ?>
                                 </span>
                                 <span class="flex-1"><?= e($inv->amount_name) ?></span>
                                 <strong><?= number_format($inv->amount, 2) ?> ل.س</strong>
@@ -419,7 +419,7 @@
                 <?php foreach ($recentInvoices as $inv): ?>
                     <li>
                         <span class="badge badge-<?= $inv->type === 'payment' ? 'danger' : 'success' ?>">
-                            <?= $inv->type === 'payment' ? 'Xerc' : 'Wergirtin' ?>
+                            <?= $inv->type === 'payment' ? 'çûn' : 'Hatin' ?>
                         </span>
                         <span class="badge badge-light">
                             <?= $inv->currency === 'dollar' ? '$' : 'ل.س' ?>
@@ -453,7 +453,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 labels: months,
                 datasets: [
                     {
-                        label: 'Xerc ($)',
+                        label: 'çûn ($)',
                         data: <?= json_encode($dollarMonthlyPayments) ?>,
                         backgroundColor: 'rgba(229, 62, 62, 0.75)',
                         borderColor: 'rgba(229, 62, 62, 1)',
@@ -461,7 +461,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         borderRadius: 6
                     },
                     {
-                        label: 'Wergirtin ($)',
+                        label: 'Hatin ($)',
                         data: <?= json_encode($dollarMonthlyReceipts) ?>,
                         backgroundColor: 'rgba(56, 161, 105, 0.75)',
                         borderColor: 'rgba(56, 161, 105, 1)',
@@ -496,7 +496,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 labels: months,
                 datasets: [
                     {
-                        label: 'Xerc (ل.س)',
+                        label: 'çûn (ل.س)',
                         data: <?= json_encode($syrianMonthlyPayments) ?>,
                         backgroundColor: 'rgba(229, 62, 62, 0.75)',
                         borderColor: 'rgba(229, 62, 62, 1)',
@@ -504,7 +504,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         borderRadius: 6
                     },
                     {
-                        label: 'Wergirtin (ل.س)',
+                        label: 'Hatin (ل.س)',
                         data: <?= json_encode($syrianMonthlyReceipts) ?>,
                         backgroundColor: 'rgba(56, 161, 105, 0.75)',
                         borderColor: 'rgba(56, 161, 105, 1)',
@@ -864,14 +864,14 @@ tfoot td {
     .finance-card .table td { padding: 8px 10px; }
 }
 
-/* ============ PRINT: Rapora Hesaban a Giştî tenê ============ */
+/* ============ PRINT: Rapora Qasa a Giştî tenê ============ */
 @media print {
     /* Veşartina hemû tiştan */
     body.printing-report * {
         visibility: hidden !important;
     }
 
-    /* Tenê rapora hesaban nîşan bide */
+    /* Tenê rapora Qasa nîşan bide */
     body.printing-report .report-only,
     body.printing-report .report-only * {
         visibility: visible !important;
