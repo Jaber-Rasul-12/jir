@@ -1,21 +1,631 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panela Amarên Malî</title>
+    <style>
+        /* ============ RTL GLOBAL RESET ============ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+            background: #f7fafc;
+            direction: rtl;
+            text-align: right;
+            line-height: 1.5;
+            color: #2d3748;
+        }
+
+        /* ============ Dashboard Container ============ */
+        .finance-dashboard {
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .dashboard-header {
+            margin-bottom: 25px;
+        }
+
+        .dashboard-header h2 {
+            margin: 0;
+            font-size: 26px;
+            font-weight: 700;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dashboard-header h2 i {
+            color: #667eea;
+            margin-left: 10px;
+        }
+
+        .text-muted {
+            color: #718096;
+            font-size: 14px;
+        }
+
+        /* ============ Print Toolbar ============ */
+        .print-toolbar {
+            margin-bottom: 20px;
+            text-align: right;
+        }
+
+        .btn-print {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 14px rgba(102, 126, 234, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-print:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(102, 126, 234, 0.55);
+        }
+
+        /* ============ Section Titles ============ */
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2d3748;
+            margin: 30px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #edf2f7;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #667eea;
+            font-size: 20px;
+        }
+
+        .section-title-dollar {
+            border-bottom-color: #38a169;
+            color: #276749;
+        }
+
+        .section-title-dollar i { color: #38a169; }
+
+        .section-title-syrian {
+            border-bottom-color: #3182ce;
+            color: #2c5282;
+        }
+
+        .section-title-syrian i { color: #3182ce; }
+
+        /* ============ KPI Grids ============ */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .kpi-grid-4 {
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        }
+
+        .kpi-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 22px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            transition: transform 0.25s, box-shadow 0.25s;
+            border-right: 4px solid transparent;
+            border-left: none;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .kpi-primary { border-right-color: #667eea; }
+        .kpi-danger  { border-right-color: #e53e3e; }
+        .kpi-success { border-right-color: #38a169; }
+        .kpi-info    { border-right-color: #3182ce; }
+
+        .kpi-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .kpi-primary .kpi-icon { background: linear-gradient(135deg, #667eea, #764ba2); }
+        .kpi-danger  .kpi-icon { background: linear-gradient(135deg, #f56565, #e53e3e); }
+        .kpi-success .kpi-icon { background: linear-gradient(135deg, #48bb78, #38a169); }
+        .kpi-info    .kpi-icon { background: linear-gradient(135deg, #4299e1, #3182ce); }
+
+        .kpi-body { flex: 1; min-width: 0; text-align: right; }
+
+        .kpi-label {
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #718096;
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .kpi-value {
+            margin: 0;
+            font-size: 26px;
+            font-weight: 800;
+            color: #1a202c;
+            line-height: 1.2;
+        }
+
+        .kpi-sub {
+            font-size: 12px;
+            color: #a0aec0;
+        }
+
+        /* ============ Finance Card ============ */
+        .finance-card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+
+        .finance-card .card-header {
+            padding: 18px 24px;
+            border-bottom: 2px solid #f7fafc;
+            background: transparent;
+        }
+
+        .finance-card .card-header h4 {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 700;
+            color: #2d3748;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .finance-card .card-header h4 i {
+            color: #667eea;
+            margin-left: 8px;
+        }
+
+        .finance-card .card-body {
+            padding: 20px 24px;
+        }
+
+        /* ============ Currency Highlight Cards ============ */
+        .currency-dollar {
+            border-top: 4px solid #38a169;
+        }
+
+        .currency-syrian {
+            border-top: 4px solid #3182ce;
+        }
+
+        /* ============ Mini Stats ============ */
+        .mini-stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px dashed #edf2f7;
+        }
+
+        .mini-stat:last-child { border-bottom: none; }
+
+        .mini-label {
+            font-size: 14px;
+            color: #718096;
+            font-weight: 500;
+        }
+
+        .mini-value {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .text-danger  { color: #e53e3e !important; }
+        .text-success { color: #38a169 !important; }
+        .text-right   { text-align: right; }
+        .border-top   { border-top: 2px solid #edf2f7; }
+
+        /* ============ Badges ============ */
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .badge-danger  { background: #fed7d7; color: #c53030; }
+        .badge-success { background: #c6f6d5; color: #276749; }
+        .badge-light   { background: #edf2f7; color: #4a5568; }
+
+        /* ============ Top List ============ */
+        .top-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .top-list li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            border-bottom: 1px solid #edf2f7;
+            font-size: 14px;
+        }
+
+        .top-list li:last-child { border-bottom: none; }
+        .top-list li:hover { background: #f7fafc; }
+
+        .flex-1 {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* ================================================================
+           REPORT TABLE — RTL PROFESSIONAL DESIGN
+           (Navê column moved to the LEFT end of RTL flow)
+           ================================================================ */
+        .report-table {
+            margin: 0;
+            font-size: 14px;
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            direction: rtl;
+            table-layout: auto;
+        }
+
+        .report-table thead th {
+            background: #f7fafc;
+            font-weight: 700;
+            color: #4a5568;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            padding: 12px 14px;
+            border: none;
+            border-bottom: 2px solid #e2e8f0;
+            white-space: nowrap;
+            text-align: center;
+        }
+
+        .report-table thead th.text-right {
+            text-align: left;
+        }
+
+        .report-table tbody td {
+            padding: 12px 14px;
+            vertical-align: middle;
+            border-bottom: 1px solid #edf2f7;
+            background: #fff;
+            text-align: center;
+        }
+
+        .report-table tbody td.text-right {
+            text-align: left;
+        }
+
+        .report-table tbody tr:hover td {
+            background: #f7fafc;
+        }
+
+        /* --- Col Base: # (first in RTL = right), Navê (last in RTL = left) --- */
+        .report-table .col-base {
+            background: #fafbfc;
+        }
+
+        .report-table tbody tr:hover .col-base {
+            background: #f0f2f5;
+        }
+
+        /* --- Dolar Head --- */
+        .report-table .col-dollar-head {
+            background: linear-gradient(135deg, #38a169 0%, #2f855a 100%) !important;
+            color: #fff !important;
+            font-size: 12px !important;
+            font-weight: 800 !important;
+            letter-spacing: 0.8px;
+            border-bottom: 3px solid #276749 !important;
+            border-right: 2px solid #fff !important;
+            border-left: 2px solid #fff !important;
+        }
+
+        /* --- Lîreya Sûrî Head --- */
+        .report-table .col-syrian-head {
+            background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%) !important;
+            color: #fff !important;
+            font-size: 12px !important;
+            font-weight: 800 !important;
+            letter-spacing: 0.8px;
+            border-bottom: 3px solid #2c5282 !important;
+            border-right: 2px solid #fff !important;
+            border-left: 2px solid #fff !important;
+        }
+
+        /* --- Sub-headers --- */
+        .report-table thead th.col-dollar {
+            background: #e6fffa !important;
+            color: #234e52 !important;
+            border-bottom: 2px solid #38a169 !important;
+            border-right: 1px solid #c6f6d5 !important;
+        }
+
+        .report-table thead th.col-syrian {
+            background: #ebf8ff !important;
+            color: #2a4365 !important;
+            border-bottom: 2px solid #3182ce !important;
+            border-right: 1px solid #bee3f8 !important;
+        }
+
+        /* RTL: last dollar header cell sits on the LEFT of its group */
+        .report-table thead th.col-dollar:last-of-type {
+            border-left: 3px solid #38a169 !important;
+        }
+
+        /* RTL: last syrian header cell sits on the LEFT of its group */
+        .report-table thead th.col-syrian:last-of-type {
+            border-left: 2px solid #3182ce !important;
+        }
+
+        /* --- Dolar Cells --- */
+        .report-table tbody td.col-dollar {
+            background: #f0fff4;
+            border-right: 1px solid #e6fffa;
+        }
+
+        .report-table tbody tr:hover td.col-dollar {
+            background: #e6fffa;
+        }
+
+        /* --- Lîreya Sûrî Cells --- */
+        .report-table tbody td.col-syrian {
+            background: #ebf8ff;
+            border-right: 1px solid #e6f7ff;
+        }
+
+        .report-table tbody tr:hover td.col-syrian {
+            background: #e0f2fe;
+        }
+
+        /* RTL strong separator at left edge of dollar group.
+           Column order (RTL rendering): # (1), Dolar 3 (2-4), Syrian 3 (5-7), Navê (8)
+           Dollar group's last cell = td:nth-child(4)
+           Syrian group's last cell = td:nth-child(7) */
+        .report-table tbody td.col-dollar:nth-child(4),
+        .report-table tfoot td.col-dollar:nth-child(4) {
+            border-left: 3px solid #38a169 !important;
+        }
+
+        /* --- Tfoot: Professional Design --- */
+        .report-table tfoot tr {
+            background: #1a202c !important;
+        }
+
+        .report-table tfoot td {
+            padding: 14px !important;
+            font-weight: 800;
+            font-size: 13px;
+            border-top: 3px solid #2d3748 !important;
+            border-bottom: none !important;
+            text-align: center;
+        }
+
+        .report-table tfoot td.text-right {
+            text-align: left;
+        }
+
+        .report-table tfoot td.col-base {
+            background: #1a202c !important;
+            color: #fff !important;
+            font-size: 14px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* RTL: first cell (right) gets a right divider, last cell (left) gets a left divider */
+        .report-table tfoot td.col-base:first-child {
+            border-right: 2px solid #4a5568 !important;
+        }
+        .report-table tfoot td.col-base:last-child {
+            border-left: 2px solid #4a5568 !important;
+        }
+
+        .report-table tfoot td.col-dollar {
+            background: #276749 !important;
+            color: #f0fff4 !important;
+            border-right: 1px solid #38a169 !important;
+        }
+
+        .report-table tfoot td.col-dollar:last-of-type {
+            border-left: 3px solid #38a169 !important;
+        }
+
+        .report-table tfoot td.col-syrian {
+            background: #2c5282 !important;
+            color: #ebf8ff !important;
+            border-right: 1px solid #3182ce !important;
+        }
+
+        .report-table tfoot td.col-syrian:last-of-type {
+            border-left: 2px solid #3182ce !important;
+        }
+
+        /* Text colors in tfoot */
+        .report-table tfoot td.col-dollar.text-danger { color: #feb2b2 !important; }
+        .report-table tfoot td.col-dollar.text-success { color: #c6f6d5 !important; }
+        .report-table tfoot td.col-syrian.text-danger { color: #feb2b2 !important; }
+        .report-table tfoot td.col-syrian.text-success { color: #c6f6d5 !important; }
+
+        /* ============ Responsive ============ */
+        @media (max-width: 992px) {
+            .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+            .report-table { font-size: 12px; }
+            .report-table th, .report-table td { padding: 8px 8px !important; }
+        }
+
+        @media (max-width: 768px) {
+            .kpi-grid { grid-template-columns: 1fr; }
+            .kpi-value { font-size: 22px; }
+
+            .finance-card .table { font-size: 11px; }
+            .finance-card .table th,
+            .finance-card .table td { padding: 6px 6px; }
+
+            .report-table thead th.col-dollar-head,
+            .report-table thead th.col-syrian-head {
+                font-size: 10px !important;
+                padding: 8px 6px !important;
+            }
+
+            .report-table thead th.col-dollar,
+            .report-table thead th.col-syrian {
+                font-size: 9px !important;
+                padding: 6px 4px !important;
+            }
+        }
+
+        /* ================================================================
+           PRINT
+           ================================================================ */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            .report-only,
+            .report-only * {
+                visibility: visible;
+            }
+
+            .report-only {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0 !important;
+                padding: 0 !important;
+                background: #fff;
+                box-shadow: none !important;
+                border: none !important;
+                border-radius: 0 !important;
+            }
+
+            .no-print,
+            .print-toolbar,
+            .dashboard-header,
+            .kpi-grid,
+            .section-title,
+            .row,
+            .finance-card:not(.report-only) {
+                display: none !important;
+            }
+
+            .report-table {
+                width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                border-collapse: collapse !important;
+            }
+
+            .report-table thead th,
+            .report-table tbody td,
+            .report-table tfoot td {
+                padding: 8px 10px !important;
+            }
+
+            .report-table * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+            }
+
+            .report-table .col-dollar-head {
+                background: linear-gradient(135deg, #38a169 0%, #2f855a 100%) !important;
+                color: #fff !important;
+            }
+
+            .report-table .col-syrian-head {
+                background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%) !important;
+                color: #fff !important;
+            }
+
+            .report-table tbody td.col-dollar { background: #f0fff4 !important; }
+            .report-table tbody td.col-syrian { background: #ebf8ff !important; }
+            .report-table tbody td.col-base { background: #fafbfc !important; }
+
+            .report-table tfoot td.col-dollar { background: #276749 !important; color: #f0fff4 !important; }
+            .report-table tfoot td.col-syrian { background: #2c5282 !important; color: #ebf8ff !important; }
+            .report-table tfoot td.col-base { background: #1a202c !important; color: #fff !important; }
+
+            @page {
+                margin: 0.5cm !important;
+                size: A4 landscape !important;
+            }
+
+            body {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
 <div class="finance-dashboard">
     <!-- ========== Header ========== -->
-    <div class="dashboard-header">
-        <h2><i class="wn-icon-bar-chart"></i> Panela Amarên Malî</h2>
+    <div class="dashboard-header no-print">
+        <h2><i class="wn-icon-bar-chart">📊</i> Panela Amarên Malî</h2>
         <p class="text-muted"><?= date('l, d F Y') ?></p>
     </div>
 
     <!-- ========== Print Button ========== -->
     <div class="no-print print-toolbar">
-        <button type="button" class="btn-print" onclick="printReport()">
-            <i class="wn-icon-print"></i> Çapkirin
+        <button type="button" class="btn-print" onclick="printReportInNewWindow()">
+            <i class="wn-icon-print">🖨️</i> Çapkirin
         </button>
     </div>
 
     <!-- ========== Chart: Lîreya Sûrî ========== -->
-    <div class="finance-card currency-syrian">
+    <div class="finance-card currency-syrian no-print">
         <div class="card-header">
-            <h4><i class="wn-icon-chart-bar"></i> Dabeşkirina Mehane - Lîreya Sûrî</h4>
+            <h4><i class="wn-icon-chart-bar">📉</i> Dabeşkirina Mehane - Lîreya Sûrî</h4>
         </div>
         <div class="card-body">
             <canvas id="chartSyrian" height="80"></canvas>
@@ -23,22 +633,24 @@
     </div>
 
     <!-- ========== Model Type Stats (report-only) ========== -->
-    <div class="section-title">
-        <i class="wn-icon-list"></i> Rapora Qasa a Giştî
+    <div class="section-title no-print">
+        <i class="wn-icon-list">📋</i> Rapora Qasa a Giştî
     </div>
 
+    <!-- RTL REPORT TABLE — Navê column moved to the LEFT -->
     <div class="finance-card report-only">
-        <div class="card-header">
-            <h4><i class="wn-icon-list"></i> Rapora Qasa a Giştî</h4>
+        <div class="card-header no-print">
+            <h4><i class="wn-icon-list">📋</i> Rapora Qasa a Giştî</h4>
         </div>
-        <div class="card-body p-0">
-            <table class="table mb-0 report-table">
+        <div class="card-body p-0" style="padding:0 !important;">
+            <table class="table mb-0 report-table" dir="rtl">
                 <thead>
                     <tr>
-                        <th rowspan="2" class="align-middle col-base">#</th>
-                        <th rowspan="2" class="align-middle col-base">Navê</th>
-                        <th colspan="3" class="text-center col-dollar-head">💵 Dolarê Amerîkî ($)</th>
+                        <!-- RTL order: # (rightmost) → Dolar group → Syrian group → Navê (leftmost) -->
                         <th colspan="3" class="text-center col-syrian-head">💷 Lîreya Sûrî (ل.س)</th>
+                        <th colspan="3" class="text-center col-dollar-head">💵 Dolarê Amerîkî ($)</th>
+                        <th rowspan="2" class="align-middle col-base">Navê</th>
+                        <th rowspan="2" class="align-middle col-base">#</th>
                     </tr>
                     <tr>
                         <th class="text-right col-dollar">çûn</th>
@@ -52,18 +664,8 @@
                 <tbody>
                     <?php foreach ($modelTypeStats as $i => $stat): ?>
                         <tr>
-                            <td class="col-base"><?= $i + 1 ?></td>
-                            <td class="col-base"><strong><?= e($stat['name']) ?></strong></td>
 
                             <!-- Dolar -->
-                            <td class="text-right text-danger col-dollar"><?= number_format($stat['dollar_payment'], 2) ?> $</td>
-                            <td class="text-right text-success col-dollar"><?= number_format($stat['dollar_receipt'], 2) ?> $</td>
-                            <td class="text-right col-dollar">
-                                <strong class="<?= ($stat['dollar_receipt'] - $stat['dollar_payment']) >= 0 ? 'text-success' : 'text-danger' ?>">
-                                    <?= number_format($stat['dollar_receipt'] - $stat['dollar_payment'], 2) ?> $
-                                </strong>
-                            </td>
-
                             <!-- Lîre -->
                             <td class="text-right text-danger col-syrian"><?= number_format($stat['syrian_payment'], 2) ?> ل.س</td>
                             <td class="text-right text-success col-syrian"><?= number_format($stat['syrian_receipt'], 2) ?> ل.س</td>
@@ -72,22 +674,36 @@
                                     <?= number_format($stat['syrian_receipt'] - $stat['syrian_payment'], 2) ?> ل.س
                                 </strong>
                             </td>
+                            <td class="text-right text-danger col-dollar"><?= number_format($stat['dollar_payment'], 2) ?> $</td>
+                            <td class="text-right text-success col-dollar"><?= number_format($stat['dollar_receipt'], 2) ?> $</td>
+                            <td class="text-right col-dollar">
+                                <strong class="<?= ($stat['dollar_receipt'] - $stat['dollar_payment']) >= 0 ? 'text-success' : 'text-danger' ?>">
+                                    <?= number_format($stat['dollar_receipt'] - $stat['dollar_payment'], 2) ?> $
+                                </strong>
+                            </td>
+
+
+                            <!-- Navê (last = leftmost in RTL) -->
+                            <td class="col-base"><strong><?= e($stat['name']) ?></strong></td>
+                            <td class="col-base"><?= $i + 1 ?></td>
+
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
                 <tfoot>
                     <tr class="font-weight-bold">
-                        <td colspan="2" class="text-right col-base">Giştî</td>
-                        <td class="text-right text-danger col-dollar"><?= number_format($dollar->total_payment, 2) ?> $</td>
-                        <td class="text-right text-success col-dollar"><?= number_format($dollar->total_receipt, 2) ?> $</td>
-                        <td class="text-right col-dollar">
-                            <?= number_format($dollar->total_receipt - $dollar->total_payment, 2) ?> $
-                        </td>
+                        <!-- RTL: first cell (#) is on the right, then dollar, then syrian, then Navê on the left -->
                         <td class="text-right text-danger col-syrian"><?= number_format($syrian->total_payment, 2) ?> ل.س</td>
                         <td class="text-right text-success col-syrian"><?= number_format($syrian->total_receipt, 2) ?> ل.س</td>
                         <td class="text-right col-syrian">
                             <?= number_format($syrian->total_receipt - $syrian->total_payment, 2) ?> ل.س
                         </td>
+                        <td class="text-right text-danger col-dollar"><?= number_format($dollar->total_payment, 2) ?> $</td>
+                        <td class="text-right text-success col-dollar"><?= number_format($dollar->total_receipt, 2) ?> $</td>
+                        <td class="text-right col-dollar">
+                            <?= number_format($dollar->total_receipt - $dollar->total_payment, 2) ?> $
+                        </td>
+                        <td class="text-right col-base">Giştî</td>
                     </tr>
                 </tfoot>
             </table>
@@ -95,13 +711,13 @@
     </div>
 
     <!-- ========== KPI Giştî ========== -->
-    <div class="section-title">
-        <i class="wn-icon-globe"></i> Komî ya Giştî (Hemû Dirav)
+    <div class="section-title no-print">
+        <i class="wn-icon-globe">🌐</i> Komî ya Giştî (Hemû Dirav)
     </div>
 
-    <div class="kpi-grid kpi-grid-4">
+    <div class="kpi-grid kpi-grid-4 no-print">
         <div class="kpi-card kpi-primary">
-            <div class="kpi-icon"><i class="wn-icon-money"></i></div>
+            <div class="kpi-icon"><i class="wn-icon-money">💰</i></div>
             <div class="kpi-body">
                 <span class="kpi-label">Komî ya Biran</span>
                 <h3 class="kpi-value"><?= number_format($totalAmount, 2) ?></h3>
@@ -113,7 +729,7 @@
         </div>
 
         <div class="kpi-card kpi-danger">
-            <div class="kpi-icon"><i class="wn-icon-arrow-up"></i></div>
+            <div class="kpi-icon"><i class="wn-icon-arrow-up">⬆️</i></div>
             <div class="kpi-body">
                 <span class="kpi-label">Komî ya çûnkirinê</span>
                 <h3 class="kpi-value"><?= number_format($totalPayments, 2) ?></h3>
@@ -125,7 +741,7 @@
         </div>
 
         <div class="kpi-card kpi-success">
-            <div class="kpi-icon"><i class="wn-icon-arrow-down"></i></div>
+            <div class="kpi-icon"><i class="wn-icon-arrow-down">⬇️</i></div>
             <div class="kpi-body">
                 <span class="kpi-label">Komî ya Hatinê</span>
                 <h3 class="kpi-value"><?= number_format($totalReceipts, 2) ?></h3>
@@ -137,7 +753,7 @@
         </div>
 
         <div class="kpi-card kpi-info">
-            <div class="kpi-icon"><i class="wn-icon-balance-scale"></i></div>
+            <div class="kpi-icon"><i class="wn-icon-balance-scale">⚖️</i></div>
             <div class="kpi-body">
                 <span class="kpi-label">Pereyên mayî yên giştîa Safî (Nêzîkî)</span>
                 <h3 class="kpi-value <?= ($dollar->total_receipt - $dollar->total_payment) >= 0 ? 'text-success' : 'text-danger' ?>">
@@ -151,13 +767,13 @@
     </div>
 
     <!-- ========== Beşa Dolar ========== -->
-    <div class="section-title section-title-dollar">
-        <i class="wn-icon-dollar"></i> Dolarê Amerîkî ($)
+    <div class="section-title section-title-dollar no-print">
+        <i class="wn-icon-dollar">💵</i> Dolarê Amerîkî ($)
     </div>
 
-    <div class="kpi-grid kpi-grid-4">
+    <div class="kpi-grid kpi-grid-4 no-print">
         <div class="kpi-card kpi-primary">
-            <div class="kpi-icon"><i class="wn-icon-money"></i></div>
+            <div class="kpi-icon"><i class="wn-icon-money">💰</i></div>
             <div class="kpi-body">
                 <span class="kpi-label">Komî ya Biran</span>
                 <h3 class="kpi-value"><?= number_format($dollar->total_amount, 2) ?> $</h3>
@@ -166,7 +782,7 @@
         </div>
 
         <div class="kpi-card kpi-danger">
-            <div class="kpi-icon"><i class="wn-icon-arrow-up"></i></div>
+            <div class="kpi-icon"><i class="wn-icon-arrow-up">⬆️</i></div>
             <div class="kpi-body">
                 <span class="kpi-label">Komî ya çûnkirinê</span>
                 <h3 class="kpi-value"><?= number_format($dollar->total_payment, 2) ?> $</h3>
@@ -175,7 +791,7 @@
         </div>
 
         <div class="kpi-card kpi-success">
-            <div class="kpi-icon"><i class="wn-icon-arrow-down"></i></div>
+            <div class="kpi-icon"><i class="wn-icon-arrow-down">⬇️</i></div>
             <div class="kpi-body">
                 <span class="kpi-label">Komî ya Hatinê</span>
                 <h3 class="kpi-value"><?= number_format($dollar->total_receipt, 2) ?> $</h3>
@@ -184,7 +800,7 @@
         </div>
 
         <div class="kpi-card kpi-info">
-            <div class="kpi-icon"><i class="wn-icon-balance-scale"></i></div>
+            <div class="kpi-icon"><i class="wn-icon-balance-scale">⚖️</i></div>
             <div class="kpi-body">
                 <span class="kpi-label">Pereyên mayî yên giştî</span>
                 <h3 class="kpi-value <?= ($dollar->total_receipt - $dollar->total_payment) >= 0 ? 'text-success' : 'text-danger' ?>">
@@ -198,13 +814,13 @@
     </div>
 
     <!-- ========== Beşa Lîreya Sûrî ========== -->
-    <div class="section-title section-title-syrian">
-        <i class="wn-icon-money"></i> Lîreya Sûrî (ل.س)
+    <div class="section-title section-title-syrian no-print">
+        <i class="wn-icon-money">💷</i> Lîreya Sûrî (ل.س)
     </div>
 
-    <div class="kpi-grid kpi-grid-4">
+    <div class="kpi-grid kpi-grid-4 no-print">
         <div class="kpi-card kpi-primary">
-            <div class="kpi-icon"><i class="wn-icon-money"></i></div>
+            <div class="kpi-icon"><i class="wn-icon-money">💰</i></div>
             <div class="kpi-body">
                 <span class="kpi-label">Komî ya Biran</span>
                 <h3 class="kpi-value"><?= number_format($syrian->total_amount, 2) ?> ل.س</h3>
@@ -213,7 +829,7 @@
         </div>
 
         <div class="kpi-card kpi-danger">
-            <div class="kpi-icon"><i class="wn-icon-arrow-up"></i></div>
+            <div class="kpi-icon"><i class="wn-icon-arrow-up">⬆️</i></div>
             <div class="kpi-body">
                 <span class="kpi-label">Komî ya çûnkirinê</span>
                 <h3 class="kpi-value"><?= number_format($syrian->total_payment, 2) ?> ل.س</h3>
@@ -222,7 +838,7 @@
         </div>
 
         <div class="kpi-card kpi-success">
-            <div class="kpi-icon"><i class="wn-icon-arrow-down"></i></div>
+            <div class="kpi-icon"><i class="wn-icon-arrow-down">⬇️</i></div>
             <div class="kpi-body">
                 <span class="kpi-label">Komî ya Hatinê</span>
                 <h3 class="kpi-value"><?= number_format($syrian->total_receipt, 2) ?> ل.س</h3>
@@ -231,7 +847,7 @@
         </div>
 
         <div class="kpi-card kpi-info">
-            <div class="kpi-icon"><i class="wn-icon-balance-scale"></i></div>
+            <div class="kpi-icon"><i class="wn-icon-balance-scale">⚖️</i></div>
             <div class="kpi-body">
                 <span class="kpi-label">Pereyên mayî yên giştî</span>
                 <h3 class="kpi-value <?= ($syrian->total_receipt - $syrian->total_payment) >= 0 ? 'text-success' : 'text-danger' ?>">
@@ -245,15 +861,15 @@
     </div>
 
     <!-- ========== Mehê Niha ========== -->
-    <div class="section-title">
-        <i class="wn-icon-calendar"></i> Amarên Mehê Niha
+    <div class="section-title no-print">
+        <i class="wn-icon-calendar">📅</i> Amarên Mehê Niha
     </div>
 
-    <div class="row">
+    <div class="row no-print">
         <div class="col-md-6">
             <div class="finance-card currency-dollar">
                 <div class="card-header">
-                    <h4><i class="wn-icon-dollar"></i> Dolar ($)</h4>
+                    <h4><i class="wn-icon-dollar">💵</i> Dolar ($)</h4>
                 </div>
                 <div class="card-body">
                     <div class="mini-stat">
@@ -277,7 +893,7 @@
         <div class="col-md-6">
             <div class="finance-card currency-syrian">
                 <div class="card-header">
-                    <h4><i class="wn-icon-money"></i> Lîreya Sûrî (ل.س)</h4>
+                    <h4><i class="wn-icon-money">💷</i> Lîreya Sûrî (ل.س)</h4>
                 </div>
                 <div class="card-body">
                     <div class="mini-stat">
@@ -300,15 +916,15 @@
     </div>
 
     <!-- ========== Sala Niha ========== -->
-    <div class="section-title">
-        <i class="wn-icon-calendar-o"></i> Amarên Sala <?= $currentYear ?>
+    <div class="section-title no-print">
+        <i class="wn-icon-calendar-o">📆</i> Amarên Sala <?= $currentYear ?>
     </div>
 
-    <div class="row">
+    <div class="row no-print">
         <div class="col-md-6">
             <div class="finance-card currency-dollar">
                 <div class="card-header">
-                    <h4><i class="wn-icon-dollar"></i> Dolar ($)</h4>
+                    <h4><i class="wn-icon-dollar">💵</i> Dolar ($)</h4>
                 </div>
                 <div class="card-body">
                     <div class="mini-stat">
@@ -332,7 +948,7 @@
         <div class="col-md-6">
             <div class="finance-card currency-syrian">
                 <div class="card-header">
-                    <h4><i class="wn-icon-money"></i> Lîreya Sûrî (ل.س)</h4>
+                    <h4><i class="wn-icon-money">💷</i> Lîreya Sûrî (ل.س)</h4>
                 </div>
                 <div class="card-body">
                     <div class="mini-stat">
@@ -355,9 +971,9 @@
     </div>
 
     <!-- ========== Chart: Dolar ========== -->
-    <div class="finance-card currency-dollar">
+    <div class="finance-card currency-dollar no-print">
         <div class="card-header">
-            <h4><i class="wn-icon-chart-bar"></i> Dabeşkirina Mehane - Dolar ($)</h4>
+            <h4><i class="wn-icon-chart-bar">📉</i> Dabeşkirina Mehane - Dolar ($)</h4>
         </div>
         <div class="card-body">
             <canvas id="chartDollar" height="80"></canvas>
@@ -365,11 +981,11 @@
     </div>
 
     <!-- ========== Top Muamele ========== -->
-    <div class="row">
+    <div class="row no-print">
         <div class="col-md-6">
             <div class="finance-card currency-dollar">
                 <div class="card-header">
-                    <h4><i class="wn-icon-star"></i> 5 Muameleyên Herî Bilind - Dolar</h4>
+                    <h4><i class="wn-icon-star">⭐</i> 5 Muameleyên Herî Bilind - Dolar</h4>
                 </div>
                 <div class="card-body p-0">
                     <ul class="top-list">
@@ -390,7 +1006,7 @@
         <div class="col-md-6">
             <div class="finance-card currency-syrian">
                 <div class="card-header">
-                    <h4><i class="wn-icon-star"></i> 5 Muameleyên Herî Bilind - Lîreya Sûrî</h4>
+                    <h4><i class="wn-icon-star">⭐</i> 5 Muameleyên Herî Bilind - Lîreya Sûrî</h4>
                 </div>
                 <div class="card-body p-0">
                     <ul class="top-list">
@@ -410,9 +1026,9 @@
     </div>
 
     <!-- ========== Recent Muamele ========== -->
-    <div class="finance-card">
+    <div class="finance-card no-print">
         <div class="card-header">
-            <h4><i class="wn-icon-clock-o"></i> 10 Muameleyên Herî Nû</h4>
+            <h4><i class="wn-icon-clock-o">🕒</i> 10 Muameleyên Herî Nû</h4>
         </div>
         <div class="card-body p-0">
             <ul class="top-list">
@@ -533,540 +1149,58 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-// ===== Print Report =====
-function printReport() {
-    document.body.classList.add('printing-report');
-    window.print();
-    setTimeout(function () {
-        document.body.classList.remove('printing-report');
-    }, 300);
+// ===== Print Report in New Window (No margin/padding, RTL) =====
+function printReportInNewWindow() {
+    var reportContent = document.querySelector('.report-only');
+    if (!reportContent) return;
+
+    var printWindow = window.open('', '_blank', 'width=1200,height=800');
+    if (!printWindow) {
+        alert('Ji kerema xwe popup-ê vekin da ku çapkirinê bikar bînin.');
+        return;
+    }
+
+    var styles = document.querySelectorAll('style');
+    var styleText = '';
+    styles.forEach(function(style) {
+        styleText += style.innerHTML + '\n';
+    });
+
+    printWindow.document.write(`
+        <!DOCTYPE html>
+        <html lang="ku" dir="rtl">
+        <head>
+            <meta charset="UTF-8">
+            <title>Rapora Qasa a Giştî</title>
+            <style>
+                ${styleText}
+                /* Extra print styles for new window — RTL, no margin/padding */
+                html, body { margin: 0 !important; padding: 0 !important; direction: rtl !important; background: #fff; }
+                .report-only { position: static !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
+                .report-table { width: 100% !important; margin: 0 !important; padding: 0 !important; direction: rtl !important; }
+                .report-table thead th, .report-table tbody td, .report-table tfoot td { padding: 8px 10px !important; }
+                .no-print { display: none !important; }
+                @page { margin: 0.5cm !important; size: A4 landscape !important; }
+                .card-body { padding: 0 !important; }
+                .finance-card { box-shadow: none !important; border: none !important; border-radius: 0 !important; margin: 0 !important; }
+                .report-only .card-header { display: none !important; }
+            </style>
+        </head>
+        <body dir="rtl">
+            ${reportContent.outerHTML}
+            <script>
+                window.onload = function() {
+                    window.print();
+                    setTimeout(function() { window.close(); }, 500);
+                };
+            <\/script>
+        </body>
+        </html>
+    `);
+
+    printWindow.document.close();
 }
 </script>
 
-<style>
-/* ============ Dashboard Container ============ */
-.finance-dashboard {
-    padding: 20px;
-    background: #f7fafc;
-}
-
-.dashboard-header {
-    margin-bottom: 25px;
-}
-
-.dashboard-header h2 {
-    margin: 0;
-    font-size: 26px;
-    font-weight: 700;
-    color: #2d3748;
-}
-
-.dashboard-header h2 i {
-    color: #667eea;
-    margin-right: 10px;
-}
-
-/* ============ Print Toolbar ============ */
-.print-toolbar {
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-.btn-print {
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    color: #fff;
-    border: none;
-    padding: 12px 28px;
-    border-radius: 10px;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 4px 14px rgba(102, 126, 234, 0.4);
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.btn-print:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 22px rgba(102, 126, 234, 0.55);
-}
-
-/* ============ Section Titles ============ */
-.section-title {
-    font-size: 18px;
-    font-weight: 700;
-    color: #2d3748;
-    margin: 30px 0 15px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #edf2f7;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.section-title i {
-    color: #667eea;
-    font-size: 20px;
-}
-
-.section-title-dollar {
-    border-bottom-color: #38a169;
-    color: #276749;
-}
-
-.section-title-dollar i { color: #38a169; }
-
-.section-title-syrian {
-    border-bottom-color: #3182ce;
-    color: #2c5282;
-}
-
-.section-title-syrian i { color: #3182ce; }
-
-/* ============ KPI Grids ============ */
-.kpi-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 20px;
-    margin-bottom: 25px;
-}
-
-.kpi-grid-4 {
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-}
-
-.kpi-card {
-    background: #fff;
-    border-radius: 12px;
-    padding: 22px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-    transition: transform 0.25s, box-shadow 0.25s;
-    border-left: 4px solid transparent;
-}
-
-.kpi-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-}
-
-.kpi-primary { border-left-color: #667eea; }
-.kpi-danger  { border-left-color: #e53e3e; }
-.kpi-success { border-left-color: #38a169; }
-.kpi-info    { border-left-color: #3182ce; }
-
-.kpi-icon {
-    width: 60px;
-    height: 60px;
-    border-radius: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 26px;
-    color: #fff;
-    flex-shrink: 0;
-}
-
-.kpi-primary .kpi-icon { background: linear-gradient(135deg, #667eea, #764ba2); }
-.kpi-danger  .kpi-icon { background: linear-gradient(135deg, #f56565, #e53e3e); }
-.kpi-success .kpi-icon { background: linear-gradient(135deg, #48bb78, #38a169); }
-.kpi-info    .kpi-icon { background: linear-gradient(135deg, #4299e1, #3182ce); }
-
-.kpi-body { flex: 1; min-width: 0; }
-
-.kpi-label {
-    display: block;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: #718096;
-    margin-bottom: 4px;
-    font-weight: 600;
-}
-
-.kpi-value {
-    margin: 0;
-    font-size: 26px;
-    font-weight: 800;
-    color: #1a202c;
-    line-height: 1.2;
-}
-
-.kpi-sub {
-    font-size: 12px;
-    color: #a0aec0;
-}
-
-/* ============ Finance Card ============ */
-.finance-card {
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-    margin-bottom: 25px;
-    overflow: hidden;
-}
-
-.finance-card .card-header {
-    padding: 18px 24px;
-    border-bottom: 2px solid #f7fafc;
-    background: transparent;
-}
-
-.finance-card .card-header h4 {
-    margin: 0;
-    font-size: 16px;
-    font-weight: 700;
-    color: #2d3748;
-}
-
-.finance-card .card-header h4 i {
-    color: #667eea;
-    margin-right: 8px;
-}
-
-.finance-card .card-body {
-    padding: 20px 24px;
-}
-
-/* ============ Currency Highlight Cards ============ */
-.currency-dollar {
-    border-top: 4px solid #38a169;
-}
-
-.currency-syrian {
-    border-top: 4px solid #3182ce;
-}
-
-/* ============ Mini Stats ============ */
-.mini-stat {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 0;
-    border-bottom: 1px dashed #edf2f7;
-}
-
-.mini-stat:last-child { border-bottom: none; }
-
-.mini-label {
-    font-size: 14px;
-    color: #718096;
-    font-weight: 500;
-}
-
-.mini-value {
-    font-size: 20px;
-    font-weight: 700;
-}
-
-.text-danger  { color: #e53e3e !important; }
-.text-success { color: #38a169 !important; }
-.text-right   { text-align: right; }
-.border-top   { border-top: 2px solid #edf2f7; }
-
-/* ============ Badges ============ */
-.badge {
-    display: inline-block;
-    padding: 5px 10px;
-    font-size: 11px;
-    font-weight: 600;
-    border-radius: 6px;
-    text-transform: uppercase;
-}
-
-.badge-danger  { background: #fed7d7; color: #c53030; }
-.badge-success { background: #c6f6d5; color: #276749; }
-.badge-light   { background: #edf2f7; color: #4a5568; }
-
-/* ============ Top List ============ */
-.top-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.top-list li {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 12px 24px;
-    border-bottom: 1px solid #edf2f7;
-    font-size: 14px;
-}
-
-.top-list li:last-child { border-bottom: none; }
-.top-list li:hover { background: #f7fafc; }
-
-.flex-1 {
-    flex: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-/* ================================================================
-   REPORT TABLE — PROFESSIONAL DESIGN
-   ================================================================ */
-.report-table {
-    margin: 0;
-    font-size: 14px;
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-}
-
-.report-table thead th {
-    background: #f7fafc;
-    font-weight: 700;
-    color: #4a5568;
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-    padding: 12px 14px;
-    border: none;
-    border-bottom: 2px solid #e2e8f0;
-    white-space: nowrap;
-}
-
-.report-table tbody td {
-    padding: 12px 14px;
-    vertical-align: middle;
-    border-bottom: 1px solid #edf2f7;
-    background: #fff;
-}
-
-.report-table tbody tr:hover td {
-    background: #f7fafc;
-}
-
-/* --- Col Base (#, Navê) --- */
-.report-table .col-base {
-    background: #fafbfc;
-}
-
-.report-table tbody tr:hover .col-base {
-    background: #f0f2f5;
-}
-
-/* --- Dolar Head --- */
-.report-table .col-dollar-head {
-    background: linear-gradient(135deg, #38a169 0%, #2f855a 100%) !important;
-    color: #fff !important;
-    font-size: 12px !important;
-    font-weight: 800 !important;
-    letter-spacing: 0.8px;
-    border-bottom: 3px solid #276749 !important;
-    border-left: 2px solid #fff !important;
-    border-right: 2px solid #fff !important;
-}
-
-/* --- Lîreya Sûrî Head --- */
-.report-table .col-syrian-head {
-    background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%) !important;
-    color: #fff !important;
-    font-size: 12px !important;
-    font-weight: 800 !important;
-    letter-spacing: 0.8px;
-    border-bottom: 3px solid #2c5282 !important;
-    border-left: 2px solid #fff !important;
-    border-right: 2px solid #fff !important;
-}
-
-/* --- Sub-headers (çûn / Hatin / Pereyên mayî) --- */
-.report-table thead th.col-dollar {
-    background: #e6fffa !important;
-    color: #234e52 !important;
-    border-bottom: 2px solid #38a169 !important;
-    border-left: 1px solid #c6f6d5 !important;
-}
-
-.report-table thead th.col-syrian {
-    background: #ebf8ff !important;
-    color: #2a4365 !important;
-    border-bottom: 2px solid #3182ce !important;
-    border-left: 1px solid #bee3f8 !important;
-}
-
-/* آخر خلية في مجموعة الدولار — حدود فاصلة قوية */
-.report-table thead th.col-dollar:last-of-type,
-.report-table tbody td.col-dollar:nth-child(5),
-.report-table tfoot td.col-dollar:nth-child(5) {
-    border-right: 3px solid #38a169 !important;
-}
-
-/* آخر خلية في مجموعة الليرة — حدود نهائية */
-.report-table thead th.col-syrian:last-of-type,
-.report-table tbody td.col-syrian:nth-child(8),
-.report-table tfoot td.col-syrian:nth-child(8) {
-    border-right: 1px solid #bee3f8 !important;
-}
-
-/* --- Dolar Cells --- */
-.report-table tbody td.col-dollar {
-    background: #f0fff4;
-    border-left: 1px solid #e6fffa;
-}
-
-.report-table tbody tr:hover td.col-dollar {
-    background: #e6fffa;
-}
-
-/* --- Lîreya Sûrî Cells --- */
-.report-table tbody td.col-syrian {
-    background: #ebf8ff;
-    border-left: 1px solid #e6f7ff;
-}
-
-.report-table tbody tr:hover td.col-syrian {
-    background: #e0f2fe;
-}
-
-/* --- Tfoot: Design Profesyonel --- */
-.report-table tfoot tr {
-    background: #1a202c !important;
-}
-
-.report-table tfoot td {
-    padding: 14px !important;
-    font-weight: 800;
-    font-size: 13px;
-    border-top: 3px solid #2d3748 !important;
-    border-bottom: none !important;
-}
-
-.report-table tfoot td.col-base {
-    background: #1a202c !important;
-    color: #fff !important;
-    font-size: 14px;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    border-right: 2px solid #4a5568 !important;
-}
-
-.report-table tfoot td.col-dollar {
-    background: #276749 !important;
-    color: #f0fff4 !important;
-    border-left: 1px solid #38a169 !important;
-}
-
-.report-table tfoot td.col-dollar:last-of-type {
-    border-right: 3px solid #38a169 !important;
-}
-
-.report-table tfoot td.col-syrian {
-    background: #2c5282 !important;
-    color: #ebf8ff !important;
-    border-left: 1px solid #3182ce !important;
-}
-
-.report-table tfoot td.col-syrian:last-of-type {
-    border-right: 1px solid #3182ce !important;
-}
-
-/* ألوان النصوص في tfoot */
-.report-table tfoot td.col-dollar.text-danger { color: #feb2b2 !important; }
-.report-table tfoot td.col-dollar.text-success { color: #c6f6d5 !important; }
-.report-table tfoot td.col-syrian.text-danger { color: #feb2b2 !important; }
-.report-table tfoot td.col-syrian.text-success { color: #c6f6d5 !important; }
-
-/* ============ Responsive ============ */
-@media (max-width: 992px) {
-    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
-    .report-table { font-size: 12px; }
-    .report-table th, .report-table td { padding: 8px 8px !important; }
-}
-
-@media (max-width: 768px) {
-    .kpi-grid { grid-template-columns: 1fr; }
-    .kpi-value { font-size: 22px; }
-
-    .finance-card .table { font-size: 11px; }
-    .finance-card .table th,
-    .finance-card .table td { padding: 6px 6px; }
-
-    .report-table thead th.col-dollar-head,
-    .report-table thead th.col-syrian-head {
-        font-size: 10px !important;
-        padding: 8px 6px !important;
-    }
-
-    .report-table thead th.col-dollar,
-    .report-table thead th.col-syrian {
-        font-size: 9px !important;
-        padding: 6px 4px !important;
-    }
-}
-
-/* ================================================================
-   PRINT
-   ================================================================ */
-@media print {
-    body.printing-report * { visibility: hidden !important; }
-
-    body.printing-report .report-only,
-    body.printing-report .report-only * { visibility: visible !important; }
-
-    body.printing-report .report-only {
-        position: absolute !important;
-        left: 0 !important; top: 0 !important;
-        width: 100% !important;
-        margin: 0 !important; padding: 0 !important;
-        background: #fff !important;
-    }
-
-    body.printing-report .no-print,
-    body.printing-report .print-toolbar,
-    body.printing-report .dashboard-header,
-    body.printing-report .kpi-grid,
-    body.printing-report .section-title,
-    body.printing-report .row,
-    body.printing-report .finance-card:not(.report-only) {
-        display: none !important;
-    }
-
-    /* Colors */
-    body.printing-report .report-table * {
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-        color-adjust: exact !important;
-    }
-
-    body.printing-report .finance-card.report-only {
-        box-shadow: none !important;
-        border: 1px solid #d0d0d0 !important;
-        border-radius: 0 !important;
-    }
-
-    body.printing-report .finance-card.report-only .table {
-        page-break-inside: avoid !important;
-    }
-
-    /* إعادة تأكيد الألوان في الطباعة */
-    body.printing-report .report-table .col-dollar-head {
-        background: linear-gradient(135deg, #38a169 0%, #2f855a 100%) !important;
-        color: #fff !important;
-    }
-
-    body.printing-report .report-table .col-syrian-head {
-        background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%) !important;
-        color: #fff !important;
-    }
-
-    body.printing-report .report-table tbody td.col-dollar { background: #f0fff4 !important; }
-    body.printing-report .report-table tbody td.col-syrian { background: #ebf8ff !important; }
-    body.printing-report .report-table tbody td.col-base { background: #fafbfc !important; }
-
-    body.printing-report .report-table tfoot td.col-dollar { background: #276749 !important; color: #f0fff4 !important; }
-    body.printing-report .report-table tfoot td.col-syrian { background: #2c5282 !important; color: #ebf8ff !important; }
-    body.printing-report .report-table tfoot td.col-base { background: #1a202c !important; color: #fff !important; }
-
-    @page {
-        margin: 1.2cm !important;
-        size: A4 landscape !important;
-    }
-}
-</style>
+</body>
+</html>
