@@ -26,6 +26,9 @@ permissions:
     log_changes_finance:
         tab: 'finance.finance::lang.plugin.finance'
         label: 'finance.finance::lang.plugin.log_changes_finance'
+    budgets:
+        tab: 'finance.finance::lang.plugin.finance'
+        label: 'finance.finance::lang.plugin.budgets'
 navigation:
     finance_menu:
         label: 'finance.finance::lang.plugin.finance_menu'
@@ -58,6 +61,12 @@ navigation:
                 icon: icon-tags
                 permissions:
                     - types
+            budgets:
+                label: 'finance.finance::lang.plugin.budgets'
+                url: finance/finance/budgets
+                icon: icon-book
+                permissions:
+                    - budgets
             invoices:
                 label: 'finance.finance::lang.plugin.invoices'
                 url: finance/finance/invoices

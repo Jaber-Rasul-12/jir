@@ -46,6 +46,8 @@ class ModelType extends Model
      */
     public $hasMany = [
         'invoices' => [Invoice::class, 'key' => 'type_id'],
+        'budgets' => [Budget::class, 'key' => 'type_id'],
+
     ];
 
        public function getTypeListsAttribute()

@@ -1,0 +1,18 @@
+fields:
+    type_id:
+        label: 'finance.finance::lang.model.budget.type'
+        span: auto
+        type: dropdown
+        placeholder: finance.finance::lang.plugin.select
+    currency:
+        label: 'finance.finance::lang.model.budget.currency'
+        span: auto
+        placeholder: finance.finance::lang.plugin.select
+        type: dropdown
+        options:
+            dollar: 'finance.finance::lang.model.budget.dollar'
+            syrian: 'finance.finance::lang.model.budget.syrian'
+    amount:
+        label: 'finance.finance::lang.model.budget.amount'
+        span: auto
+        type: number

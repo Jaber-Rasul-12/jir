@@ -29,6 +29,8 @@ return [
          'user' => 'المستخدم',
                    'message_unique' => 'الاسم يجب ان يكون فريد.',
          'error_status_save' => 'لا يمكن الحفظ بسبب وجود قسم اخر مفعل',
+        'budgets' => 'الميزانيات',
+
 
     ],
     'model' => [
@@ -94,6 +96,16 @@ return [
             'November' => 'نوفمبر',
             'December' => 'ديسمبر',
         ],
+        'budget' => [
+            'id' => 'المعرف',
+            'type' => 'نوع السند',
+            'currency' => 'العملة',
+            'amount' => 'المبلغ',
+            'dollar' => 'دولار',
+            'syrian' => 'ليرة سورية',
+            'created_at' => 'تاريخ الإنشاء',
+            'updated_at' => 'تاريخ التحديث',
+        ],
     ],
     'controller' => [
         'centers' => [
@@ -110,6 +122,9 @@ return [
         ],
         'months' => [
             'months' => 'الشهر',
+        ],
+        'budgets' => [
+            'budgets' => 'الميزانيات',
         ],
     ],
 ];

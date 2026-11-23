@@ -1,0 +1,10 @@
+name: 'finance.finance::lang.controller.budgets.budgets'
+form: $/finance/finance/models/budget/fields.yaml
+modelClass: Finance\Finance\Models\Budget
+defaultRedirect: finance/finance/budgets
+create:
+    redirect: 'finance/finance/budgets/update/:id'
+    redirectClose: finance/finance/budgets
+update:
+    redirect: finance/finance/budgets
+    redirectClose: finance/finance/budgets

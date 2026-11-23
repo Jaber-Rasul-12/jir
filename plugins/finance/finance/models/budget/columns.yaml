@@ -1,0 +1,21 @@
+columns:
+    id:
+        label: 'finance.finance::lang.model.budget.id'
+        type: number
+    type_lists:
+        label: 'finance.finance::lang.model.budget.type'
+        type: text
+        sortable: false
+    currency_lists:
+        label: 'finance.finance::lang.model.budget.currency'
+        type: text
+        sortable: false
+    amount:
+        label: 'finance.finance::lang.model.budget.amount'
+        type: text
+    created_at:
+        label: 'finance.finance::lang.model.budget.created_at'
+        type: datetime
+    updated_at:
+        label: 'finance.finance::lang.model.budget.updated_at'
+        type: datetime

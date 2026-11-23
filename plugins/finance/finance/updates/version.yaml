@@ -15,3 +15,6 @@
 1.0.6:
     - 'Created table finance_finance_invoices'
     - builder_table_create_finance_finance_invoices.php
+1.0.7:
+    - 'Created table finance_finance_budgets'
+    - builder_table_create_finance_finance_budgets.php

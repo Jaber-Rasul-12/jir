@@ -300,7 +300,6 @@
 
         /* ================================================================
            REPORT TABLE — RTL PROFESSIONAL DESIGN
-           (Navê column moved to the LEFT end of RTL flow)
            ================================================================ */
         .report-table {
             margin: 0;
@@ -346,7 +345,6 @@
             background: #f7fafc;
         }
 
-        /* --- Col Base: # (first in RTL = right), Navê (last in RTL = left) --- */
         .report-table .col-base {
             background: #fafbfc;
         }
@@ -355,7 +353,6 @@
             background: #f0f2f5;
         }
 
-        /* --- Dolar Head --- */
         .report-table .col-dollar-head {
             background: linear-gradient(135deg, #38a169 0%, #2f855a 100%) !important;
             color: #fff !important;
@@ -367,7 +364,6 @@
             border-left: 2px solid #fff !important;
         }
 
-        /* --- Lîreya Sûrî Head --- */
         .report-table .col-syrian-head {
             background: linear-gradient(135deg, #3182ce 0%, #2b6cb0 100%) !important;
             color: #fff !important;
@@ -379,7 +375,6 @@
             border-left: 2px solid #fff !important;
         }
 
-        /* --- Sub-headers --- */
         .report-table thead th.col-dollar {
             background: #e6fffa !important;
             color: #234e52 !important;
@@ -394,17 +389,14 @@
             border-right: 1px solid #bee3f8 !important;
         }
 
-        /* RTL: last dollar header cell sits on the LEFT of its group */
         .report-table thead th.col-dollar:last-of-type {
             border-left: 3px solid #38a169 !important;
         }
 
-        /* RTL: last syrian header cell sits on the LEFT of its group */
         .report-table thead th.col-syrian:last-of-type {
             border-left: 2px solid #3182ce !important;
         }
 
-        /* --- Dolar Cells --- */
         .report-table tbody td.col-dollar {
             background: #f0fff4;
             border-right: 1px solid #e6fffa;
@@ -414,7 +406,6 @@
             background: #e6fffa;
         }
 
-        /* --- Lîreya Sûrî Cells --- */
         .report-table tbody td.col-syrian {
             background: #ebf8ff;
             border-right: 1px solid #e6f7ff;
@@ -424,16 +415,11 @@
             background: #e0f2fe;
         }
 
-        /* RTL strong separator at left edge of dollar group.
-           Column order (RTL rendering): # (1), Dolar 3 (2-4), Syrian 3 (5-7), Navê (8)
-           Dollar group's last cell = td:nth-child(4)
-           Syrian group's last cell = td:nth-child(7) */
         .report-table tbody td.col-dollar:nth-child(4),
         .report-table tfoot td.col-dollar:nth-child(4) {
             border-left: 3px solid #38a169 !important;
         }
 
-        /* --- Tfoot: Professional Design --- */
         .report-table tfoot tr {
             background: #1a202c !important;
         }
@@ -459,7 +445,6 @@
             text-transform: uppercase;
         }
 
-        /* RTL: first cell (right) gets a right divider, last cell (left) gets a left divider */
         .report-table tfoot td.col-base:first-child {
             border-right: 2px solid #4a5568 !important;
         }
@@ -487,7 +472,6 @@
             border-left: 2px solid #3182ce !important;
         }
 
-        /* Text colors in tfoot */
         .report-table tfoot td.col-dollar.text-danger { color: #feb2b2 !important; }
         .report-table tfoot td.col-dollar.text-success { color: #c6f6d5 !important; }
         .report-table tfoot td.col-syrian.text-danger { color: #feb2b2 !important; }
@@ -519,6 +503,38 @@
                 font-size: 9px !important;
                 padding: 6px 4px !important;
             }
+        }
+
+        /* ============ Budget Cell Highlight ============ */
+        .report-table tbody td.budget-cell,
+        .report-table tfoot td.budget-cell {
+            background: #fffaf0 !important;
+            font-weight: 600;
+            color: #1a202c !important;
+        }
+
+        .report-table tbody tr:hover td.budget-cell {
+            background: #feebc8 !important;
+        }
+
+        /* ============ Active Month Section ============ */
+        .active-month-section {
+            border-top: 3px dashed #cbd5e0;
+            padding-top: 20px;
+            margin-top: 25px;
+        }
+
+        .active-month-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #2d3748;
+            margin-bottom: 15px;
+            padding: 10px 14px;
+            background: linear-gradient(135deg, #edf2f7, #e2e8f0);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         /* ================================================================
@@ -594,6 +610,20 @@
             .report-table tfoot td.col-syrian { background: #2c5282 !important; color: #ebf8ff !important; }
             .report-table tfoot td.col-base { background: #1a202c !important; color: #fff !important; }
 
+            .report-table tbody td.budget-cell { background: #fffaf0 !important; }
+            .report-table tfoot td.budget-cell { background: #276749 !important; color: #f0fff4 !important; }
+
+            .active-month-section {
+                page-break-inside: avoid !important;
+                margin-top: 15px !important;
+            }
+
+            .active-month-title {
+                background: #edf2f7 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
             @page {
                 margin: 0.5cm !important;
                 size: A4 landscape !important;
@@ -637,7 +667,7 @@
         <i class="wn-icon-list">📋</i> Rapora Qasa a Giştî
     </div>
 
-    <!-- RTL REPORT TABLE — Navê column moved to the LEFT -->
+    <!-- RTL REPORT TABLE -->
     <div class="finance-card report-only">
         <div class="card-header no-print">
             <h4><i class="wn-icon-list">📋</i> Rapora Qasa a Giştî</h4>
@@ -646,67 +676,174 @@
             <table class="table mb-0 report-table" dir="rtl">
                 <thead>
                     <tr>
-                        <!-- RTL order: # (rightmost) → Dolar group → Syrian group → Navê (leftmost) -->
-                        <th colspan="3" class="text-center col-syrian-head">💷 Lîreya Sûrî (ل.س)</th>
-                        <th colspan="3" class="text-center col-dollar-head">💵 Dolarê Amerîkî ($)</th>
+                        <th colspan="4" class="text-center col-syrian-head">💷 Lîreya Sûrî (ل.س)</th>
+                        <th colspan="4" class="text-center col-dollar-head">💵 Dolarê Amerîkî ($)</th>
                         <th rowspan="2" class="align-middle col-base">Navê</th>
                         <th rowspan="2" class="align-middle col-base">#</th>
                     </tr>
                     <tr>
-                        <th class="text-right col-dollar">çûn</th>
-                        <th class="text-right col-dollar">Hatin</th>
-                        <th class="text-right col-dollar">Pereyên mayî</th>
-                        <th class="text-right col-syrian">çûn</th>
-                        <th class="text-right col-syrian">Hatin</th>
                         <th class="text-right col-syrian">Pereyên mayî</th>
+                        <th class="text-right col-syrian">Hatin</th>
+                        <th class="text-right col-syrian">çûn</th>
+                        <th class="text-right col-syrian">Resmal</th>
+                        <th class="text-right col-dollar">Pereyên mayî</th>
+                        <th class="text-right col-dollar">Hatin</th>
+                        <th class="text-right col-dollar">çûn</th>
+                        <th class="text-right col-dollar">Resmal</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($modelTypeStats as $i => $stat): ?>
                         <tr>
-
-                            <!-- Dolar -->
-                            <!-- Lîre -->
-                            <td class="text-right text-danger col-syrian"><?= number_format($stat['syrian_payment'], 2) ?> ل.س</td>
-                            <td class="text-right text-success col-syrian"><?= number_format($stat['syrian_receipt'], 2) ?> ل.س</td>
                             <td class="text-right col-syrian">
-                                <strong class="<?= ($stat['syrian_receipt'] - $stat['syrian_payment']) >= 0 ? 'text-success' : 'text-danger' ?>">
-                                    <?= number_format($stat['syrian_receipt'] - $stat['syrian_payment'], 2) ?> ل.س
+                                <strong class="<?= ($stat['syrian_budget_remaining']) >= 0 ? 'text-success' : 'text-danger' ?>">
+                                    <?= number_format($stat['syrian_budget_remaining'], 2) ?> ل.س
                                 </strong>
                             </td>
-                            <td class="text-right text-danger col-dollar"><?= number_format($stat['dollar_payment'], 2) ?> $</td>
-                            <td class="text-right text-success col-dollar"><?= number_format($stat['dollar_receipt'], 2) ?> $</td>
+                            <td class="text-right text-success col-syrian">
+                                <?= number_format($stat['syrian_receipt'], 2) ?> ل.س
+                            </td>
+                            <td class="text-right text-danger col-syrian">
+                                <?= number_format($stat['syrian_payment'], 2) ?> ل.س
+                            </td>
+                            <td class="text-right col-syrian budget-cell">
+                                <span class="badge badge-light">
+                                    <?= number_format($stat['syrian_budget'], 2) ?> ل.س
+                                </span>
+                            </td>
                             <td class="text-right col-dollar">
-                                <strong class="<?= ($stat['dollar_receipt'] - $stat['dollar_payment']) >= 0 ? 'text-success' : 'text-danger' ?>">
-                                    <?= number_format($stat['dollar_receipt'] - $stat['dollar_payment'], 2) ?> $
+                                <strong class="<?= ($stat['dollar_budget_remaining']) >= 0 ? 'text-success' : 'text-danger' ?>">
+                                    <?= number_format($stat['dollar_budget_remaining'], 2) ?> $
                                 </strong>
                             </td>
-
-
-                            <!-- Navê (last = leftmost in RTL) -->
+                            <td class="text-right text-success col-dollar">
+                                <?= number_format($stat['dollar_receipt'], 2) ?> $
+                            </td>
+                            <td class="text-right text-danger col-dollar">
+                                <?= number_format($stat['dollar_payment'], 2) ?> $
+                            </td>
+                            <td class="text-right col-dollar budget-cell">
+                                <span class="badge badge-light">
+                                    <?= number_format($stat['dollar_budget'], 2) ?> $
+                                </span>
+                            </td>
                             <td class="col-base"><strong><?= e($stat['name']) ?></strong></td>
                             <td class="col-base"><?= $i + 1 ?></td>
-
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
                 <tfoot>
                     <tr class="font-weight-bold">
-                        <!-- RTL: first cell (#) is on the right, then dollar, then syrian, then Navê on the left -->
-                        <td class="text-right text-danger col-syrian"><?= number_format($syrian->total_payment, 2) ?> ل.س</td>
-                        <td class="text-right text-success col-syrian"><?= number_format($syrian->total_receipt, 2) ?> ل.س</td>
                         <td class="text-right col-syrian">
-                            <?= number_format($syrian->total_receipt - $syrian->total_payment, 2) ?> ل.س
+                            <?= number_format($totalSyrianBudget - $syrian->total_payment, 2) ?> ل.س
                         </td>
-                        <td class="text-right text-danger col-dollar"><?= number_format($dollar->total_payment, 2) ?> $</td>
-                        <td class="text-right text-success col-dollar"><?= number_format($dollar->total_receipt, 2) ?> $</td>
+                        <td class="text-right text-success col-syrian">
+                            <?= number_format($syrian->total_receipt, 2) ?> ل.س
+                        </td>
+                        <td class="text-right text-danger col-syrian">
+                            <?= number_format($syrian->total_payment, 2) ?> ل.س
+                        </td>
+                        <td class="text-right col-syrian budget-cell">
+                            <?= number_format($totalSyrianBudget, 2) ?> ل.س
+                        </td>
                         <td class="text-right col-dollar">
-                            <?= number_format($dollar->total_receipt - $dollar->total_payment, 2) ?> $
+                            <?= number_format($totalDollarBudget - $dollar->total_payment, 2) ?> $
+                        </td>
+                        <td class="text-right text-success col-dollar">
+                            <?= number_format($dollar->total_receipt, 2) ?> $
+                        </td>
+                        <td class="text-right text-danger col-dollar">
+                            <?= number_format($dollar->total_payment, 2) ?> $
+                        </td>
+                        <td class="text-right col-dollar budget-cell">
+                            <?= number_format($totalDollarBudget, 2) ?> $
                         </td>
                         <td class="text-right col-base">Giştî</td>
                     </tr>
                 </tfoot>
             </table>
+
+            <!-- ========== جدول الشهر الفعّال (بدون ميزانية) ========== -->
+            <?php if (!empty($activeMonthName)): ?>
+            <div class="active-month-section">
+                <h4 class="active-month-title">
+                    📅  Mehê - <?= e($activeMonthName) ?>
+                </h4>
+
+                <table class="table mb-0 report-table" dir="rtl">
+                    <thead>
+                        <tr>
+                            <th colspan="3" class="text-center col-syrian-head">💷 Lîreya Sûrî (ل.س)</th>
+                            <th colspan="3" class="text-center col-dollar-head">💵 Dolarê Amerîkî ($)</th>
+                            <th rowspan="2" class="align-middle col-base">Navê</th>
+                            <th rowspan="2" class="align-middle col-base">#</th>
+                        </tr>
+                        <tr>
+                            <th class="text-right col-syrian">Pereyên mayî</th>
+                            <th class="text-right col-syrian">Hatin</th>
+                            <th class="text-right col-syrian">çûn</th>
+                            <th class="text-right col-dollar">Pereyên mayî</th>
+                            <th class="text-right col-dollar">Hatin</th>
+                            <th class="text-right col-dollar">çûn</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($activeMonthStats as $i => $stat): ?>
+                            <tr>
+                                <td class="text-right col-syrian">
+                                    <strong class="<?= ($stat['syrian_receipt'] - $stat['syrian_payment']) >= 0 ? 'text-success' : 'text-danger' ?>">
+                                        <?= number_format($stat['syrian_receipt'] - $stat['syrian_payment'], 2) ?> ل.س
+                                    </strong>
+                                </td>
+                                <td class="text-right text-success col-syrian">
+                                    <?= number_format($stat['syrian_receipt'], 2) ?> ل.س
+                                </td>
+                                <td class="text-right text-danger col-syrian">
+                                    <?= number_format($stat['syrian_payment'], 2) ?> ل.س
+                                </td>
+                                <td class="text-right col-dollar">
+                                    <strong class="<?= ($stat['dollar_receipt'] - $stat['dollar_payment']) >= 0 ? 'text-success' : 'text-danger' ?>">
+                                        <?= number_format($stat['dollar_receipt'] - $stat['dollar_payment'], 2) ?> $
+                                    </strong>
+                                </td>
+                                <td class="text-right text-success col-dollar">
+                                    <?= number_format($stat['dollar_receipt'], 2) ?> $
+                                </td>
+                                <td class="text-right text-danger col-dollar">
+                                    <?= number_format($stat['dollar_payment'], 2) ?> $
+                                </td>
+                                <td class="col-base"><strong><?= e($stat['name']) ?></strong></td>
+                                <td class="col-base"><?= $i + 1 ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                    <tfoot>
+                        <tr class="font-weight-bold">
+                            <td class="text-right col-syrian">
+                                <?= number_format($activeMonthSyrian->total_receipt - $activeMonthSyrian->total_payment, 2) ?> ل.س
+                            </td>
+                            <td class="text-right text-success col-syrian">
+                                <?= number_format($activeMonthSyrian->total_receipt, 2) ?> ل.س
+                            </td>
+                            <td class="text-right text-danger col-syrian">
+                                <?= number_format($activeMonthSyrian->total_payment, 2) ?> ل.س
+                            </td>
+                            <td class="text-right col-dollar">
+                                <?= number_format($activeMonthDollar->total_receipt - $activeMonthDollar->total_payment, 2) ?> $
+                            </td>
+                            <td class="text-right text-success col-dollar">
+                                <?= number_format($activeMonthDollar->total_receipt, 2) ?> $
+                            </td>
+                            <td class="text-right text-danger col-dollar">
+                                <?= number_format($activeMonthDollar->total_payment, 2) ?> $
+                            </td>
+                            <td class="text-right col-base">Giştî</td>
+                            <td class="text-right col-base">—</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <?php endif; ?>
         </div>
     </div>
 
@@ -1149,7 +1286,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-// ===== Print Report in New Window (No margin/padding, RTL) =====
+// ===== Print Report in New Window =====
 function printReportInNewWindow() {
     var reportContent = document.querySelector('.report-only');
     if (!reportContent) return;
@@ -1174,7 +1311,6 @@ function printReportInNewWindow() {
             <title>Rapora Qasa a Giştî</title>
             <style>
                 ${styleText}
-                /* Extra print styles for new window — RTL, no margin/padding */
                 html, body { margin: 0 !important; padding: 0 !important; direction: rtl !important; background: #fff; }
                 .report-only { position: static !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
                 .report-table { width: 100% !important; margin: 0 !important; padding: 0 !important; direction: rtl !important; }
@@ -1184,6 +1320,9 @@ function printReportInNewWindow() {
                 .card-body { padding: 0 !important; }
                 .finance-card { box-shadow: none !important; border: none !important; border-radius: 0 !important; margin: 0 !important; }
                 .report-only .card-header { display: none !important; }
+                .active-month-section { page-break-inside: avoid !important; }
+                .report-table { page-break-inside: auto !important; }
+                .report-table tr { page-break-inside: avoid !important; page-break-after: auto !important; }
             </style>
         </head>
         <body dir="rtl">
