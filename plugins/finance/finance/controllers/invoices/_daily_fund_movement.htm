@@ -426,7 +426,8 @@
 
         /* RTL strong separator at left edge of dollar group.
            Column order (RTL rendering): # (1), Dolar 3 (2-4), Syrian 3 (5-7), Navê (8)
-           Dollar group's last cell = td:nth-child(4) */
+           Dollar group's last cell = td:nth-child(4)
+           Syrian group's last cell = td:nth-child(7) */
         .report-table tbody td.col-dollar:nth-child(4),
         .report-table tfoot td.col-dollar:nth-child(4) {
             border-left: 3px solid #38a169 !important;
@@ -521,46 +522,31 @@
         }
 
         /* ================================================================
-           PRINT — FULL PAGE, ONLY REPORT TABLE, NO MARGIN/PADDING
-           + TOP SAFETY PADDING SO NO NUMBER/NAME IS CUT OFF
+           PRINT
            ================================================================ */
         @media print {
-            /* Hide everything */
             body * {
                 visibility: hidden;
             }
 
-            /* Show only the report */
             .report-only,
             .report-only * {
                 visibility: visible;
             }
 
-            /* Full-page report wrapper with top safety space */
             .report-only {
-                position: absolute !important;
-                left: 0 !important;
-                top: 0 !important;
-                width: 100% !important;
-                height: 100vh !important;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
                 margin: 0 !important;
-                padding: 12px 0 0 0 !important; /* top padding so first row never clips */
-                background: #fff !important;
+                padding: 0 !important;
+                background: #fff;
                 box-shadow: none !important;
                 border: none !important;
                 border-radius: 0 !important;
-                overflow: hidden !important;
             }
 
-            /* Force inner card body to fill */
-            .report-only .card-body {
-                padding: 0 !important;
-                margin: 0 !important;
-                width: 100% !important;
-                height: 100% !important;
-            }
-
-            /* Hide non-print elements */
             .no-print,
             .print-toolbar,
             .dashboard-header,
@@ -571,58 +557,19 @@
                 display: none !important;
             }
 
-            /* Full-page table */
             .report-table {
                 width: 100% !important;
-                height: calc(100vh - 12px) !important; /* leave room for top safety padding */
                 margin: 0 !important;
                 padding: 0 !important;
                 border-collapse: collapse !important;
-                table-layout: fixed !important;
             }
 
-            /* Distribute row heights to fill the page */
-            .report-table thead tr {
-                height: auto !important;
-            }
-
-            .report-table tbody tr {
-                height: auto !important;
-            }
-
-            .report-table tfoot tr {
-                height: auto !important;
-            }
-
-            /* Top safety padding on the first header cells */
-            .report-table thead th {
-                padding-top: 14px !important;
-                padding-bottom: 10px !important;
-            }
-
-            /* General cell padding */
             .report-table thead th,
             .report-table tbody td,
             .report-table tfoot td {
                 padding: 8px 10px !important;
-                vertical-align: middle !important;
             }
 
-            /* Increase font size for readability on full page */
-            .report-table {
-                font-size: 13px !important;
-            }
-
-            .report-table thead th {
-                font-size: 12px !important;
-            }
-
-            .report-table .col-dollar-head,
-            .report-table .col-syrian-head {
-                font-size: 13px !important;
-            }
-
-            /* Exact colors */
             .report-table * {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
@@ -647,18 +594,14 @@
             .report-table tfoot td.col-syrian { background: #2c5282 !important; color: #ebf8ff !important; }
             .report-table tfoot td.col-base { background: #1a202c !important; color: #fff !important; }
 
-            /* Page setup: full page, no margin */
             @page {
-                margin: 0 !important;
-                size: landscape !important;
+                margin: 0.5cm !important;
+                size: A4 landscape !important;
             }
 
-            html, body {
+            body {
                 margin: 0 !important;
                 padding: 0 !important;
-                width: 100% !important;
-                height: 100% !important;
-                background: #fff !important;
             }
         }
     </style>
@@ -721,6 +664,8 @@
                 <tbody>
                     <?php foreach ($modelTypeStats as $i => $stat): ?>
                         <tr>
+
+                            <!-- Dolar -->
                             <!-- Lîre -->
                             <td class="text-right text-danger col-syrian"><?= number_format($stat['syrian_payment'], 2) ?> ل.س</td>
                             <td class="text-right text-success col-syrian"><?= number_format($stat['syrian_receipt'], 2) ?> ل.س</td>
@@ -729,7 +674,6 @@
                                     <?= number_format($stat['syrian_receipt'] - $stat['syrian_payment'], 2) ?> ل.س
                                 </strong>
                             </td>
-                            <!-- Dolar -->
                             <td class="text-right text-danger col-dollar"><?= number_format($stat['dollar_payment'], 2) ?> $</td>
                             <td class="text-right text-success col-dollar"><?= number_format($stat['dollar_receipt'], 2) ?> $</td>
                             <td class="text-right col-dollar">
@@ -737,14 +681,18 @@
                                     <?= number_format($stat['dollar_receipt'] - $stat['dollar_payment'], 2) ?> $
                                 </strong>
                             </td>
+
+
                             <!-- Navê (last = leftmost in RTL) -->
                             <td class="col-base"><strong><?= e($stat['name']) ?></strong></td>
                             <td class="col-base"><?= $i + 1 ?></td>
+
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
                 <tfoot>
                     <tr class="font-weight-bold">
+                        <!-- RTL: first cell (#) is on the right, then dollar, then syrian, then Navê on the left -->
                         <td class="text-right text-danger col-syrian"><?= number_format($syrian->total_payment, 2) ?> ل.س</td>
                         <td class="text-right text-success col-syrian"><?= number_format($syrian->total_receipt, 2) ?> ل.س</td>
                         <td class="text-right col-syrian">
@@ -756,7 +704,6 @@
                             <?= number_format($dollar->total_receipt - $dollar->total_payment, 2) ?> $
                         </td>
                         <td class="text-right col-base">Giştî</td>
-                        <td class="text-right col-base"></td>
                     </tr>
                 </tfoot>
             </table>
@@ -1202,12 +1149,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-// ===== Print Report in New Window (FULL PAGE, RTL, TOP SAFETY PADDING) =====
+// ===== Print Report in New Window (No margin/padding, RTL) =====
 function printReportInNewWindow() {
     var reportContent = document.querySelector('.report-only');
     if (!reportContent) return;
 
-    var printWindow = window.open('', '_blank', 'width=1400,height=900');
+    var printWindow = window.open('', '_blank', 'width=1200,height=800');
     if (!printWindow) {
         alert('Ji kerema xwe popup-ê vekin da ku çapkirinê bikar bînin.');
         return;
@@ -1227,62 +1174,14 @@ function printReportInNewWindow() {
             <title>Rapora Qasa a Giştî</title>
             <style>
                 ${styleText}
-                /* FULL PAGE PRINT — fills entire sheet with top safety padding */
-                html, body {
-                    margin: 0 !important;
-                    padding: 0 !important;
-                    direction: rtl !important;
-                    background: #fff !important;
-                    width: 100% !important;
-                    height: 100% !important;
-                }
-                body {
-                    display: flex !important;
-                    flex-direction: column !important;
-                    padding-top: 14px !important; /* safety space at top */
-                }
-                .report-only {
-                    position: static !important;
-                    margin: 0 !important;
-                    padding: 0 !important;
-                    width: 100% !important;
-                    height: 100% !important;
-                    flex: 1 !important;
-                    display: flex !important;
-                    flex-direction: column !important;
-                }
-                .report-only .card-body {
-                    padding: 0 !important;
-                    margin: 0 !important;
-                    width: 100% !important;
-                    height: 100% !important;
-                    flex: 1 !important;
-                }
-                .report-table {
-                    width: 100% !important;
-                    height: 100% !important;
-                    margin: 0 !important;
-                    padding: 0 !important;
-                    direction: rtl !important;
-                    border-collapse: collapse !important;
-                    table-layout: fixed !important;
-                }
-                .report-table thead th {
-                    padding-top: 14px !important;
-                    padding-bottom: 10px !important;
-                }
-                .report-table thead th, .report-table tbody td, .report-table tfoot td {
-                    padding-left: 10px !important;
-                    padding-right: 10px !important;
-                    vertical-align: middle !important;
-                }
-                .report-table {
-                    font-size: 13px !important;
-                }
-                .report-table thead th { font-size: 12px !important; }
-                .report-table .col-dollar-head, .report-table .col-syrian-head { font-size: 13px !important; }
+                /* Extra print styles for new window — RTL, no margin/padding */
+                html, body { margin: 0 !important; padding: 0 !important; direction: rtl !important; background: #fff; }
+                .report-only { position: static !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
+                .report-table { width: 100% !important; margin: 0 !important; padding: 0 !important; direction: rtl !important; }
+                .report-table thead th, .report-table tbody td, .report-table tfoot td { padding: 8px 10px !important; }
                 .no-print { display: none !important; }
-                @page { margin: 0 !important; size: landscape !important; }
+                @page { margin: 0.5cm !important; size: A4 landscape !important; }
+                .card-body { padding: 0 !important; }
                 .finance-card { box-shadow: none !important; border: none !important; border-radius: 0 !important; margin: 0 !important; }
                 .report-only .card-header { display: none !important; }
             </style>
