@@ -522,6 +522,7 @@
 
         /* ================================================================
            PRINT — FULL PAGE, ONLY REPORT TABLE, NO MARGIN/PADDING
+           + TOP SAFETY PADDING SO NO NUMBER/NAME IS CUT OFF
            ================================================================ */
         @media print {
             /* Hide everything */
@@ -535,7 +536,7 @@
                 visibility: visible;
             }
 
-            /* Full-page report wrapper */
+            /* Full-page report wrapper with top safety space */
             .report-only {
                 position: absolute !important;
                 left: 0 !important;
@@ -543,7 +544,7 @@
                 width: 100% !important;
                 height: 100vh !important;
                 margin: 0 !important;
-                padding: 0 !important;
+                padding: 12px 0 0 0 !important; /* top padding so first row never clips */
                 background: #fff !important;
                 box-shadow: none !important;
                 border: none !important;
@@ -573,7 +574,7 @@
             /* Full-page table */
             .report-table {
                 width: 100% !important;
-                height: 100vh !important;
+                height: calc(100vh - 12px) !important; /* leave room for top safety padding */
                 margin: 0 !important;
                 padding: 0 !important;
                 border-collapse: collapse !important;
@@ -593,10 +594,17 @@
                 height: auto !important;
             }
 
+            /* Top safety padding on the first header cells */
+            .report-table thead th {
+                padding-top: 14px !important;
+                padding-bottom: 10px !important;
+            }
+
+            /* General cell padding */
             .report-table thead th,
             .report-table tbody td,
             .report-table tfoot td {
-                padding: 6px 8px !important;
+                padding: 8px 10px !important;
                 vertical-align: middle !important;
             }
 
@@ -1194,7 +1202,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
-// ===== Print Report in New Window (FULL PAGE, RTL) =====
+// ===== Print Report in New Window (FULL PAGE, RTL, TOP SAFETY PADDING) =====
 function printReportInNewWindow() {
     var reportContent = document.querySelector('.report-only');
     if (!reportContent) return;
@@ -1219,7 +1227,7 @@ function printReportInNewWindow() {
             <title>Rapora Qasa a Giştî</title>
             <style>
                 ${styleText}
-                /* FULL PAGE PRINT — fills entire sheet */
+                /* FULL PAGE PRINT — fills entire sheet with top safety padding */
                 html, body {
                     margin: 0 !important;
                     padding: 0 !important;
@@ -1231,6 +1239,7 @@ function printReportInNewWindow() {
                 body {
                     display: flex !important;
                     flex-direction: column !important;
+                    padding-top: 14px !important; /* safety space at top */
                 }
                 .report-only {
                     position: static !important;
@@ -1258,8 +1267,13 @@ function printReportInNewWindow() {
                     border-collapse: collapse !important;
                     table-layout: fixed !important;
                 }
+                .report-table thead th {
+                    padding-top: 14px !important;
+                    padding-bottom: 10px !important;
+                }
                 .report-table thead th, .report-table tbody td, .report-table tfoot td {
-                    padding: 8px 10px !important;
+                    padding-left: 10px !important;
+                    padding-right: 10px !important;
                     vertical-align: middle !important;
                 }
                 .report-table {
