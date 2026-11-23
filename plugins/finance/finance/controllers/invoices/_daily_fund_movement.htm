@@ -540,29 +540,35 @@
         /* ================================================================
            PRINT — BOTH TABLES IN ONE PAGE
            ================================================================ */
+               /* ================================================================
+           PRINT — BOTH TABLES IN ONE PAGE (NO OVERLAP)
+           ================================================================ */
         @media print {
+            /* إخفاء كل شيء أولاً */
             body * {
                 visibility: hidden;
             }
 
+            /* إظهار التقرير فقط */
             .report-only,
             .report-only * {
                 visibility: visible;
             }
 
+            /* إزالة position: absolute لمنع التراكب */
             .report-only {
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
+                position: static !important;
                 margin: 0 !important;
                 padding: 0 !important;
-                background: #fff;
+                width: 100% !important;
+                background: #fff !important;
                 box-shadow: none !important;
                 border: none !important;
                 border-radius: 0 !important;
+                display: block !important;
             }
 
+            /* إخفاء العناصر غير المطلوبة */
             .no-print,
             .print-toolbar,
             .dashboard-header,
@@ -573,13 +579,19 @@
                 display: none !important;
             }
 
-            /* ==== TABLES: SMALLER FONT + TIGHT PADDING TO FIT ONE PAGE ==== */
+            /* إخفاء رأس البطاقة */
+            .report-only .card-header {
+                display: none !important;
+            }
+
+            /* الجداول: خط صغير + padding ضيق */
             .report-table {
                 width: 100% !important;
-                margin: 0 0 8px 0 !important;
+                margin: 0 0 6px 0 !important;
                 padding: 0 !important;
                 border-collapse: collapse !important;
                 font-size: 10px !important;
+                page-break-inside: auto !important;
             }
 
             .report-table thead th,
@@ -588,6 +600,7 @@
                 padding: 4px 6px !important;
                 font-size: 10px !important;
                 line-height: 1.2 !important;
+                vertical-align: middle !important;
             }
 
             .report-table thead th.col-dollar-head,
@@ -607,6 +620,13 @@
                 font-size: 10px !important;
             }
 
+            /* منع انقسام الصفوف */
+            .report-table tr {
+                page-break-inside: avoid !important;
+                page-break-after: auto !important;
+            }
+
+            /* الحفاظ على الألوان */
             .report-table * {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
@@ -634,10 +654,14 @@
             .report-table tbody td.budget-cell { background: #fffaf0 !important; }
             .report-table tfoot td.budget-cell { background: #276749 !important; color: #f0fff4 !important; }
 
+            /* قسم الشهر الفعّال */
             .active-month-section {
                 page-break-inside: avoid !important;
-                margin-top: 10px !important;
-                padding-top: 10px !important;
+                page-break-before: auto !important;
+                margin-top: 8px !important;
+                padding-top: 8px !important;
+                display: block !important;
+                position: static !important;
             }
 
             .active-month-title {
@@ -647,16 +671,20 @@
                 font-size: 11px !important;
                 padding: 5px 8px !important;
                 margin-bottom: 6px !important;
+                display: block !important;
             }
 
+            /* إعداد الصفحة */
             @page {
                 margin: 0.3cm !important;
                 size: A4 landscape !important;
             }
 
-            body {
+            html, body {
                 margin: 0 !important;
                 padding: 0 !important;
+                height: auto !important;
+                overflow: visible !important;
             }
         }
     </style>

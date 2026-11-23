@@ -229,6 +229,22 @@ class Invoices extends Controller
         unset($item);
 
         $modelTypeGrouped = array_values($modelTypeGrouped);
+                // ============ 4-c. ترتيب مخصص: Benzinxaneya Jîndar → Çapxaneya Jîndar → Terzixane → الباقي أبجدياً ============
+        $customOrder = [
+            'Benzinxaneya Jîndar' => 1,
+            'Çapxaneya Jîndar'    => 2,
+            'Terzixane'           => 3,
+        ];
+
+        usort($modelTypeGrouped, function ($a, $b) use ($customOrder) {
+            $aOrder = $customOrder[$a['name']] ?? 999;
+            $bOrder = $customOrder[$b['name']] ?? 999;
+
+            if ($aOrder !== $bOrder) {
+                return $aOrder <=> $bOrder;
+            }
+            return $a['name'] <=> $b['name'];
+        });
 
         // ============ 5. التوزيع الشهري (لكل عملة) ============
         $monthlyStats = Db::table('finance_finance_invoices')
