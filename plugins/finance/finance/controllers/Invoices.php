@@ -229,11 +229,11 @@ class Invoices extends Controller
         unset($item);
 
         $modelTypeGrouped = array_values($modelTypeGrouped);
-                // ============ 4-c. ترتيب مخصص: Benzinxaneya Jîndar → Çapxaneya Jîndar → Terzixane → الباقي أبجدياً ============
+                // ============ 4-c. ترتيب مخصص: Benzinxaneya Jîndar → Çapxaneya Jîndar → terzixane → الباقي أبجدياً ============
         $customOrder = [
             'Benzinxaneya Jîndar' => 1,
             'Çapxaneya Jîndar'    => 2,
-            'Terzixane'           => 3,
+            'terzixane'           => 3,
         ];
 
         usort($modelTypeGrouped, function ($a, $b) use ($customOrder) {
