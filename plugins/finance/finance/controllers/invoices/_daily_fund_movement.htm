@@ -538,7 +538,7 @@
         }
 
         /* ================================================================
-           PRINT
+           PRINT — BOTH TABLES IN ONE PAGE
            ================================================================ */
         @media print {
             body * {
@@ -573,17 +573,38 @@
                 display: none !important;
             }
 
+            /* ==== TABLES: SMALLER FONT + TIGHT PADDING TO FIT ONE PAGE ==== */
             .report-table {
                 width: 100% !important;
-                margin: 0 !important;
+                margin: 0 0 8px 0 !important;
                 padding: 0 !important;
                 border-collapse: collapse !important;
+                font-size: 10px !important;
             }
 
             .report-table thead th,
             .report-table tbody td,
             .report-table tfoot td {
-                padding: 8px 10px !important;
+                padding: 4px 6px !important;
+                font-size: 10px !important;
+                line-height: 1.2 !important;
+            }
+
+            .report-table thead th.col-dollar-head,
+            .report-table thead th.col-syrian-head {
+                font-size: 9px !important;
+                padding: 4px 4px !important;
+            }
+
+            .report-table thead th.col-dollar,
+            .report-table thead th.col-syrian {
+                font-size: 8px !important;
+                padding: 3px 3px !important;
+            }
+
+            .report-table tfoot td {
+                padding: 5px 6px !important;
+                font-size: 10px !important;
             }
 
             .report-table * {
@@ -615,17 +636,21 @@
 
             .active-month-section {
                 page-break-inside: avoid !important;
-                margin-top: 15px !important;
+                margin-top: 10px !important;
+                padding-top: 10px !important;
             }
 
             .active-month-title {
                 background: #edf2f7 !important;
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
+                font-size: 11px !important;
+                padding: 5px 8px !important;
+                margin-bottom: 6px !important;
             }
 
             @page {
-                margin: 0.5cm !important;
+                margin: 0.3cm !important;
                 size: A4 landscape !important;
             }
 
@@ -683,48 +708,53 @@
                     </tr>
                     <tr>
                         <th class="text-right col-syrian">Pereyên mayî</th>
-                        <th class="text-right col-syrian">Hatin</th>
                         <th class="text-right col-syrian">çûn</th>
+                        <th class="text-right col-syrian">Hatin</th>
                         <th class="text-right col-syrian">Resmal</th>
                         <th class="text-right col-dollar">Pereyên mayî</th>
-                        <th class="text-right col-dollar">Hatin</th>
                         <th class="text-right col-dollar">çûn</th>
+                        <th class="text-right col-dollar">Hatin</th>
                         <th class="text-right col-dollar">Resmal</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($modelTypeStats as $i => $stat): ?>
+                        <?php
+                            // Pereyên mayî = Resmal (budget) + Hatin (receipt) - çûn (payment)
+                            $syrianRemaining = $stat['syrian_budget'] + $stat['syrian_receipt'] - $stat['syrian_payment'];
+                            $dollarRemaining = $stat['dollar_budget'] + $stat['dollar_receipt'] - $stat['dollar_payment'];
+                        ?>
                         <tr>
                             <td class="text-right col-syrian">
-                                <strong class="<?= ($stat['syrian_budget_remaining']) >= 0 ? 'text-success' : 'text-danger' ?>">
-                                    <?= number_format($stat['syrian_budget_remaining'], 2) ?> ل.س
+                                <strong class="<?= $syrianRemaining >= 0 ? 'text-success' : 'text-danger' ?>">
+                                    <?= number_format($syrianRemaining, 0, '.', ',') ?> ل.س
                                 </strong>
                             </td>
-                            <td class="text-right text-success col-syrian">
-                                <?= number_format($stat['syrian_receipt'], 2) ?> ل.س
-                            </td>
                             <td class="text-right text-danger col-syrian">
-                                <?= number_format($stat['syrian_payment'], 2) ?> ل.س
+                                <?= number_format($stat['syrian_payment'], 0, '.', ',') ?> ل.س
+                            </td>
+                            <td class="text-right text-success col-syrian">
+                                <?= number_format($stat['syrian_receipt'], 0, '.', ',') ?> ل.س
                             </td>
                             <td class="text-right col-syrian budget-cell">
                                 <span class="badge badge-light">
-                                    <?= number_format($stat['syrian_budget'], 2) ?> ل.س
+                                    <?= number_format($stat['syrian_budget'], 0, '.', ',') ?> ل.س
                                 </span>
                             </td>
                             <td class="text-right col-dollar">
-                                <strong class="<?= ($stat['dollar_budget_remaining']) >= 0 ? 'text-success' : 'text-danger' ?>">
-                                    <?= number_format($stat['dollar_budget_remaining'], 2) ?> $
+                                <strong class="<?= $dollarRemaining >= 0 ? 'text-success' : 'text-danger' ?>">
+                                    <?= number_format($dollarRemaining, 0, '.', ',') ?> $
                                 </strong>
                             </td>
-                            <td class="text-right text-success col-dollar">
-                                <?= number_format($stat['dollar_receipt'], 2) ?> $
-                            </td>
                             <td class="text-right text-danger col-dollar">
-                                <?= number_format($stat['dollar_payment'], 2) ?> $
+                                <?= number_format($stat['dollar_payment'], 0, '.', ',') ?> $
+                            </td>
+                            <td class="text-right text-success col-dollar">
+                                <?= number_format($stat['dollar_receipt'], 0, '.', ',') ?> $
                             </td>
                             <td class="text-right col-dollar budget-cell">
                                 <span class="badge badge-light">
-                                    <?= number_format($stat['dollar_budget'], 2) ?> $
+                                    <?= number_format($stat['dollar_budget'], 0, '.', ',') ?> $
                                 </span>
                             </td>
                             <td class="col-base"><strong><?= e($stat['name']) ?></strong></td>
@@ -734,29 +764,33 @@
                 </tbody>
                 <tfoot>
                     <tr class="font-weight-bold">
+                        <?php
+                            $syrianTotalRemaining = $totalSyrianBudget + $syrian->total_receipt - $syrian->total_payment;
+                            $dollarTotalRemaining = $totalDollarBudget + $dollar->total_receipt - $dollar->total_payment;
+                        ?>
                         <td class="text-right col-syrian">
-                            <?= number_format($totalSyrianBudget - $syrian->total_payment, 2) ?> ل.س
-                        </td>
-                        <td class="text-right text-success col-syrian">
-                            <?= number_format($syrian->total_receipt, 2) ?> ل.س
+                            <?= number_format($syrianTotalRemaining, 0, '.', ',') ?> ل.س
                         </td>
                         <td class="text-right text-danger col-syrian">
-                            <?= number_format($syrian->total_payment, 2) ?> ل.س
+                            <?= number_format($syrian->total_payment, 0, '.', ',') ?> ل.س
+                        </td>
+                        <td class="text-right text-success col-syrian">
+                            <?= number_format($syrian->total_receipt, 0, '.', ',') ?> ل.س
                         </td>
                         <td class="text-right col-syrian budget-cell">
-                            <?= number_format($totalSyrianBudget, 2) ?> ل.س
+                            <?= number_format($totalSyrianBudget, 0, '.', ',') ?> ل.س
                         </td>
                         <td class="text-right col-dollar">
-                            <?= number_format($totalDollarBudget - $dollar->total_payment, 2) ?> $
-                        </td>
-                        <td class="text-right text-success col-dollar">
-                            <?= number_format($dollar->total_receipt, 2) ?> $
+                            <?= number_format($dollarTotalRemaining, 0, '.', ',') ?> $
                         </td>
                         <td class="text-right text-danger col-dollar">
-                            <?= number_format($dollar->total_payment, 2) ?> $
+                            <?= number_format($dollar->total_payment, 0, '.', ',') ?> $
+                        </td>
+                        <td class="text-right text-success col-dollar">
+                            <?= number_format($dollar->total_receipt, 0, '.', ',') ?> $
                         </td>
                         <td class="text-right col-dollar budget-cell">
-                            <?= number_format($totalDollarBudget, 2) ?> $
+                            <?= number_format($totalDollarBudget, 0, '.', ',') ?> $
                         </td>
                         <td class="text-right col-base">Giştî</td>
                     </tr>
@@ -780,37 +814,42 @@
                         </tr>
                         <tr>
                             <th class="text-right col-syrian">Pereyên mayî</th>
-                            <th class="text-right col-syrian">Hatin</th>
                             <th class="text-right col-syrian">çûn</th>
+                            <th class="text-right col-syrian">Hatin</th>
                             <th class="text-right col-dollar">Pereyên mayî</th>
-                            <th class="text-right col-dollar">Hatin</th>
                             <th class="text-right col-dollar">çûn</th>
+                            <th class="text-right col-dollar">Hatin</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($activeMonthStats as $i => $stat): ?>
+                            <?php
+                                // Pereyên mayî = Hatin (receipt) - çûn (payment) فقط (بدون ميزانية)
+                                $aSyrianRemaining = $stat['syrian_receipt'] - $stat['syrian_payment'];
+                                $aDollarRemaining = $stat['dollar_receipt'] - $stat['dollar_payment'];
+                            ?>
                             <tr>
                                 <td class="text-right col-syrian">
-                                    <strong class="<?= ($stat['syrian_receipt'] - $stat['syrian_payment']) >= 0 ? 'text-success' : 'text-danger' ?>">
-                                        <?= number_format($stat['syrian_receipt'] - $stat['syrian_payment'], 2) ?> ل.س
+                                    <strong class="<?= $aSyrianRemaining >= 0 ? 'text-success' : 'text-danger' ?>">
+                                        <?= number_format($aSyrianRemaining, 0, '.', ',') ?> ل.س
                                     </strong>
-                                </td>
-                                <td class="text-right text-success col-syrian">
-                                    <?= number_format($stat['syrian_receipt'], 2) ?> ل.س
                                 </td>
                                 <td class="text-right text-danger col-syrian">
-                                    <?= number_format($stat['syrian_payment'], 2) ?> ل.س
+                                    <?= number_format($stat['syrian_payment'], 0, '.', ',') ?> ل.س
+                                </td>
+                                <td class="text-right text-success col-syrian">
+                                    <?= number_format($stat['syrian_receipt'], 0, '.', ',') ?> ل.س
                                 </td>
                                 <td class="text-right col-dollar">
-                                    <strong class="<?= ($stat['dollar_receipt'] - $stat['dollar_payment']) >= 0 ? 'text-success' : 'text-danger' ?>">
-                                        <?= number_format($stat['dollar_receipt'] - $stat['dollar_payment'], 2) ?> $
+                                    <strong class="<?= $aDollarRemaining >= 0 ? 'text-success' : 'text-danger' ?>">
+                                        <?= number_format($aDollarRemaining, 0, '.', ',') ?> $
                                     </strong>
                                 </td>
-                                <td class="text-right text-success col-dollar">
-                                    <?= number_format($stat['dollar_receipt'], 2) ?> $
-                                </td>
                                 <td class="text-right text-danger col-dollar">
-                                    <?= number_format($stat['dollar_payment'], 2) ?> $
+                                    <?= number_format($stat['dollar_payment'], 0, '.', ',') ?> $
+                                </td>
+                                <td class="text-right text-success col-dollar">
+                                    <?= number_format($stat['dollar_receipt'], 0, '.', ',') ?> $
                                 </td>
                                 <td class="col-base"><strong><?= e($stat['name']) ?></strong></td>
                                 <td class="col-base"><?= $i + 1 ?></td>
@@ -820,22 +859,22 @@
                     <tfoot>
                         <tr class="font-weight-bold">
                             <td class="text-right col-syrian">
-                                <?= number_format($activeMonthSyrian->total_receipt - $activeMonthSyrian->total_payment, 2) ?> ل.س
-                            </td>
-                            <td class="text-right text-success col-syrian">
-                                <?= number_format($activeMonthSyrian->total_receipt, 2) ?> ل.س
+                                <?= number_format($activeMonthSyrian->total_receipt - $activeMonthSyrian->total_payment, 0, '.', ',') ?> ل.س
                             </td>
                             <td class="text-right text-danger col-syrian">
-                                <?= number_format($activeMonthSyrian->total_payment, 2) ?> ل.س
+                                <?= number_format($activeMonthSyrian->total_payment, 0, '.', ',') ?> ل.س
+                            </td>
+                            <td class="text-right text-success col-syrian">
+                                <?= number_format($activeMonthSyrian->total_receipt, 0, '.', ',') ?> ل.س
                             </td>
                             <td class="text-right col-dollar">
-                                <?= number_format($activeMonthDollar->total_receipt - $activeMonthDollar->total_payment, 2) ?> $
-                            </td>
-                            <td class="text-right text-success col-dollar">
-                                <?= number_format($activeMonthDollar->total_receipt, 2) ?> $
+                                <?= number_format($activeMonthDollar->total_receipt - $activeMonthDollar->total_payment, 0, '.', ',') ?> $
                             </td>
                             <td class="text-right text-danger col-dollar">
-                                <?= number_format($activeMonthDollar->total_payment, 2) ?> $
+                                <?= number_format($activeMonthDollar->total_payment, 0, '.', ',') ?> $
+                            </td>
+                            <td class="text-right text-success col-dollar">
+                                <?= number_format($activeMonthDollar->total_receipt, 0, '.', ',') ?> $
                             </td>
                             <td class="text-right col-base">Giştî</td>
                             <td class="text-right col-base">—</td>
@@ -857,10 +896,10 @@
             <div class="kpi-icon"><i class="wn-icon-money">💰</i></div>
             <div class="kpi-body">
                 <span class="kpi-label">Komî ya Biran</span>
-                <h3 class="kpi-value"><?= number_format($totalAmount, 2) ?></h3>
+                <h3 class="kpi-value"><?= number_format($totalAmount, 0, '.', ',') ?></h3>
                 <span class="kpi-sub">
-                    <?= number_format($dollar->total_amount, 2) ?> $ +
-                    <?= number_format($syrian->total_amount, 2) ?> ل.س
+                    <?= number_format($dollar->total_amount, 0, '.', ',') ?> $ +
+                    <?= number_format($syrian->total_amount, 0, '.', ',') ?> ل.س
                 </span>
             </div>
         </div>
@@ -869,10 +908,10 @@
             <div class="kpi-icon"><i class="wn-icon-arrow-up">⬆️</i></div>
             <div class="kpi-body">
                 <span class="kpi-label">Komî ya çûnkirinê</span>
-                <h3 class="kpi-value"><?= number_format($totalPayments, 2) ?></h3>
+                <h3 class="kpi-value"><?= number_format($totalPayments, 0, '.', ',') ?></h3>
                 <span class="kpi-sub">
-                    <?= number_format($dollar->total_payment, 2) ?> $ +
-                    <?= number_format($syrian->total_payment, 2) ?> ل.س
+                    <?= number_format($dollar->total_payment, 0, '.', ',') ?> $ +
+                    <?= number_format($syrian->total_payment, 0, '.', ',') ?> ل.س
                 </span>
             </div>
         </div>
@@ -881,10 +920,10 @@
             <div class="kpi-icon"><i class="wn-icon-arrow-down">⬇️</i></div>
             <div class="kpi-body">
                 <span class="kpi-label">Komî ya Hatinê</span>
-                <h3 class="kpi-value"><?= number_format($totalReceipts, 2) ?></h3>
+                <h3 class="kpi-value"><?= number_format($totalReceipts, 0, '.', ',') ?></h3>
                 <span class="kpi-sub">
-                    <?= number_format($dollar->total_receipt, 2) ?> $ +
-                    <?= number_format($syrian->total_receipt, 2) ?> ل.س
+                    <?= number_format($dollar->total_receipt, 0, '.', ',') ?> $ +
+                    <?= number_format($syrian->total_receipt, 0, '.', ',') ?> ل.س
                 </span>
             </div>
         </div>
@@ -894,10 +933,10 @@
             <div class="kpi-body">
                 <span class="kpi-label">Pereyên mayî yên giştîa Safî (Nêzîkî)</span>
                 <h3 class="kpi-value <?= ($dollar->total_receipt - $dollar->total_payment) >= 0 ? 'text-success' : 'text-danger' ?>">
-                    <?= number_format($dollar->total_receipt - $dollar->total_payment, 2) ?> $
+                    <?= number_format($dollar->total_receipt - $dollar->total_payment, 0, '.', ',') ?> $
                 </h3>
                 <span class="kpi-sub">
-                    <?= number_format($syrian->total_receipt - $syrian->total_payment, 2) ?> ل.س
+                    <?= number_format($syrian->total_receipt - $syrian->total_payment, 0, '.', ',') ?> ل.س
                 </span>
             </div>
         </div>
@@ -913,7 +952,7 @@
             <div class="kpi-icon"><i class="wn-icon-money">💰</i></div>
             <div class="kpi-body">
                 <span class="kpi-label">Komî ya Biran</span>
-                <h3 class="kpi-value"><?= number_format($dollar->total_amount, 2) ?> $</h3>
+                <h3 class="kpi-value"><?= number_format($dollar->total_amount, 0, '.', ',') ?> $</h3>
                 <span class="kpi-sub"><?= $dollar->total_count ?> muamele</span>
             </div>
         </div>
@@ -922,7 +961,7 @@
             <div class="kpi-icon"><i class="wn-icon-arrow-up">⬆️</i></div>
             <div class="kpi-body">
                 <span class="kpi-label">Komî ya çûnkirinê</span>
-                <h3 class="kpi-value"><?= number_format($dollar->total_payment, 2) ?> $</h3>
+                <h3 class="kpi-value"><?= number_format($dollar->total_payment, 0, '.', ',') ?> $</h3>
                 <span class="kpi-sub"><?= $dollar->payment_count ?> muamele</span>
             </div>
         </div>
@@ -931,7 +970,7 @@
             <div class="kpi-icon"><i class="wn-icon-arrow-down">⬇️</i></div>
             <div class="kpi-body">
                 <span class="kpi-label">Komî ya Hatinê</span>
-                <h3 class="kpi-value"><?= number_format($dollar->total_receipt, 2) ?> $</h3>
+                <h3 class="kpi-value"><?= number_format($dollar->total_receipt, 0, '.', ',') ?> $</h3>
                 <span class="kpi-sub"><?= $dollar->receipt_count ?> muamele</span>
             </div>
         </div>
@@ -941,7 +980,7 @@
             <div class="kpi-body">
                 <span class="kpi-label">Pereyên mayî yên giştî</span>
                 <h3 class="kpi-value <?= ($dollar->total_receipt - $dollar->total_payment) >= 0 ? 'text-success' : 'text-danger' ?>">
-                    <?= number_format($dollar->total_receipt - $dollar->total_payment, 2) ?> $
+                    <?= number_format($dollar->total_receipt - $dollar->total_payment, 0, '.', ',') ?> $
                 </h3>
                 <span class="kpi-sub">
                     <?= ($dollar->total_receipt - $dollar->total_payment) >= 0 ? 'Zêde' : 'Kêmî' ?>
@@ -960,7 +999,7 @@
             <div class="kpi-icon"><i class="wn-icon-money">💰</i></div>
             <div class="kpi-body">
                 <span class="kpi-label">Komî ya Biran</span>
-                <h3 class="kpi-value"><?= number_format($syrian->total_amount, 2) ?> ل.س</h3>
+                <h3 class="kpi-value"><?= number_format($syrian->total_amount, 0, '.', ',') ?> ل.س</h3>
                 <span class="kpi-sub"><?= $syrian->total_count ?> muamele</span>
             </div>
         </div>
@@ -969,7 +1008,7 @@
             <div class="kpi-icon"><i class="wn-icon-arrow-up">⬆️</i></div>
             <div class="kpi-body">
                 <span class="kpi-label">Komî ya çûnkirinê</span>
-                <h3 class="kpi-value"><?= number_format($syrian->total_payment, 2) ?> ل.س</h3>
+                <h3 class="kpi-value"><?= number_format($syrian->total_payment, 0, '.', ',') ?> ل.س</h3>
                 <span class="kpi-sub"><?= $syrian->payment_count ?> muamele</span>
             </div>
         </div>
@@ -978,7 +1017,7 @@
             <div class="kpi-icon"><i class="wn-icon-arrow-down">⬇️</i></div>
             <div class="kpi-body">
                 <span class="kpi-label">Komî ya Hatinê</span>
-                <h3 class="kpi-value"><?= number_format($syrian->total_receipt, 2) ?> ل.س</h3>
+                <h3 class="kpi-value"><?= number_format($syrian->total_receipt, 0, '.', ',') ?> ل.س</h3>
                 <span class="kpi-sub"><?= $syrian->receipt_count ?> muamele</span>
             </div>
         </div>
@@ -988,7 +1027,7 @@
             <div class="kpi-body">
                 <span class="kpi-label">Pereyên mayî yên giştî</span>
                 <h3 class="kpi-value <?= ($syrian->total_receipt - $syrian->total_payment) >= 0 ? 'text-success' : 'text-danger' ?>">
-                    <?= number_format($syrian->total_receipt - $syrian->total_payment, 2) ?> ل.س
+                    <?= number_format($syrian->total_receipt - $syrian->total_payment, 0, '.', ',') ?> ل.س
                 </h3>
                 <span class="kpi-sub">
                     <?= ($syrian->total_receipt - $syrian->total_payment) >= 0 ? 'Zêde' : 'Kêmî' ?>
@@ -1011,16 +1050,16 @@
                 <div class="card-body">
                     <div class="mini-stat">
                         <span class="mini-label">çûn</span>
-                        <span class="mini-value text-danger"><?= number_format($monthDollar->total_payment, 2) ?> $</span>
+                        <span class="mini-value text-danger"><?= number_format($monthDollar->total_payment, 0, '.', ',') ?> $</span>
                     </div>
                     <div class="mini-stat">
                         <span class="mini-label">Hatin</span>
-                        <span class="mini-value text-success"><?= number_format($monthDollar->total_receipt, 2) ?> $</span>
+                        <span class="mini-value text-success"><?= number_format($monthDollar->total_receipt, 0, '.', ',') ?> $</span>
                     </div>
                     <div class="mini-stat border-top">
                         <span class="mini-label">Cudahî</span>
                         <span class="mini-value <?= ($monthDollar->total_receipt - $monthDollar->total_payment) >= 0 ? 'text-success' : 'text-danger' ?>">
-                            <?= number_format($monthDollar->total_receipt - $monthDollar->total_payment, 2) ?> $
+                            <?= number_format($monthDollar->total_receipt - $monthDollar->total_payment, 0, '.', ',') ?> $
                         </span>
                     </div>
                 </div>
@@ -1035,16 +1074,16 @@
                 <div class="card-body">
                     <div class="mini-stat">
                         <span class="mini-label">çûn</span>
-                        <span class="mini-value text-danger"><?= number_format($monthSyrian->total_payment, 2) ?> ل.س</span>
+                        <span class="mini-value text-danger"><?= number_format($monthSyrian->total_payment, 0, '.', ',') ?> ل.س</span>
                     </div>
                     <div class="mini-stat">
                         <span class="mini-label">Hatin</span>
-                        <span class="mini-value text-success"><?= number_format($monthSyrian->total_receipt, 2) ?> ل.س</span>
+                        <span class="mini-value text-success"><?= number_format($monthSyrian->total_receipt, 0, '.', ',') ?> ل.س</span>
                     </div>
                     <div class="mini-stat border-top">
                         <span class="mini-label">Cudahî</span>
                         <span class="mini-value <?= ($monthSyrian->total_receipt - $monthSyrian->total_payment) >= 0 ? 'text-success' : 'text-danger' ?>">
-                            <?= number_format($monthSyrian->total_receipt - $monthSyrian->total_payment, 2) ?> ل.س
+                            <?= number_format($monthSyrian->total_receipt - $monthSyrian->total_payment, 0, '.', ',') ?> ل.س
                         </span>
                     </div>
                 </div>
@@ -1066,16 +1105,16 @@
                 <div class="card-body">
                     <div class="mini-stat">
                         <span class="mini-label">çûn</span>
-                        <span class="mini-value text-danger"><?= number_format($yearDollar->total_payment, 2) ?> $</span>
+                        <span class="mini-value text-danger"><?= number_format($yearDollar->total_payment, 0, '.', ',') ?> $</span>
                     </div>
                     <div class="mini-stat">
                         <span class="mini-label">Hatin</span>
-                        <span class="mini-value text-success"><?= number_format($yearDollar->total_receipt, 2) ?> $</span>
+                        <span class="mini-value text-success"><?= number_format($yearDollar->total_receipt, 0, '.', ',') ?> $</span>
                     </div>
                     <div class="mini-stat border-top">
                         <span class="mini-label">Cudahî</span>
                         <span class="mini-value <?= ($yearDollar->total_receipt - $yearDollar->total_payment) >= 0 ? 'text-success' : 'text-danger' ?>">
-                            <?= number_format($yearDollar->total_receipt - $yearDollar->total_payment, 2) ?> $
+                            <?= number_format($yearDollar->total_receipt - $yearDollar->total_payment, 0, '.', ',') ?> $
                         </span>
                     </div>
                 </div>
@@ -1090,16 +1129,16 @@
                 <div class="card-body">
                     <div class="mini-stat">
                         <span class="mini-label">çûn</span>
-                        <span class="mini-value text-danger"><?= number_format($yearSyrian->total_payment, 2) ?> ل.س</span>
+                        <span class="mini-value text-danger"><?= number_format($yearSyrian->total_payment, 0, '.', ',') ?> ل.س</span>
                     </div>
                     <div class="mini-stat">
                         <span class="mini-label">Hatin</span>
-                        <span class="mini-value text-success"><?= number_format($yearSyrian->total_receipt, 2) ?> ل.س</span>
+                        <span class="mini-value text-success"><?= number_format($yearSyrian->total_receipt, 0, '.', ',') ?> ل.س</span>
                     </div>
                     <div class="mini-stat border-top">
                         <span class="mini-label">Cudahî</span>
                         <span class="mini-value <?= ($yearSyrian->total_receipt - $yearSyrian->total_payment) >= 0 ? 'text-success' : 'text-danger' ?>">
-                            <?= number_format($yearSyrian->total_receipt - $yearSyrian->total_payment, 2) ?> ل.س
+                            <?= number_format($yearSyrian->total_receipt - $yearSyrian->total_payment, 0, '.', ',') ?> ل.س
                         </span>
                     </div>
                 </div>
@@ -1132,7 +1171,7 @@
                                     <?= $inv->type === 'payment' ? 'çûn' : 'Hatin' ?>
                                 </span>
                                 <span class="flex-1"><?= e($inv->amount_name) ?></span>
-                                <strong><?= number_format($inv->amount, 2) ?> $</strong>
+                                <strong><?= number_format($inv->amount, 0, '.', ',') ?> $</strong>
                             </li>
                         <?php endforeach; ?>
                     </ul>
@@ -1153,7 +1192,7 @@
                                     <?= $inv->type === 'payment' ? 'çûn' : 'Hatin' ?>
                                 </span>
                                 <span class="flex-1"><?= e($inv->amount_name) ?></span>
-                                <strong><?= number_format($inv->amount, 2) ?> ل.س</strong>
+                                <strong><?= number_format($inv->amount, 0, '.', ',') ?> ل.س</strong>
                             </li>
                         <?php endforeach; ?>
                     </ul>
@@ -1180,7 +1219,7 @@
                         <span class="flex-1"><?= e($inv->amount_name) ?></span>
                         <small class="text-muted"><?= $inv->created_at->format('d/m') ?></small>
                         <strong>
-                            <?= number_format($inv->amount, 2) ?>
+                            <?= number_format($inv->amount, 0, '.', ',') ?>
                             <?= $inv->currency === 'dollar' ? '$' : 'ل.س' ?>
                         </strong>
                     </li>
@@ -1313,14 +1352,18 @@ function printReportInNewWindow() {
                 ${styleText}
                 html, body { margin: 0 !important; padding: 0 !important; direction: rtl !important; background: #fff; }
                 .report-only { position: static !important; margin: 0 !important; padding: 0 !important; width: 100% !important; }
-                .report-table { width: 100% !important; margin: 0 !important; padding: 0 !important; direction: rtl !important; }
-                .report-table thead th, .report-table tbody td, .report-table tfoot td { padding: 8px 10px !important; }
+                .report-table { width: 100% !important; margin: 0 0 8px 0 !important; padding: 0 !important; direction: rtl !important; font-size: 10px !important; }
+                .report-table thead th, .report-table tbody td, .report-table tfoot td { padding: 4px 6px !important; font-size: 10px !important; line-height: 1.2 !important; }
+                .report-table thead th.col-dollar-head, .report-table thead th.col-syrian-head { font-size: 9px !important; padding: 4px 4px !important; }
+                .report-table thead th.col-dollar, .report-table thead th.col-syrian { font-size: 8px !important; padding: 3px 3px !important; }
+                .report-table tfoot td { padding: 5px 6px !important; font-size: 10px !important; }
                 .no-print { display: none !important; }
-                @page { margin: 0.5cm !important; size: A4 landscape !important; }
+                @page { margin: 0.3cm !important; size: A4 landscape !important; }
                 .card-body { padding: 0 !important; }
                 .finance-card { box-shadow: none !important; border: none !important; border-radius: 0 !important; margin: 0 !important; }
                 .report-only .card-header { display: none !important; }
-                .active-month-section { page-break-inside: avoid !important; }
+                .active-month-section { page-break-inside: avoid !important; margin-top: 10px !important; padding-top: 10px !important; }
+                .active-month-title { font-size: 11px !important; padding: 5px 8px !important; margin-bottom: 6px !important; background: #edf2f7 !important; }
                 .report-table { page-break-inside: auto !important; }
                 .report-table tr { page-break-inside: avoid !important; page-break-after: auto !important; }
             </style>
